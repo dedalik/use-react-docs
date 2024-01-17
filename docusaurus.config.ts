@@ -56,8 +56,7 @@ const config: Config = {
           sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+          editUrl: "https://github.com/dedalik/use-react-docs/tree/main",
         },
         blog: {
           showReadingTime: true,
@@ -116,38 +115,34 @@ const config: Config = {
             },
           ],
         },
-        {
-          title: "Community",
-          items: [
-            {
-              label: "Stack Overflow",
-              href: "https://stackoverflow.com/questions/tagged/docusaurus",
-            },
-            {
-              label: "Discord",
-              href: "https://discordapp.com/invite/docusaurus",
-            },
-            {
-              label: "Twitter",
-              href: "https://twitter.com/docusaurus",
-            },
-          ],
-        },
+        // {
+        //   title: "Community",
+        //   items: [
+        //     {
+        //       label: "Stack Overflow",
+        //       href: "https://stackoverflow.com/questions/tagged/docusaurus",
+        //     },
+        //     {
+        //       label: "Discord",
+        //       href: "https://discordapp.com/invite/docusaurus",
+        //     },
+        //     {
+        //       label: "Twitter",
+        //       href: "https://twitter.com/docusaurus",
+        //     },
+        //   ],
+        // },
         {
           title: "More",
           items: [
             {
-              label: "Blog",
-              to: "/blog",
-            },
-            {
               label: "GitHub",
-              href: "https://github.com/facebook/docusaurus",
+              href: "https://github.com/dedalik/use-react",
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} useReact, Legram Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} useReact. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.oneLight,

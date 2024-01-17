@@ -37,4 +37,4 @@ import DocsCards from '@components/global/DocsCards'; -->
 
 ## License
 
-The Ionic UI Toolkit is a free and open source project, released under the permissible MIT license. This means it can be used in personal or commercial projects for free. MIT is the same license used by such popular projects as jQuery and Ruby on Rails.
+useReact is a free and open source project, released under the permissible MIT license. This means it can be used in personal or commercial projects for free. MIT is the same license used by such popular projects as jQuery and Ruby on Rails.
