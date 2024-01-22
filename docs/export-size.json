@@ -1,0 +1,22 @@
+{
+  "useTextareaAutoSize": {
+    "size": "2.0 kB",
+    "gzipped": "0 B"
+  },
+  "useFavicon": {
+    "size": "1.3k B",
+    "gzipped": "0 B"
+  },
+  "useHash": {
+    "size": "2.0 kB",
+    "gzipped": "0 B"
+  },
+  "useOnMount": {
+    "size": "328 B",
+    "gzipped": "0 B"
+  },
+  "useDraggable": {
+    "size": "1 kB",
+    "gzipped": "0 B"
+  }
+}

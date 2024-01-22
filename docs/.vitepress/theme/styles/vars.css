@@ -1,0 +1,115 @@
+/**
+ * Colors
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-c-brand-1: #087ea4;
+  --vp-c-brand-2: #066b86;
+  --vp-c-brand-3: #055763;
+  --vp-c-brand-soft: #087ea480;
+  --vp-c-brand-soft2: #087ea4c7;
+  --vp-c-white: #fff;
+
+  --use-blue-0: #ddefff;
+  --use-blue-1: #087ea41a;
+  --use-black-1: #333;
+
+  --vp-c-text-code: #044851;
+
+  --vp-code-block-bg: rgba(125, 125, 125, 0.04);
+  --vp-code-copy-code-bg: rgba(125, 125, 125, 0.1);
+  --vp-code-copy-code-hover-bg: rgba(125, 125, 125, 0.2);
+
+  --vp-c-disabled-bg: rgba(125, 125, 125, 0.2);
+  /* fix contrast on gray cards: used by --vp-c-text-2 */
+  --vp-c-text-light-2: rgba(56 56 56 / 70%);
+  --vp-c-text-dark-2: rgba(56 56 56 / 70%);
+
+  --vp-custom-block-info-bg: transparent;
+  --vp-custom-block-tip-bg: transparent;
+
+  --vp-custom-block-warning-bg: #d9a40605;
+  --vp-custom-block-warning-text: #d9a406;
+  --vp-custom-block-warning-border: #d9a40630;
+
+  --vp-custom-block-tip-bg: #44bd8705;
+  --vp-custom-block-tip-text: #087ea4;
+  --vp-custom-block-tip-border: #087ea430;
+
+  --vp-code-color: #087ea4;
+}
+
+.dark {
+  --vp-code-block-bg: var(--vp-c-bg-alt);
+  --vp-c-text-code: #c0cec0;
+  /* fix contrast on gray cards: check the same above (this is the default) */
+  --vp-c-text-dark-2: rgba(235, 235, 235, 0.6);
+}
+
+/**
+ * Component: Code
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-code-line-highlight-color: rgba(125, 125, 125, 0.2);
+}
+
+.dark {
+  --vp-code-line-highlight-color: rgba(0, 0, 0, 0.5);
+}
+
+/**
+ * Component: Button
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-button-brand-border: var(--vp-c-brand-soft);
+  --vp-button-brand-text: var(--vp-c-white);
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-hover-border: var(--vp-c-brand-soft);
+  --vp-button-brand-hover-text: var(--vp-c-white);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-soft2);
+  --vp-button-brand-active-border: var(--vp-c-brand-soft);
+  --vp-button-brand-active-text: var(--vp-c-text-dark-1);
+  --vp-button-brand-active-bg: var(--vp-button-brand-bg);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: -webkit-linear-gradient(
+    120deg,
+    #044851 -80%,
+    /* Darker blue */ #087ea4 /* Base blue */
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #087ea480 30%,
+    /* Base blue with transparency */ #04485180
+      /* Darker blue with transparency */
+  );
+  --vp-home-hero-image-filter: blur(30px);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --vp-home-hero-image-filter: blur(56px);
+  }
+}
+
+@media (min-width: 960px) {
+  :root {
+    --vp-home-hero-image-filter: blur(72px);
+  }
+}
+
+/**
+ * Component: Algolia
+ * -------------------------------------------------------------------------- */
+
+.DocSearch {
+  --docsearch-primary-color: var(--vp-c-brand) !important;
+}
