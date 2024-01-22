@@ -1,0 +1,74 @@
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+.vp-doc h2 {
+  border-top: 0;
+  margin-top: 10px;
+}
+
+.VPMenuLink .link {
+  line-height: 28px !important;
+}
+
+.VPSidebarGroup .link {
+  padding: 3px 0 !important;
+}
+
+.vp-doc a:has(> code) {
+  text-decoration: none;
+  color: var(--vp-c-brand-1);
+}
+
+.vp-doc a:has(> code):hover {
+  text-decoration: underline;
+}
+
+#app a:focus-visible,
+#app button:focus-visible,
+#app input[type="checkbox"]:focus-visible {
+  --at-apply: outline-1 outline-primary ring-2 ring-primary;
+}
+
+/* Vue School Banner */
+#bb-banner {
+  left: 0 !important;
+  bottom: 0 !important;
+  right: 0 !important;
+}
+
+/* .VPSidebarItem.level-0 > div:first-child {
+  display: none;
+} */
+
+.vp-doc h1 ~ table * {
+  border: none;
+  background: none !important;
+}
+
+.select-button {
+  border-radius: 0.25rem;
+  background-color: #9ca3af0d;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.select-button:hover {
+  background-color: #9ca3af1a;
+}
+
+.select-button.active:not(.disabled) {
+  --un-text-opacity: 1;
+  background-color: var(--use-blue-1);
+  color: var(--use-black-1);
+}
+
+.select-button.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}

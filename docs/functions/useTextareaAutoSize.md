@@ -1,30 +1,25 @@
 ---
-title: Functions useReact
+title: The useTextareaAutoSize Hook Documentation Page
 sidebar_label: useTextareaAutoSize
-# slug: /functions
+category: Browser
 hide_table_of_contents: false
-# demoUrl: https://docs-demo.ionic.io/
-# demoSourceUrl: https://github.com/ionic-team/docs-demo
+demoUrl: ""
+demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useTextareaAutoSize"
 ---
 
-import TextareaAutoSize from '@site/src/components/global/Demos/TextAreaAtoSize';
+# useTextareaAutoSize()
 
-# useTextareaAutosize()
-
-|             |          |         |
-| ----------- | -------- | ------- |
-| Category    | Elements | Gzipped |
-| Export size | 843 B    | 450 B   |
+<PackageData fn="useTextareaAutoSize" />
 
 Automatically adjust the height of a textarea based on its content.
 
 ## Demo
 
-<TextareaAutoSize />
+`soon`
 
 ## Usage
 
-```jsx title="TextareaAutoSize.tsx"
+```tsx title="TextareaAutoSize.tsx"
 import React, { useState, ChangeEvent } from "react";
 import { useTextareaAutoSize } from "@dedalik/use-react";
 
