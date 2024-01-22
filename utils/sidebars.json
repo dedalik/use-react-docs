@@ -1,0 +1,72 @@
+[
+  {
+    "text": "Functions",
+    "collapsible": true,
+    "collapsed": false,
+    "items": [
+      {
+        "text": "index",
+        "link": "/functions/",
+        "name": "index",
+        "title": "Functions useReact Hooks",
+        "category": "Functions",
+        "hide_table_of_contents": false
+      },
+      {
+        "text": "useDraggable",
+        "link": "/functions/useDraggable.md",
+        "name": "useDraggable",
+        "title": "useDraggable React draggable elements",
+        "sidebar_label": "useDraggable",
+        "category": "Elements",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useDraggable"
+      },
+      {
+        "text": "useFavicon",
+        "link": "/functions/useFavicon.md",
+        "name": "useFavicon",
+        "title": "useFavicon Hook for Changing the Favicon Image",
+        "sidebar_label": "useFavicon",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useFavicon"
+      },
+      {
+        "text": "useHash",
+        "link": "/functions/useHash.md",
+        "name": "useHash",
+        "title": "The useHash Hook Documentation Page",
+        "sidebar_label": "useHash",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useHash"
+      },
+      {
+        "text": "useOnMount",
+        "link": "/functions/useOnMount.md",
+        "name": "useOnMount",
+        "title": "The useOnMount Hook Documentation Page",
+        "sidebar_label": "useOnMount",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useOnMount"
+      },
+      {
+        "text": "useTextareaAutoSize",
+        "link": "/functions/useTextareaAutoSize.md",
+        "name": "useTextareaAutoSize",
+        "title": "The useTextareaAutoSize Hook Documentation Page",
+        "sidebar_label": "useTextareaAutoSize",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useTextareaAutoSize"
+      }
+    ]
+  }
+]
