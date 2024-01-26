@@ -4,6 +4,7 @@
   "private": false,
   "type": "module",
   "scripts": {
+    "start": "npm run docs:dev",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -38,6 +39,6 @@
     ]
   },
   "engines": {
-    "node": ">=18.0"
+    "node": "18.x || 20.x"
   }
 }
