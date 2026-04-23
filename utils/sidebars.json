@@ -13,6 +13,61 @@
         "hide_table_of_contents": false
       },
       {
+        "text": "useAbortController",
+        "link": "/functions/useAbortController.md",
+        "name": "useAbortController",
+        "title": "useAbortController Hook for Request Cancellation",
+        "sidebar_label": "useAbortController",
+        "category": "Async",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useAbortController"
+      },
+      {
+        "text": "useAsync",
+        "link": "/functions/useAsync.md",
+        "name": "useAsync",
+        "title": "useAsync Hook",
+        "sidebar_label": "useAsync",
+        "category": "Async",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useAsync"
+      },
+      {
+        "text": "useClickOutside",
+        "link": "/functions/useClickOutside.md",
+        "name": "useClickOutside",
+        "title": "useClickOutside Hook",
+        "sidebar_label": "useClickOutside",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useClickOutside"
+      },
+      {
+        "text": "useCopyToClipboard",
+        "link": "/functions/useCopyToClipboard.md",
+        "name": "useCopyToClipboard",
+        "title": "useCopyToClipboard Hook",
+        "sidebar_label": "useCopyToClipboard",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useCopyToClipboard"
+      },
+      {
+        "text": "useDebounce",
+        "link": "/functions/useDebounce.md",
+        "name": "useDebounce",
+        "title": "useDebounce Hook for Delayed Value Updates",
+        "sidebar_label": "useDebounce",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useDebounce"
+      },
+      {
         "text": "useDraggable",
         "link": "/functions/useDraggable.md",
         "name": "useDraggable",
@@ -22,6 +77,28 @@
         "hide_table_of_contents": false,
         "demoUrl": "",
         "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useDraggable"
+      },
+      {
+        "text": "useEventCallback",
+        "link": "/functions/useEventCallback.md",
+        "name": "useEventCallback",
+        "title": "useEventCallback Hook",
+        "sidebar_label": "useEventCallback",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useEventCallback"
+      },
+      {
+        "text": "useEventListener",
+        "link": "/functions/useEventListener.md",
+        "name": "useEventListener",
+        "title": "useEventListener Hook",
+        "sidebar_label": "useEventListener",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useEventListener"
       },
       {
         "text": "useFavicon",
@@ -46,6 +123,105 @@
         "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useHash"
       },
       {
+        "text": "useIdle",
+        "link": "/functions/useIdle.md",
+        "name": "useIdle",
+        "title": "useIdle Hook",
+        "sidebar_label": "useIdle",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useIdle"
+      },
+      {
+        "text": "useIntersectionObserver",
+        "link": "/functions/useIntersectionObserver.md",
+        "name": "useIntersectionObserver",
+        "title": "useIntersectionObserver Hook",
+        "sidebar_label": "useIntersectionObserver",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useIntersectionObserver"
+      },
+      {
+        "text": "useInterval",
+        "link": "/functions/useInterval.md",
+        "name": "useInterval",
+        "title": "useInterval Hook",
+        "sidebar_label": "useInterval",
+        "category": "Async",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useInterval"
+      },
+      {
+        "text": "useLatest",
+        "link": "/functions/useLatest.md",
+        "name": "useLatest",
+        "title": "useLatest Hook",
+        "sidebar_label": "useLatest",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useLatest"
+      },
+      {
+        "text": "useLocalStorage",
+        "link": "/functions/useLocalStorage.md",
+        "name": "useLocalStorage",
+        "title": "useLocalStorage Hook for Persistent State",
+        "sidebar_label": "useLocalStorage",
+        "category": "Storage",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useLocalStorage"
+      },
+      {
+        "text": "useLockBodyScroll",
+        "link": "/functions/useLockBodyScroll.md",
+        "name": "useLockBodyScroll",
+        "title": "useLockBodyScroll Hook",
+        "sidebar_label": "useLockBodyScroll",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useLockBodyScroll"
+      },
+      {
+        "text": "useMediaQuery",
+        "link": "/functions/useMediaQuery.md",
+        "name": "useMediaQuery",
+        "title": "useMediaQuery Hook for Responsive Logic",
+        "sidebar_label": "useMediaQuery",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useMediaQuery"
+      },
+      {
+        "text": "useMountedState",
+        "link": "/functions/useMountedState.md",
+        "name": "useMountedState",
+        "title": "useMountedState Hook",
+        "sidebar_label": "useMountedState",
+        "category": "Lifecycle",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useMountedState"
+      },
+      {
+        "text": "useMutationObserver",
+        "link": "/functions/useMutationObserver.md",
+        "name": "useMutationObserver",
+        "title": "useMutationObserver Hook",
+        "sidebar_label": "useMutationObserver",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useMutationObserver"
+      },
+      {
         "text": "useOnMount",
         "link": "/functions/useOnMount.md",
         "name": "useOnMount",
@@ -57,6 +233,72 @@
         "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useOnMount"
       },
       {
+        "text": "usePageVisibility",
+        "link": "/functions/usePageVisibility.md",
+        "name": "usePageVisibility",
+        "title": "usePageVisibility Hook",
+        "sidebar_label": "usePageVisibility",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/usePageVisibility"
+      },
+      {
+        "text": "usePrevious",
+        "link": "/functions/usePrevious.md",
+        "name": "usePrevious",
+        "title": "usePrevious Hook for Tracking Previous Value",
+        "sidebar_label": "usePrevious",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/usePrevious"
+      },
+      {
+        "text": "useRafState",
+        "link": "/functions/useRafState.md",
+        "name": "useRafState",
+        "title": "useRafState Hook",
+        "sidebar_label": "useRafState",
+        "category": "Performance",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useRafState"
+      },
+      {
+        "text": "useResizeObserver",
+        "link": "/functions/useResizeObserver.md",
+        "name": "useResizeObserver",
+        "title": "useResizeObserver Hook",
+        "sidebar_label": "useResizeObserver",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useResizeObserver"
+      },
+      {
+        "text": "useScript",
+        "link": "/functions/useScript.md",
+        "name": "useScript",
+        "title": "useScript Hook",
+        "sidebar_label": "useScript",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useScript"
+      },
+      {
+        "text": "useSessionStorage",
+        "link": "/functions/useSessionStorage.md",
+        "name": "useSessionStorage",
+        "title": "useSessionStorage Hook",
+        "sidebar_label": "useSessionStorage",
+        "category": "Storage",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useSessionStorage"
+      },
+      {
         "text": "useTextareaAutoSize",
         "link": "/functions/useTextareaAutoSize.md",
         "name": "useTextareaAutoSize",
@@ -66,6 +308,61 @@
         "hide_table_of_contents": false,
         "demoUrl": "",
         "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useTextareaAutoSize"
+      },
+      {
+        "text": "useThrottle",
+        "link": "/functions/useThrottle.md",
+        "name": "useThrottle",
+        "title": "useThrottle Hook",
+        "sidebar_label": "useThrottle",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useThrottle"
+      },
+      {
+        "text": "useTimeout",
+        "link": "/functions/useTimeout.md",
+        "name": "useTimeout",
+        "title": "useTimeout Hook",
+        "sidebar_label": "useTimeout",
+        "category": "Async",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useTimeout"
+      },
+      {
+        "text": "useTitle",
+        "link": "/functions/useTitle.md",
+        "name": "useTitle",
+        "title": "useTitle Hook",
+        "sidebar_label": "useTitle",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useTitle"
+      },
+      {
+        "text": "useToggle",
+        "link": "/functions/useToggle.md",
+        "name": "useToggle",
+        "title": "useToggle Hook",
+        "sidebar_label": "useToggle",
+        "category": "State",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useToggle"
+      },
+      {
+        "text": "useWindowSize",
+        "link": "/functions/useWindowSize.md",
+        "name": "useWindowSize",
+        "title": "useWindowSize Hook",
+        "sidebar_label": "useWindowSize",
+        "category": "Browser",
+        "hide_table_of_contents": false,
+        "demoUrl": "",
+        "demoSourceUrl": "https://github.com/dedalik/use-react/tree/main/src/hooks/useWindowSize"
       }
     ]
   }
