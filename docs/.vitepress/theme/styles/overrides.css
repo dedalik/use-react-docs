@@ -1,3 +1,24 @@
+/* Hero: React logo without the default blurred gradient disc behind it */
+.VPHomeHero .image-bg {
+  display: none;
+}
+
+/*
+ * Home (VPFeatures): default theme uses 4 columns from 960px for .grid-4.
+ * Keep at most 3 columns until xl so four-across only appears on wide screens.
+ */
+@media (min-width: 960px) and (max-width: 1279px) {
+  .VPFeatures .items .item.grid-4 {
+    width: calc(100% / 3) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPFeatures .items .item.grid-4 {
+    width: calc(100% / 4) !important;
+  }
+}
+
 .custom-block-title {
   opacity: 0.5;
   font-size: 12px;
@@ -5,4 +26,65 @@
   margin-bottom: -10px !important;
   filter: saturate(0.6);
   letter-spacing: 0.5px;
+}
+
+/* Keep top navbar actions visible in one row. */
+@media (min-width: 960px) {
+  .VPNavBarExtra {
+    display: none !important;
+  }
+
+  .VPNavBarSearch,
+  .VPNavBarAppearance,
+  .VPNavBarSocialLinks {
+    display: flex !important;
+  }
+
+  .VPNavBar .content-body {
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+}
+
+.vp-doc .code-collapsible {
+  position: relative;
+}
+
+.vp-doc .code-collapsible pre {
+  transition: max-height 0.18s ease;
+}
+
+.vp-doc .code-collapsible.is-collapsed pre {
+  max-height: 400px;
+  overflow: hidden;
+}
+
+.vp-doc .code-collapsible.is-collapsed::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  height: 56px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--vp-code-block-bg));
+}
+
+.vp-doc .code-collapse-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.vp-doc .code-collapse-toggle:hover {
+  background: var(--vp-c-bg-elv);
 }
