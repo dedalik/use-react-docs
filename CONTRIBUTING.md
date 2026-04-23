@@ -40,6 +40,6 @@ EditorConfig (`.editorconfig`) sets two-space indentation and UTF-8 for consiste
 
 ## Deploying on Vercel
 
-This repo pins **Node.js 20.x** via `package.json` `engines` and `.nvmrc` so builds do not pick discontinued runtimes (for example Node 18).
+This repo pins **Node.js 24.x** via `package.json` `engines` and `.nvmrc` so Vercel and CI stay on a supported runtime (GitHub Actions uses Node 24 with `actions/setup-node@v5`).
 
-If a project was created with an old default, open **Vercel → Project → Settings → General → Node.js Version** and choose **20.x** (or match `.nvmrc`). The committed `vercel.json` sets `installCommand`, `buildCommand`, and `outputDirectory` for the VitePress output under `docs/.vitepress/dist`.
+If a project was created with an old default, open **Vercel → Project → Settings → General → Node.js Version** and choose **24.x** (or match `.nvmrc`). The committed `vercel.json` sets `installCommand`, `buildCommand`, and `outputDirectory` for the VitePress output under `docs/.vitepress/dist`.
