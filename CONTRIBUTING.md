@@ -33,3 +33,9 @@ EditorConfig (`.editorconfig`) sets two-space indentation and UTF-8 for consiste
 
 - Run `npm run format:check` and `npm run docs:build` before opening a PR.
 - Register new guide pages in `docs/.vitepress/config.mts` and follow notes in `docs/guide/contributing.md` when adding hooks or SEO-related files.
+
+## Deploying on Vercel
+
+This repo pins **Node.js 20.x** via `package.json` `engines` and `.nvmrc` so builds do not pick discontinued runtimes (for example Node 18).
+
+If a project was created with an old default, open **Vercel → Project → Settings → General → Node.js Version** and choose **20.x** (or match `.nvmrc`). The committed `vercel.json` sets `installCommand`, `buildCommand`, and `outputDirectory` for the VitePress output under `docs/.vitepress/dist`.

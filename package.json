@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": false,
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "start": "npm run docs:dev",
     "docs:dev": "vitepress dev docs",
