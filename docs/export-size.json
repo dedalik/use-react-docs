@@ -1,22 +1,130 @@
 {
-  "useTextareaAutoSize": {
-    "size": "2.0 kB",
-    "gzipped": "0 B"
+  "useAbortController": {
+    "size": "1.6 kB",
+    "gzipped": "500 B"
   },
-  "useFavicon": {
-    "size": "1.3k B",
-    "gzipped": "0 B"
+  "useAsync": {
+    "size": "1.6 kB",
+    "gzipped": "585 B"
   },
-  "useHash": {
-    "size": "2.0 kB",
-    "gzipped": "0 B"
+  "useClickOutside": {
+    "size": "1.0 kB",
+    "gzipped": "433 B"
   },
-  "useOnMount": {
-    "size": "328 B",
-    "gzipped": "0 B"
+  "useCopyToClipboard": {
+    "size": "1.3 kB",
+    "gzipped": "505 B"
+  },
+  "useDebounce": {
+    "size": "621 B",
+    "gzipped": "328 B"
   },
   "useDraggable": {
-    "size": "1 kB",
-    "gzipped": "0 B"
+    "size": "6.6 kB",
+    "gzipped": "1.7 kB"
+  },
+  "useEventCallback": {
+    "size": "415 B",
+    "gzipped": "250 B"
+  },
+  "useEventListener": {
+    "size": "868 B",
+    "gzipped": "363 B"
+  },
+  "useFavicon": {
+    "size": "1.2 kB",
+    "gzipped": "524 B"
+  },
+  "useHash": {
+    "size": "1.8 kB",
+    "gzipped": "722 B"
+  },
+  "useIdle": {
+    "size": "1.2 kB",
+    "gzipped": "462 B"
+  },
+  "useIntersectionObserver": {
+    "size": "1.1 kB",
+    "gzipped": "473 B"
+  },
+  "useInterval": {
+    "size": "552 B",
+    "gzipped": "270 B"
+  },
+  "useLatest": {
+    "size": "199 B",
+    "gzipped": "155 B"
+  },
+  "useLocalStorage": {
+    "size": "3.4 kB",
+    "gzipped": "916 B"
+  },
+  "useLockBodyScroll": {
+    "size": "513 B",
+    "gzipped": "273 B"
+  },
+  "useMediaQuery": {
+    "size": "1.4 kB",
+    "gzipped": "512 B"
+  },
+  "useMountedState": {
+    "size": "408 B",
+    "gzipped": "218 B"
+  },
+  "useMutationObserver": {
+    "size": "593 B",
+    "gzipped": "312 B"
+  },
+  "useOnMount": {
+    "size": "226 B",
+    "gzipped": "169 B"
+  },
+  "usePageVisibility": {
+    "size": "783 B",
+    "gzipped": "337 B"
+  },
+  "usePrevious": {
+    "size": "341 B",
+    "gzipped": "224 B"
+  },
+  "useRafState": {
+    "size": "661 B",
+    "gzipped": "312 B"
+  },
+  "useResizeObserver": {
+    "size": "805 B",
+    "gzipped": "366 B"
+  },
+  "useScript": {
+    "size": "1.5 kB",
+    "gzipped": "519 B"
+  },
+  "useSessionStorage": {
+    "size": "2.4 kB",
+    "gzipped": "730 B"
+  },
+  "useTextareaAutoSize": {
+    "size": "1.8 kB",
+    "gzipped": "598 B"
+  },
+  "useThrottle": {
+    "size": "856 B",
+    "gzipped": "381 B"
+  },
+  "useTimeout": {
+    "size": "546 B",
+    "gzipped": "269 B"
+  },
+  "useTitle": {
+    "size": "539 B",
+    "gzipped": "264 B"
+  },
+  "useToggle": {
+    "size": "512 B",
+    "gzipped": "268 B"
+  },
+  "useWindowSize": {
+    "size": "781 B",
+    "gzipped": "356 B"
   }
 }

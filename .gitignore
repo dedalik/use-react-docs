@@ -1,7 +1,8 @@
 .idea
 .vscode
 node_modules
-.vitepress/cache
+docs/.vitepress/cache/
+docs/.vitepress/**/deps_temp_*/
 dist
 .DS_Store
 .temp
