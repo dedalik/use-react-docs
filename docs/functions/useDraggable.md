@@ -1,17 +1,35 @@
 ---
-title: useDraggable React draggable elements
+title: Make an element draggable
 sidebar_label: useDraggable
 category: Elements
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useDraggable"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useDraggable'
+description: >-
+  useDraggable from @dedalik/use-react: Make an element draggable. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useDraggable()
 
 <PackageData fn="useDraggable" />
 
+Last updated: 23/04/2026, 15:56
+
 ## Overview
+
+`useDraggable` enables drag behavior for an element and tracks its position.
+
+Use it for floating widgets, draggable cards, and custom canvas-like interactions where pointer movement needs explicit control.
+
+### What it accepts
+
+- `targetRef`: element ref to make draggable.
+- `options` (optional): drag behavior options.
+
+### What it returns
+
+- Hook metadata such as current position, drag state, and style helpers.
 
 The `useDraggable` hook is designed for React applications, providing a simple and efficient way to make elements draggable. It enables the tracking and updating of an element's position on the screen, offering a seamless user experience for drag-and-drop functionalities.
 
@@ -26,52 +44,50 @@ The `useDraggable` hook is designed for React applications, providing a simple a
 
 ## Usage
 
-To use the `useDraggable` hook, first import it into your component. Then, assign it to a ref of the element you want to make draggable. You can also pass in various options to customize its behavior.
+Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import React, { useRef } from "react";
-import { useDraggable } from "path-to-useDraggable-hook";
+import { useRef } from 'react'
+import useDraggable from '@dedalik/use-react/useDraggable'
 
-const DemoComponent = () => {
-  const draggableRef = useRef<HTMLDivElement>(null);
-  const { style } = useDraggable(draggableRef, {
-    initialValue: { x: 40, y: 40 },
-    // Other options...
-  });
+function FloatingCardExample() {
+  const ref = useRef<HTMLDivElement>(null)
+  const { style } = useDraggable(ref, { initialValue: { x: 40, y: 40 } })
 
   return (
-    <div ref={draggableRef} style={{ ...style, position: "fixed" }}>
-      Drag me around!
+    <div ref={ref} style={{ ...style, position: 'fixed', padding: 16, border: '1px solid #999' }}>
+      Drag me
     </div>
-  );
-};
+  )
+}
 
-export default DemoComponent;
+export default function FloatingCardDemo() {
+  return <FloatingCardExample />
+}
 ```
 
 ## API Reference
 
-### `useDraggable(targetRef, options)`
+### `useDraggable`
 
-- `targetRef`: A `RefObject` pointing to the element you want to make draggable.
-- `options`: An optional `UseDraggableOptions` object to customize the behavior of the hook.
+**Signature:** `useDraggable(targetRef, options?)`
 
-#### Options
+#### Parameters
 
-- `exact`: Boolean, specifies if dragging should only start when clicking directly on the element.
-- `preventDefault`: Boolean, if `true`, prevents the default action of the event.
-- `stopPropagation`: Boolean, if `true`, stops the propagation of the event.
-- `capture`: Boolean, determines if events are dispatched in the capturing phase.
-- `draggingElement`: The element to attach `pointermove` and `pointerup` events to.
-- `containerElement`: Element for calculating bounds.
-- `handle`: Element that triggers the drag event.
-- `pointerTypes`: Array of `PointerType`, specifies pointer types to listen to.
-- `initialValue`: `Position`, the initial position of the element.
-- `onStart`, `onMove`, `onEnd`: Callback functions for drag start, move, and end events.
-- `axis`: Specifies the axis along which the element can be dragged.
+1. **`targetRef`** - `RefObject` to the element that should move while dragging.
+2. **`options`** (optional) - `UseDraggableOptions` for drag behavior (axis, bounds, handlers, pointer types, etc.).
 
-#### Return Value
+#### Options (common fields)
 
-- `position`: The current position of the draggable element.
-- `isDragging`: A boolean indicating whether the element is currently being dragged.
-- `style`: An object containing the inline styles for the draggable element.
+- `exact`, `preventDefault`, `stopPropagation`, `capture` - event handling flags.
+- `draggingElement`, `containerElement`, `handle` - elements for events and bounds.
+- `pointerTypes` - which pointer kinds trigger dragging.
+- `initialValue` - starting `x` / `y` position.
+- `onStart`, `onMove`, `onEnd` - lifecycle callbacks.
+- `axis` - restrict movement to `"x"` or `"y"` when needed.
+
+#### Returns
+
+- `position` - current drag position.
+- `isDragging` - whether a drag is active.
+- `style` - inline styles to apply to the draggable element.
