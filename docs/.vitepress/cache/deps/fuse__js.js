@@ -313,8 +313,7 @@ var FuseIndex = class {
                 value: item
               });
             });
-          } else
-            ;
+          } else ;
         }
         record.$[keyIndex] = subRecords;
       } else if (isString(value) && !isBlank(value)) {
@@ -1080,10 +1079,8 @@ function format(results, docs, {
   includeScore = Config.includeScore
 } = {}) {
   const transformers = [];
-  if (includeMatches)
-    transformers.push(transformMatches);
-  if (includeScore)
-    transformers.push(transformScore);
+  if (includeMatches) transformers.push(transformMatches);
+  if (includeScore) transformers.push(transformScore);
   return results.map((result) => {
     const { idx } = result;
     const data = {

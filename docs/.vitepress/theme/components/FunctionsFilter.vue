@@ -1,32 +1,65 @@
 <script setup lang="ts">
-import type { Ref } from "vue";
-import { computed, toRef } from "vue";
+import { computed, ref } from "vue";
+import { useRoute } from "vitepress";
 import Fuse from "fuse.js";
-import { useEventListener, useUrlSearchParams } from "@vueuse/core";
 import { data as posts } from "./../index.data";
+import { getCategoryFromPath, getCategoryPath, normalizeHookCategory } from "../composables/hookCategories";
 
-const categoryNames = ["Browser", "Elements", "State"];
+const categoryOrder = [
+  "State",
+  "Elements",
+  "Browser",
+  "Sensors",
+  "Network",
+  "Animation",
+  "Component",
+  "Watch",
+  "Reactivity",
+  "Array",
+  "Time",
+  "Utilities",
+];
 
-const coreCategories = categoryNames.filter((i) => !i.startsWith("@"));
-const sortMethods = ["category", "title"];
+const normalizedPosts = computed(() =>
+  posts
+    .map((item) => ({
+      ...item,
+      category: normalizeHookCategory(item.sidebar_label, item.category),
+    }))
+    .filter((item) => Boolean(item.sidebar_label)),
+);
 
-useEventListener("click", (e) => {
-  if (e.target.tagName === "A") window.dispatchEvent(new Event("hashchange"));
+const coreCategories = computed(() => {
+  const existingCategories = Array.from(
+    new Set(
+      normalizedPosts.value
+        .map((item) => item.category)
+        .filter(Boolean),
+    ),
+  ) as string[];
+
+  const ordered = categoryOrder.filter((categoryName) =>
+    existingCategories.includes(categoryName),
+  );
+
+  const unknown = existingCategories.filter(
+    (categoryName) => !categoryOrder.includes(categoryName),
+  );
+
+  return [...ordered, ...unknown];
 });
-
-const query = useUrlSearchParams("hash-params", { removeFalsyValues: true });
-const search = toRef(query, "search") as Ref<string | null>;
-const category = toRef(query, "category") as Ref<string | null>;
-const sortMethod = toRef(query, "sort") as Ref<
-  "category" | "title" | "updated" | null
->;
+const sortMethods = ["category", "title"];
+const route = useRoute();
+const search = ref("");
+const sortMethod = ref<"category" | "title" | "updated" | null>(null);
+const category = computed(() => getCategoryFromPath(route.path));
 
 const showCategory = computed(
   () => !search.value && (!sortMethod.value || sortMethod.value === "category")
 );
 
 const items = computed(() => {
-  let fn = posts.filter((i) => !i.internal);
+  let fn = normalizedPosts.value.filter((i) => !i.internal);
   if (!category.value) return fn;
   return fn.filter((item) => item.category === category.value);
 });
@@ -35,25 +68,38 @@ const fuse = computed(
   () => new Fuse(items.value, { keys: ["title", "sidebar_label"] })
 );
 const result = computed(() => {
+  const sorted = [...items.value].sort((a, b) => {
+    const categoryCompare = String(a.category || "").localeCompare(String(b.category || ""));
+    if (categoryCompare !== 0) return categoryCompare;
+    return String(a.sidebar_label || "").localeCompare(String(b.sidebar_label || ""));
+  });
+
   if (search.value) {
     return fuse.value.search(search.value).map((i) => i.item);
   } else {
-    return items.value;
+    return sorted;
   }
 });
 
 const hasFilters = computed(() =>
-  Boolean(search.value || category.value || sortMethod.value === "title")
+  Boolean(search.value || category.value || sortMethod.value)
 );
 
 function resetFilters() {
   sortMethod.value = null;
-  category.value = null;
-  search.value = null;
+  search.value = "";
+  if (category.value && typeof window !== "undefined") {
+    window.location.href = "/functions/";
+  }
 }
 
 function toggleCategory(cate: string) {
-  category.value = category.value === cate ? null : cate;
+  if (typeof window === "undefined") return;
+  if (category.value === cate) {
+    window.location.href = "/functions/";
+    return;
+  }
+  window.location.href = getCategoryPath(cate);
 }
 
 function toggleSort(method: string) {
@@ -156,7 +202,7 @@ function getLink(name: string) {
       </button>
     </div>
 
-    <template v-for="(fn, idx) of result" :key="fn.name">
+    <template v-for="(fn, idx) of result" :key="fn.sidebar_label">
       <h3
         v-if="showCategory && fn.category !== result[idx - 1]?.category"
         opacity="60"

@@ -7,7 +7,9 @@
     "start": "npm run docs:dev",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "exportsize:generate": "node utils/generate-export-size.mjs",
+    "predocs:build": "npm run exportsize:generate"
   },
   "dependencies": {
     "@dedalik/use-react": "^1.0.4",
@@ -37,8 +39,5 @@
       "last 3 firefox version",
       "last 5 safari version"
     ]
-  },
-  "engines": {
-    "node": "18.x || 20.x"
   }
 }
