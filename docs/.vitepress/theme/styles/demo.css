@@ -20,13 +20,9 @@
 
 @media (min-width: 720px) {
   .demo {
-    --width: calc(
-      100vw - var(--sidebar-width) - var(--scrollbar-width)
-    ) !important;
+    --width: calc(100vw - var(--sidebar-width) - var(--scrollbar-width)) !important;
     --content-width: min(48rem, var(--width)) !important;
-    --margin-left: calc(
-      calc(calc(var(--content-width) - var(--width)) / 2) - 1.5rem
-    ) !important;
+    --margin-left: calc(calc(calc(var(--content-width) - var(--width)) / 2) - 1.5rem) !important;
   }
 }
 
@@ -102,9 +98,9 @@
 .demo textarea[readonly] {
   background: var(--vp-c-bg-soft);
 }
-.demo input[type="text"],
-.demo input[type="search"],
-.demo input[type="number"] {
+.demo input[type='text'],
+.demo input[type='search'],
+.demo input[type='number'] {
   display: block;
   font-size: 0.9rem;
   padding: 0.5em 1em 0.4em 1em;
@@ -116,7 +112,7 @@
   min-width: 20rem;
   margin: 0.5rem 0;
 }
-.demo input[type="number"] {
+.demo input[type='number'] {
   min-width: 15rem;
   outline: none;
 }
