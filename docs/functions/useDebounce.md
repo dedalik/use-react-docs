@@ -3,8 +3,11 @@ title: Delay value updates until input settles
 sidebar_label: useDebounce
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useDebounce"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useDebounce'
+description: >-
+  useDebounce from @dedalik/use-react: Delay value updates until input settles.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useDebounce()

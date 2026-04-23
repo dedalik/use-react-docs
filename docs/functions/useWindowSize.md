@@ -3,8 +3,11 @@ title: Track window width and height
 sidebar_label: useWindowSize
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useWindowSize"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useWindowSize'
+description: >-
+  useWindowSize from @dedalik/use-react: Track window width and height.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useWindowSize()

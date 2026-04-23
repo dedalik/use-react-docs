@@ -1,6 +1,7 @@
 ---
 title: Time hooks
 sidebar: true
+description: 'Time: useTimeout, useInterval. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

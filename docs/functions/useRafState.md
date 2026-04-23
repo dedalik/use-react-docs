@@ -3,8 +3,11 @@ title: Schedule state updates with requestAnimationFrame
 sidebar_label: useRafState
 category: Performance
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useRafState"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useRafState'
+description: >-
+  useRafState from @dedalik/use-react: Schedule state updates with
+  requestAnimationFrame. TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useRafState()

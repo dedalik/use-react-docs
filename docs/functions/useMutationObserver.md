@@ -3,8 +3,11 @@ title: Observe DOM mutations
 sidebar_label: useMutationObserver
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useMutationObserver"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useMutationObserver'
+description: >-
+  useMutationObserver from @dedalik/use-react: Observe DOM mutations.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useMutationObserver()

@@ -1,6 +1,7 @@
 ---
 title: Animation hooks
 sidebar: true
+description: 'Animation: useRafState. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

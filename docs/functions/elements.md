@@ -1,6 +1,9 @@
 ---
 title: Elements hooks
 sidebar: true
+description: >-
+  Elements: useTextareaAutoSize, useClickOutside, useDraggable.
+  @dedalik/use-react TypeScript docs.
 ---
 
 <script setup>

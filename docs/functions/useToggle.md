@@ -3,8 +3,11 @@ title: Toggle boolean state
 sidebar_label: useToggle
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useToggle"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useToggle'
+description: >-
+  useToggle from @dedalik/use-react: Toggle boolean state. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useToggle()

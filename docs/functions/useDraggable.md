@@ -3,8 +3,11 @@ title: Make an element draggable
 sidebar_label: useDraggable
 category: Elements
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useDraggable"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useDraggable'
+description: >-
+  useDraggable from @dedalik/use-react: Make an element draggable. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useDraggable()

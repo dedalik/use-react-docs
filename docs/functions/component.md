@@ -1,6 +1,7 @@
 ---
 title: Component hooks
 sidebar: true
+description: 'Component: useOnMount, useMountedState. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

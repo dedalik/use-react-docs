@@ -3,8 +3,11 @@ title: Update the page favicon dynamically
 sidebar_label: useFavicon
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useFavicon"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useFavicon'
+description: >-
+  useFavicon from @dedalik/use-react: Update the page favicon dynamically.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useFavicon()

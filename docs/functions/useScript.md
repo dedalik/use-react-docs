@@ -3,8 +3,11 @@ title: Load external scripts with status
 sidebar_label: useScript
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useScript"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useScript'
+description: >-
+  useScript from @dedalik/use-react: Load external scripts with status.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useScript()

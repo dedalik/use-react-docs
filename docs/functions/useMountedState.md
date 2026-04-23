@@ -3,8 +3,11 @@ title: Check if component is mounted
 sidebar_label: useMountedState
 category: Lifecycle
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useMountedState"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useMountedState'
+description: >-
+  useMountedState from @dedalik/use-react: Check if component is mounted.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useMountedState()

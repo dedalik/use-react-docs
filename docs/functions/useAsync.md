@@ -3,8 +3,11 @@ title: Manage async state and execution
 sidebar_label: useAsync
 category: Async
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useAsync"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useAsync'
+description: >-
+  useAsync from @dedalik/use-react: Manage async state and execution.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useAsync()

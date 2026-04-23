@@ -3,8 +3,11 @@ title: Limit update frequency
 sidebar_label: useThrottle
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useThrottle"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useThrottle'
+description: >-
+  useThrottle from @dedalik/use-react: Limit update frequency. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useThrottle()

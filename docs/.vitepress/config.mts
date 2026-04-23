@@ -1,14 +1,24 @@
 import { defineConfig } from "vitepress";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { buildCoreFunctionsSidebarGroup } from "./data/hookCatalog";
+import { transformHead as seoTransformHead } from "./seo/transformHead";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lang: "en-US",
   title: "useReact",
+  titleTemplate: ":title | useReact",
   description: "Collection of React Hooks",
   cleanUrls: true,
   lastUpdated: true,
+  async transformHead(ctx) {
+    return seoTransformHead({
+      siteData: ctx.siteData,
+      pageData: ctx.pageData,
+      title: ctx.title,
+      description: ctx.description,
+    });
+  },
   plugins: [vueJsx()],
   markdown: {
     image: {
@@ -44,6 +54,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: "Get Started", link: "/guide/get-started" },
+          { text: "How to", link: "/guide/how-to" },
           { text: "Best Practice", link: "/guide/best-practice" },
           { text: "Configurations", link: "/guide/configurations" },
           { text: "Bundle Optimization", link: "/guide/bundle-optimization" },
@@ -59,7 +70,6 @@ export default defineConfig({
       ["meta", { name: "theme-color", content: "#ffffff" }],
       ["link", { rel: "icon", href: "/favicon-32x32.png", type: "image/png" }],
       ["link", { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" }],
-      ["meta", { name: "author", content: "Radiks Alijevs" }],
       ["meta", { property: "og:title", content: "UseReact" }],
       [
         "meta",

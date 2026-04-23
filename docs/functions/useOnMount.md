@@ -3,8 +3,11 @@ title: Run logic when component mounts
 sidebar_label: useOnMount
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useOnMount"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useOnMount'
+description: >-
+  useOnMount from @dedalik/use-react: Run logic when component mounts.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useOnMount()

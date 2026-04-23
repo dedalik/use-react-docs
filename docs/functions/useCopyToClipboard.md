@@ -3,8 +3,11 @@ title: Copy text to the clipboard
 sidebar_label: useCopyToClipboard
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useCopyToClipboard"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useCopyToClipboard'
+description: >-
+  useCopyToClipboard from @dedalik/use-react: Copy text to the clipboard.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useCopyToClipboard()

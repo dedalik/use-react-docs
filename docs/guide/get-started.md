@@ -1,5 +1,8 @@
 ---
 title: Get Started
+description: >-
+  Install @dedalik/use-react: tree-shakable React hooks for TypeScript, Vite,
+  Next.js, and React 17-19. Quick start with per-hook imports.
 ---
 
 # Get Started
@@ -47,6 +50,7 @@ export default function SearchInput() {
 
 ## Next steps
 
-- Move to `Best Practice` to learn how to pick the right hook category for each feature.
-- Open `Bundle Optimization` to choose import strategy by project size and bundler setup.
-- Use `Functions` to explore copy-paste implementations when you need lower coupling.
+- Read [How to](/guide/how-to) for stack-specific checklists (Vite, Next.js), SSR notes, and debugging flow.
+- Move to [Best Practice](/guide/best-practice) to learn how to pick the right hook category for each feature.
+- Open [Bundle Optimization](/guide/bundle-optimization) to choose import strategy by project size and bundler setup.
+- Use [Functions](/functions/) to explore copy-paste implementations when you need lower coupling.

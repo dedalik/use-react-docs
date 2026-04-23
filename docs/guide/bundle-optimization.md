@@ -1,5 +1,8 @@
 ---
 title: Bundle Optimization
+description: >-
+  Tree-shake @dedalik/use-react: per-hook imports, Vite and webpack bundle tips,
+  lean production builds.
 ---
 
 # Bundle Optimization

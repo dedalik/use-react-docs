@@ -3,8 +3,11 @@ title: Read and update URL hash state
 sidebar_label: useHash
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useHash"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useHash'
+description: >-
+  useHash from @dedalik/use-react: Read and update URL hash state. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useHash()

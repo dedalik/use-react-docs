@@ -1,6 +1,9 @@
 ---
 title: Utilities hooks
 sidebar: true
+description: >-
+  Utilities: useLocalStorage, useSessionStorage. @dedalik/use-react TypeScript
+  docs.
 ---
 
 <script setup>

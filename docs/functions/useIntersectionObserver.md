@@ -3,8 +3,12 @@ title: Track element visibility in viewport
 sidebar_label: useIntersectionObserver
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useIntersectionObserver"
+demoUrl: ''
+demoSourceUrl: >-
+  https://github.com/dedalik/use-react/tree/main/src/hooks/useIntersectionObserver
+description: >-
+  useIntersectionObserver from @dedalik/use-react: Track element visibility in
+  viewport. TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useIntersectionObserver()

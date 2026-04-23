@@ -3,8 +3,11 @@ title: Track page visibility changes
 sidebar_label: usePageVisibility
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/usePageVisibility"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/usePageVisibility'
+description: >-
+  usePageVisibility from @dedalik/use-react: Track page visibility changes.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # usePageVisibility()

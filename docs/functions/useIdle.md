@@ -3,8 +3,11 @@ title: Detect user inactivity
 sidebar_label: useIdle
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useIdle"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useIdle'
+description: >-
+  useIdle from @dedalik/use-react: Detect user inactivity. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useIdle()

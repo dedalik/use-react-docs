@@ -2,6 +2,12 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: useReact - React hooks for TypeScript
+titleTemplate: false
+description: >-
+  useReact (@dedalik/use-react): production-ready React hooks for TypeScript -
+  state, browser APIs, observers, async. Tree-shakable imports, SSR notes, and tests.
+
 hero:
   name: "useReact"
   text: "Collection of React Hooks"

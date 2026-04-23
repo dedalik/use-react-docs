@@ -3,8 +3,11 @@ title: Auto-resize textarea to fit content
 sidebar_label: useTextareaAutoSize
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useTextareaAutoSize"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useTextareaAutoSize'
+description: >-
+  useTextareaAutoSize from @dedalik/use-react: Auto-resize textarea to fit
+  content. TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useTextareaAutoSize()

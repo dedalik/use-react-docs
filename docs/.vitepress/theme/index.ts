@@ -1,6 +1,8 @@
 import DefaultTheme from "vitepress/theme";
-import { nextTick, onMounted, watch } from "vue";
+import { h, nextTick, onMounted, watch } from "vue";
 import { useRoute } from "vitepress";
+import CookieConsentBanner from "./components/CookieConsentBanner.vue";
+import { applyConsentFromStorage } from "./analytics";
 // import Test from "./components/Note.vue";
 import PackageData from "./components/PackageData.vue";
 import HomeHookShowcase from "./components/HomeHookShowcase.vue";
@@ -46,6 +48,10 @@ function enhanceCollapsibleCodeBlocks() {
 
 export default {
   ...DefaultTheme,
+  Layout: () =>
+    h(DefaultTheme.Layout!, null, {
+      "layout-bottom": () => h(CookieConsentBanner),
+    }),
   setup() {
     const route = useRoute();
 
@@ -57,9 +63,14 @@ export default {
     onMounted(refreshBlocks);
     watch(() => route.path, refreshBlocks);
   },
-  enhanceApp({ app }) {
-    // register your custom global components
+  enhanceApp(ctx) {
+    DefaultTheme.enhanceApp?.(ctx);
+    const { app } = ctx;
     app.component("PackageData", PackageData);
     app.component("HomeHookShowcase", HomeHookShowcase);
+    // VitePress passes a minimal router (no vue-router isReady); defer to microtask after app boot.
+    if (typeof window !== "undefined") {
+      queueMicrotask(() => applyConsentFromStorage());
+    }
   },
 };

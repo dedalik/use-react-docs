@@ -3,8 +3,11 @@ title: Cancel stale async requests
 sidebar_label: useAbortController
 category: Async
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useAbortController"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useAbortController'
+description: >-
+  useAbortController from @dedalik/use-react: Cancel stale async requests.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useAbortController()

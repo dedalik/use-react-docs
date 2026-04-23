@@ -1,5 +1,8 @@
 ---
 title: Components
+description: >-
+  Vue components embedded in the useReact VitePress docs: function filters and
+  interactive listings.
 ---
 
 # Components

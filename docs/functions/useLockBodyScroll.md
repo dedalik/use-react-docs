@@ -3,8 +3,11 @@ title: Lock body scrolling while active
 sidebar_label: useLockBodyScroll
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useLockBodyScroll"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useLockBodyScroll'
+description: >-
+  useLockBodyScroll from @dedalik/use-react: Lock body scrolling while active.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useLockBodyScroll()

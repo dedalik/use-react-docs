@@ -3,8 +3,11 @@ title: Track element size changes
 sidebar_label: useResizeObserver
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useResizeObserver"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useResizeObserver'
+description: >-
+  useResizeObserver from @dedalik/use-react: Track element size changes.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useResizeObserver()

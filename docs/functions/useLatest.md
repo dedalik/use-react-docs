@@ -3,8 +3,11 @@ title: Store the latest value in a ref
 sidebar_label: useLatest
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useLatest"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useLatest'
+description: >-
+  useLatest from @dedalik/use-react: Store the latest value in a ref.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useLatest()

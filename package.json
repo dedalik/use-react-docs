@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run docs:dev",
     "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
+    "docs:build": "vitepress build docs && node utils/generate-sitemap.mjs",
+    "docs:seo": "node utils/inject-seo.mjs",
     "docs:preview": "vitepress preview docs",
     "exportsize:generate": "node utils/generate-export-size.mjs",
     "predocs:build": "npm run exportsize:generate"

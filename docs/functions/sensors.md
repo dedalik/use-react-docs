@@ -1,6 +1,9 @@
 ---
 title: Sensors hooks
 sidebar: true
+description: >-
+  Sensors: useIdle, useIntersectionObserver, useResizeObserver,
+  useMutationObserver. @dedalik/use-react TypeScript docs.
 ---
 
 <script setup>

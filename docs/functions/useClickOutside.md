@@ -3,8 +3,11 @@ title: Handle clicks outside an element
 sidebar_label: useClickOutside
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useClickOutside"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useClickOutside'
+description: >-
+  useClickOutside from @dedalik/use-react: Handle clicks outside an element.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useClickOutside()

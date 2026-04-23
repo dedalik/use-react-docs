@@ -1,6 +1,7 @@
 ---
 title: Network hooks
 sidebar: true
+description: 'Network: useAsync, useAbortController. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

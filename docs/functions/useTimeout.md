@@ -3,8 +3,11 @@ title: Run a callback after a delay
 sidebar_label: useTimeout
 category: Async
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useTimeout"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useTimeout'
+description: >-
+  useTimeout from @dedalik/use-react: Run a callback after a delay. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # useTimeout()

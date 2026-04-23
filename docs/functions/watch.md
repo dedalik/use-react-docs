@@ -1,6 +1,7 @@
 ---
 title: Watch hooks
 sidebar: true
+description: 'Watch: useEventListener. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

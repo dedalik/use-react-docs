@@ -1,5 +1,8 @@
 ---
 title: Best Practice
+description: >-
+  React hooks best practices: responsibilities, SSR-safe patterns, and testing
+  with @dedalik/use-react.
 ---
 
 # Best Practice

@@ -1,5 +1,8 @@
 ---
 title: Configurations
+description: >-
+  Configure TypeScript, bundlers, and SSR safety for @dedalik/use-react hooks in
+  production React apps.
 ---
 
 # Configurations

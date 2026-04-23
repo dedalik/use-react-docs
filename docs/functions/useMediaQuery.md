@@ -3,8 +3,11 @@ title: React to media query matches
 sidebar_label: useMediaQuery
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useMediaQuery"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useMediaQuery'
+description: >-
+  useMediaQuery from @dedalik/use-react: React to media query matches.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useMediaQuery()

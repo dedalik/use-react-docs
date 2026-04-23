@@ -3,8 +3,11 @@ title: Persist state in localStorage
 sidebar_label: useLocalStorage
 category: Storage
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useLocalStorage"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useLocalStorage'
+description: >-
+  useLocalStorage from @dedalik/use-react: Persist state in localStorage.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useLocalStorage()

@@ -1,6 +1,9 @@
 ---
 title: State hooks
 sidebar: true
+description: >-
+  State: useToggle, useDebounce, usePrevious, useLatest (+1 more).
+  @dedalik/use-react TypeScript docs.
 ---
 
 <script setup>

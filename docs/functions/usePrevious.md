@@ -3,8 +3,11 @@ title: Read the previous value
 sidebar_label: usePrevious
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/usePrevious"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/usePrevious'
+description: >-
+  usePrevious from @dedalik/use-react: Read the previous value. TypeScript,
+  tree-shakable import, examples, SSR notes.
 ---
 
 # usePrevious()

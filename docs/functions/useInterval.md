@@ -3,8 +3,11 @@ title: Run a callback on an interval
 sidebar_label: useInterval
 category: Async
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useInterval"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useInterval'
+description: >-
+  useInterval from @dedalik/use-react: Run a callback on an interval.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useInterval()

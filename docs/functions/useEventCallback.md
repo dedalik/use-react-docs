@@ -3,8 +3,11 @@ title: Keep callback identity stable
 sidebar_label: useEventCallback
 category: State
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useEventCallback"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useEventCallback'
+description: >-
+  useEventCallback from @dedalik/use-react: Keep callback identity stable.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useEventCallback()

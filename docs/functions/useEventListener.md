@@ -3,8 +3,11 @@ title: Attach and clean up event listeners
 sidebar_label: useEventListener
 category: Browser
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useEventListener"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useEventListener'
+description: >-
+  useEventListener from @dedalik/use-react: Attach and clean up event listeners.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useEventListener()

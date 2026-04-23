@@ -3,8 +3,11 @@ title: Persist state in sessionStorage
 sidebar_label: useSessionStorage
 category: Storage
 hide_table_of_contents: false
-demoUrl: ""
-demoSourceUrl: "https://github.com/dedalik/use-react/tree/main/src/hooks/useSessionStorage"
+demoUrl: ''
+demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useSessionStorage'
+description: >-
+  useSessionStorage from @dedalik/use-react: Persist state in sessionStorage.
+  TypeScript, tree-shakable import, examples, SSR notes.
 ---
 
 # useSessionStorage()

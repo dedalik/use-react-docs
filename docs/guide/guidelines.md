@@ -1,5 +1,8 @@
 ---
 title: Guidelines
+description: >-
+  Documentation and API guidelines for @dedalik/use-react hooks published on
+  usereact.org.
 ---
 
 # Guidelines
