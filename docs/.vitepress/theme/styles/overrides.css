@@ -1,3 +1,8 @@
+/* Hero: React logo without the default blurred gradient disc behind it */
+.VPHomeHero .image-bg {
+  display: none;
+}
+
 /*
  * Home (VPFeatures): default theme uses 4 columns from 960px for .grid-4.
  * Keep at most 3 columns until xl so four-across only appears on wide screens.

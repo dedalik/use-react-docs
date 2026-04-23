@@ -7,6 +7,10 @@ hero:
   text: "Collection of React Hooks"
   tagline: Typed, tree-shakable utilities with copy-paste examples, SSR callouts, and tests behind every export.
 
+  image:
+    src: /react-logo.svg
+    alt: React
+
   actions:
     - theme: brand
       text: Explore functions
@@ -30,7 +34,7 @@ features:
     details: Jest coverage across the suite so upgrades and refactors stay boring - in the best way.
   - icon: 🚀
     title: Built for modern React
-    details: Aimed at React 17 and 18 peers - hooks respect typical client constraints and play nicely with Strict Mode lifecycles.
+    details: Aimed at React 17, 18, and 19 peers - hooks respect typical client constraints and play nicely with Strict Mode lifecycles.
   - icon: 📚
     title: Curated, growing catalog
     details: Over thirty focused hooks across state, DOM, browser APIs, observers, and async flows - each with its own reference page.
@@ -52,5 +56,3 @@ features:
 ---
 
 <HomeHookShowcase />
-
-<HomeSsrSnapshot />
