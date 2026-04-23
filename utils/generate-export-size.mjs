@@ -13,9 +13,15 @@ function formatSize(bytes) {
 }
 
 if (!fs.existsSync(hooksDistDir)) {
-  console.error(`Missing hooks dist directory: ${hooksDistDir}`)
-  console.error('Run `npm run build` in ../use-react first.')
-  process.exit(1)
+  console.warn(`Skipping export-size: hooks dist not found at ${hooksDistDir}`)
+  console.warn(
+    'CI and Vercel only clone this repo; the site uses committed docs/export-size.json. To refresh sizes, run `npm run build` in ../use-react then re-run this script.',
+  )
+  if (!fs.existsSync(outputPath)) {
+    console.error(`Missing ${outputPath} and cannot generate without hooks dist.`)
+    process.exit(1)
+  }
+  process.exit(0)
 }
 
 const hookFiles = fs
