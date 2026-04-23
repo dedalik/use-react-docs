@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useSessionStorage" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useSessionStorage` stores state in session storage for the current browser tab session.
@@ -32,30 +32,29 @@ It behaves similarly to local storage hooks but data resets when the session end
 
 - `[value, setValue, removeValue]` tuple.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useSessionStorage from "@dedalik/use-react/useSessionStorage";
+import { useState } from 'react'
+import useSessionStorage from '@dedalik/use-react/useSessionStorage'
 
 function SessionDraftExample() {
-  const [draft, setDraft, removeDraft] = useSessionStorage("usage-demo-draft", "");
+  const [draft, setDraft, removeDraft] = useSessionStorage('usage-demo-draft', '')
 
   return (
     <div>
       <textarea value={draft} onChange={(e) => setDraft(e.target.value)} rows={3} />
-      <button type="button" onClick={() => removeDraft()}>
+      <button type='button' onClick={() => removeDraft()}>
         Clear session draft
       </button>
     </div>
-  );
+  )
 }
 
 export default function SessionDraftDemo() {
-  return <SessionDraftExample />;
+  return <SessionDraftExample />
 }
 ```
 
@@ -165,85 +164,66 @@ export default function useSessionStorage<T>(
 ### JavaScript version
 
 ```js
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-const isBrowser = typeof window !== 'undefined';
-export default function useSessionStorage(
-  key,
-  initialValue,
-  options = {}
-) {
-  const {
-    initializeWithValue = true,
-    serializer = JSON.stringify,
-    deserializer = JSON.parse,
-  } = options;
+const isBrowser = typeof window !== 'undefined'
+export default function useSessionStorage(key, initialValue, options = {}) {
+  const { initializeWithValue = true, serializer = JSON.stringify, deserializer = JSON.parse } = options
 
   const getInitialValue = useCallback(() => {
-    return initialValue instanceof Function
-      ? initialValue()
-      : initialValue;
-  }, [initialValue]);
+    return initialValue instanceof Function ? initialValue() : initialValue
+  }, [initialValue])
 
   const readValue = useCallback(() => {
-    const fallback = getInitialValue();
+    const fallback = getInitialValue()
 
-    if (!isBrowser) return fallback;
+    if (!isBrowser) return fallback
     try {
-      const rawValue = window.sessionStorage.getItem(key);
-      return rawValue ? deserializer(rawValue) : fallback;
+      const rawValue = window.sessionStorage.getItem(key)
+      return rawValue ? deserializer(rawValue) : fallback
     } catch {
-      return fallback;
+      return fallback
     }
-  }, [deserializer, getInitialValue, key]);
+  }, [deserializer, getInitialValue, key])
 
-  const [storedValue, setStoredValue] = useState(() =>
-    initializeWithValue ? readValue() : getInitialValue()
-  );
+  const [storedValue, setStoredValue] = useState(() => (initializeWithValue ? readValue() : getInitialValue()))
 
   useEffect(() => {
     if (!initializeWithValue) {
-      setStoredValue(readValue());
+      setStoredValue(readValue())
     }
-  }, [initializeWithValue, readValue]);
+  }, [initializeWithValue, readValue])
 
   const setValue = useCallback(
     (value) => {
       setStoredValue((currentValue) => {
-        const valueToStore =
-          value instanceof Function ? value(currentValue) : value;
+        const valueToStore = value instanceof Function ? value(currentValue) : value
 
         if (isBrowser) {
           try {
-            window.sessionStorage.setItem(
-              key,
-              serializer(valueToStore)
-            );
+            window.sessionStorage.setItem(key, serializer(valueToStore))
           } catch {
             // Keep in-memory state when storage write fails.
           }
         }
-        return valueToStore;
-      });
+        return valueToStore
+      })
     },
-    [key, serializer]
-  );
+    [key, serializer],
+  )
 
   const removeValue = useCallback(() => {
-    const fallback = getInitialValue();
-    setStoredValue(fallback);
+    const fallback = getInitialValue()
+    setStoredValue(fallback)
 
-    if (!isBrowser) return;
+    if (!isBrowser) return
     try {
-      window.sessionStorage.removeItem(key);
+      window.sessionStorage.removeItem(key)
     } catch {
       // Keep in-memory fallback when storage removal fails.
     }
-  }, [getInitialValue, key]);
+  }, [getInitialValue, key])
 
-  return useMemo(
-    () => [storedValue, setValue, removeValue],
-    [removeValue, setValue, storedValue]
-  );
+  return useMemo(() => [storedValue, setValue, removeValue], [removeValue, setValue, storedValue])
 }
 ```

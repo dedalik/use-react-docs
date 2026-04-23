@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { withBase } from "vitepress"
-import { hookCategoriesCatalog, totalHooks } from "../../data/hookCatalog"
+import { withBase } from 'vitepress'
+import { hookCategoriesCatalog, totalHooks } from '../../data/hookCatalog'
 </script>
 
 <template>
@@ -34,9 +34,7 @@ import { hookCategoriesCatalog, totalHooks } from "../../data/hookCatalog"
             </h3>
             <span class="home-card__count" :data-empty="cat.hooks.length === 0">
               <template v-if="cat.hooks.length === 0">Soon</template>
-              <template v-else>
-                {{ cat.hooks.length }} hook{{ cat.hooks.length === 1 ? "" : "s" }}
-              </template>
+              <template v-else> {{ cat.hooks.length }} hook{{ cat.hooks.length === 1 ? '' : 's' }} </template>
             </span>
           </div>
           <p class="home-card__desc">{{ cat.description }}</p>
@@ -250,7 +248,7 @@ import { hookCategoriesCatalog, totalHooks } from "../../data/hookCatalog"
   color: var(--vp-c-brand-1);
 }
 
-.home-card__count[data-empty="true"] {
+.home-card__count[data-empty='true'] {
   background: color-mix(in srgb, var(--vp-c-text-3) 22%, transparent);
   color: var(--vp-c-text-2);
 }

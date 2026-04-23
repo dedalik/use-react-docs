@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="usePageVisibility" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `usePageVisibility` tracks whether the current page is visible to the user.
@@ -30,22 +30,21 @@ Useful for pausing background work, controlling auto-refresh, and reducing unnec
 
 - `boolean` visibility state (`true` when page is visible).
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import usePageVisibility from "@dedalik/use-react/usePageVisibility";
+import usePageVisibility from '@dedalik/use-react/usePageVisibility'
 
 function TabVisibilityExample() {
-  const visible = usePageVisibility();
+  const visible = usePageVisibility()
 
-  return <p>Document visible: {String(visible)}</p>;
+  return <p>Document visible: {String(visible)}</p>
 }
 
 export default function TabVisibilityDemo() {
-  return <TabVisibilityExample />;
+  return <TabVisibilityExample />
 }
 ```
 
@@ -94,31 +93,27 @@ export default function usePageVisibility(): boolean {
 ### JavaScript version
 
 ```js
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const getVisibility = () => {
-  if (typeof document === 'undefined') return true;
+  if (typeof document === 'undefined') return true
 
-  return !document.hidden;
-};
+  return !document.hidden
+}
 
 export default function usePageVisibility() {
-  const [isVisible, setIsVisible] = useState(() => getVisibility());
+  const [isVisible, setIsVisible] = useState(() => getVisibility())
 
   useEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (typeof document === 'undefined') return
 
     const onVisibilityChange = () => {
-      setIsVisible(getVisibility());
-    };
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    return () =>
-      document.removeEventListener(
-        'visibilitychange',
-        onVisibilityChange
-      );
-  }, []);
+      setIsVisible(getVisibility())
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange)
+  }, [])
 
-  return isVisible;
+  return isVisible
 }
 ```

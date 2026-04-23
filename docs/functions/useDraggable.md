@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useDraggable" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useDraggable` enables drag behavior for an element and tracks its position.
@@ -30,8 +30,6 @@ Use it for floating widgets, draggable cards, and custom canvas-like interaction
 ### What it returns
 
 - Hook metadata such as current position, drag state, and style helpers.
-
-
 
 The `useDraggable` hook is designed for React applications, providing a simple and efficient way to make elements draggable. It enables the tracking and updating of an element's position on the screen, offering a seamless user experience for drag-and-drop functionalities.
 
@@ -49,22 +47,22 @@ The `useDraggable` hook is designed for React applications, providing a simple a
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useRef } from "react";
-import useDraggable from "@dedalik/use-react/useDraggable";
+import { useRef } from 'react'
+import useDraggable from '@dedalik/use-react/useDraggable'
 
 function FloatingCardExample() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { style } = useDraggable(ref, { initialValue: { x: 40, y: 40 } });
+  const ref = useRef<HTMLDivElement>(null)
+  const { style } = useDraggable(ref, { initialValue: { x: 40, y: 40 } })
 
   return (
-    <div ref={ref} style={{ ...style, position: "fixed", padding: 16, border: "1px solid #999" }}>
+    <div ref={ref} style={{ ...style, position: 'fixed', padding: 16, border: '1px solid #999' }}>
       Drag me
     </div>
-  );
+  )
 }
 
 export default function FloatingCardDemo() {
-  return <FloatingCardExample />;
+  return <FloatingCardExample />
 }
 ```
 

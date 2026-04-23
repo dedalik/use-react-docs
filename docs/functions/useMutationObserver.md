@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useMutationObserver" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useMutationObserver` observes DOM mutations on a target node.
@@ -32,46 +32,41 @@ Use it when UI logic depends on external DOM changes (content injection, portal 
 
 - This hook returns nothing.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useRef, useState } from "react";
-import useMutationObserver from "@dedalik/use-react/useMutationObserver";
+import { useRef, useState } from 'react'
+import useMutationObserver from '@dedalik/use-react/useMutationObserver'
 
 function AttrWatcherExample() {
-  const hostRef = useRef<HTMLDivElement>(null);
-  const [log, setLog] = useState("");
+  const hostRef = useRef<HTMLDivElement>(null)
+  const [log, setLog] = useState('')
 
   useMutationObserver(
     hostRef,
     (records) => {
-      setLog(
-        records
-          .map((r) => r.type + (r.attributeName ? ":" + r.attributeName : ""))
-          .join(", "),
-      );
+      setLog(records.map((r) => r.type + (r.attributeName ? ':' + r.attributeName : '')).join(', '))
     },
     { attributes: true, childList: false, subtree: false },
-  );
+  )
 
   return (
     <div>
-      <div ref={hostRef} data-x="0">
+      <div ref={hostRef} data-x='0'>
         Target node
       </div>
-      <button type="button" onClick={() => hostRef.current?.setAttribute("data-x", String(Date.now()))}>
+      <button type='button' onClick={() => hostRef.current?.setAttribute('data-x', String(Date.now()))}>
         Change attribute
       </button>
-      <p>Last mutations: {log || "(none yet)"}</p>
+      <p>Last mutations: {log || '(none yet)'}</p>
     </div>
-  );
+  )
 }
 
 export default function AttrWatcherDemo() {
-  return <AttrWatcherExample />;
+  return <AttrWatcherExample />
 }
 ```
 
@@ -116,21 +111,17 @@ export default function useMutationObserver(
 ### JavaScript version
 
 ```js
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
-export default function useMutationObserver(
-  elementRef,
-  callback,
-  options = { childList: true, subtree: true }
-) {
+export default function useMutationObserver(elementRef, callback, options = { childList: true, subtree: true }) {
   useEffect(() => {
-    const target = elementRef.current;
+    const target = elementRef.current
 
-    if (!target || typeof MutationObserver === 'undefined') return;
+    if (!target || typeof MutationObserver === 'undefined') return
 
-    const observer = new MutationObserver(callback);
-    observer.observe(target, options);
-    return () => observer.disconnect();
-  }, [callback, elementRef, options]);
+    const observer = new MutationObserver(callback)
+    observer.observe(target, options)
+    return () => observer.disconnect()
+  }, [callback, elementRef, options])
 }
 ```

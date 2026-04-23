@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useTextareaAutoSize" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useTextareaAutoSize` automatically resizes a textarea based on content height.
@@ -30,7 +30,6 @@ This improves typing experience by removing fixed-height friction and keeping lo
 
 - Object containing `textareaRef`, `input`, `setInput`, and `triggerResize`.
 
-
 Automatically adjust the height of a textarea based on its content.
 
 ## Usage
@@ -38,25 +37,25 @@ Automatically adjust the height of a textarea based on its content.
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import useTextareaAutoSize from "@dedalik/use-react/useTextareaAutoSize";
+import useTextareaAutoSize from '@dedalik/use-react/useTextareaAutoSize'
 
 function AutoGrowNotesExample() {
-  const { textareaRef, input, setInput } = useTextareaAutoSize();
+  const { textareaRef, input, setInput } = useTextareaAutoSize()
 
   return (
     <textarea
       ref={textareaRef}
-      value={input ?? ""}
+      value={input ?? ''}
       onChange={(e) => setInput(e.target.value)}
       rows={1}
-      style={{ width: "100%", minHeight: 40 }}
-      placeholder="Type multiple lines..."
+      style={{ width: '100%', minHeight: 40 }}
+      placeholder='Type multiple lines...'
     />
-  );
+  )
 }
 
 export default function AutoGrowNotesDemo() {
-  return <AutoGrowNotesExample />;
+  return <AutoGrowNotesExample />
 }
 ```
 
@@ -161,74 +160,71 @@ export type UseTextareaAutoSizeType = ReturnType<typeof useTextareaAutoSize>
 ### JavaScript version
 
 ```js
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 export default function useTextareaAutoSize(options) {
-  const [input, setInput] = useState(options?.input);
+  const [input, setInput] = useState(options?.input)
 
-  const internalTextareaRef = useRef(null);
+  const internalTextareaRef = useRef(null)
 
-  const textareaRef = options?.elementRef || internalTextareaRef;
+  const textareaRef = options?.elementRef || internalTextareaRef
 
   const triggerResize = useCallback(() => {
-    const textarea = textareaRef.current;
+    const textarea = textareaRef.current
 
-    if (!textarea) return;
+    if (!textarea) return
 
-    let height = '';
-    textarea.style.height = '1px';
+    let height = ''
+    textarea.style.height = '1px'
 
-    const textareaScrollHeight = textarea.scrollHeight;
+    const textareaScrollHeight = textarea.scrollHeight
     // If style target is provided update its height
     if (options?.styleTarget) {
-      options.styleTarget.style.height = `${textareaScrollHeight}px`;
+      options.styleTarget.style.height = `${textareaScrollHeight}px`
     }
     // else update textarea's height by updating height variable
     else {
-      height = `${textareaScrollHeight}px`;
+      height = `${textareaScrollHeight}px`
     }
-    textarea.style.height = height;
-    options?.onResize?.();
-  }, [options, textareaRef]);
+    textarea.style.height = height
+    options?.onResize?.()
+  }, [options, textareaRef])
 
   useEffect(() => {
-    triggerResize();
-  }, [input, triggerResize]);
+    triggerResize()
+  }, [input, triggerResize])
   // Updating the local state when the input prop changes
   useEffect(() => {
-    setInput(options?.input);
-  }, [options?.input]);
+    setInput(options?.input)
+  }, [options?.input])
 
   return {
     textareaRef,
     input,
     setInput, // To allow updating the input externally
     triggerResize,
-  };
+  }
 }
 ```
+
 ## Type declarations
 
 ```typescript
 interface UseTextareaAutosizeOptions {
   /** Textarea element to autosize. */
-  element?: HTMLTextAreaElement | undefined;
+  element?: HTMLTextAreaElement | undefined
   /** Textarea content. */
-  input?: string | undefined;
+  input?: string | undefined
   /** Function called when the textarea size changes. */
-  onResize?: () => void;
+  onResize?: () => void
   /** Specify style target to apply the height based on textarea content. If not provided it will use textarea itself.  */
-  styleTarget?: HTMLElement;
+  styleTarget?: HTMLElement
 }
-export declare function useTextareaAutoSize(
-  options?: UseTextareaAutosizeOptions
-): {
-  textarea: import("react").MutableRefObject<HTMLTextAreaElement | null>;
-  input: string | undefined;
-  setInput: import("react").Dispatch<
-    import("react").SetStateAction<string | undefined>
-  >;
-  triggerResize: () => void;
-};
-export type UseTextareaAutosizeReturn = ReturnType<typeof useTextareaAutoSize>;
+export declare function useTextareaAutoSize(options?: UseTextareaAutosizeOptions): {
+  textarea: import('react').MutableRefObject<HTMLTextAreaElement | null>
+  input: string | undefined
+  setInput: import('react').Dispatch<import('react').SetStateAction<string | undefined>>
+  triggerResize: () => void
+}
+export type UseTextareaAutosizeReturn = ReturnType<typeof useTextareaAutoSize>
 ```

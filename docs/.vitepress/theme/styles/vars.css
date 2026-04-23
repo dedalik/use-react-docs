@@ -119,8 +119,7 @@
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
     #087ea480 30%,
-    /* Base blue with transparency */ #04485180
-      /* Darker blue with transparency */
+    /* Base blue with transparency */ #04485180 /* Darker blue with transparency */
   );
   --vp-home-hero-image-filter: blur(30px);
 }

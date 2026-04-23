@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useIdle" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useIdle` tells you whether the user has been inactive for a given timeout.
@@ -30,22 +30,21 @@ Use it for auto-logout prompts, low-priority refreshes, and UI behavior that sho
 
 - `boolean` idle state (`true` when user is inactive).
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import useIdle from "@dedalik/use-react/useIdle";
+import useIdle from '@dedalik/use-react/useIdle'
 
 function IdleBannerExample() {
-  const idle = useIdle(5000);
+  const idle = useIdle(5000)
 
-  return <p>{idle ? "Idle (5s)" : "Active"}</p>;
+  return <p>{idle ? 'Idle (5s)' : 'Active'}</p>
 }
 
 export default function IdleBannerDemo() {
-  return <IdleBannerExample />;
+  return <IdleBannerExample />
 }
 ```
 
@@ -108,47 +107,37 @@ export default function useIdle(timeout = 60_000): boolean {
 ### JavaScript version
 
 ```js
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react'
 
-const events = [
-  'mousemove',
-  'mousedown',
-  'keydown',
-  'touchstart',
-  'scroll',
-];
+const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll']
 export default function useIdle(timeout = 60000) {
-  const [isIdle, setIsIdle] = useState(false);
+  const [isIdle, setIsIdle] = useState(false)
 
-  const timeoutRef = useRef();
+  const timeoutRef = useRef()
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') return
 
     const reset = () => {
-      setIsIdle(false);
+      setIsIdle(false)
 
       if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current);
+        window.clearTimeout(timeoutRef.current)
       }
       timeoutRef.current = window.setTimeout(() => {
-        setIsIdle(true);
-      }, timeout);
-    };
-    reset();
-    events.forEach((eventName) =>
-      window.addEventListener(eventName, reset, { passive: true })
-    );
+        setIsIdle(true)
+      }, timeout)
+    }
+    reset()
+    events.forEach((eventName) => window.addEventListener(eventName, reset, { passive: true }))
     return () => {
       if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current);
+        window.clearTimeout(timeoutRef.current)
       }
-      events.forEach((eventName) =>
-        window.removeEventListener(eventName, reset)
-      );
-    };
-  }, [timeout]);
+      events.forEach((eventName) => window.removeEventListener(eventName, reset))
+    }
+  }, [timeout])
 
-  return isIdle;
+  return isIdle
 }
 ```

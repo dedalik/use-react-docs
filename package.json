@@ -10,7 +10,12 @@
     "docs:seo": "node utils/inject-seo.mjs",
     "docs:preview": "vitepress preview docs",
     "exportsize:generate": "node utils/generate-export-size.mjs",
-    "predocs:build": "npm run exportsize:generate"
+    "predocs:build": "npm run exportsize:generate",
+    "format": "prettier --write \"docs/**/*.{md,vue,css}\" \"docs/.vitepress/**/*.{ts,mts,vue,css}\" \"utils/**/*.mjs\"",
+    "format:check": "prettier --check \"docs/**/*.{md,vue,css}\" \"docs/.vitepress/**/*.{ts,mts,vue,css}\" \"utils/**/*.mjs\""
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0"
   },
   "dependencies": {
     "@dedalik/use-react": "^1.0.4",

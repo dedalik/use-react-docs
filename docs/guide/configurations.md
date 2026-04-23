@@ -24,7 +24,7 @@ Direct imports reduce ambiguity and make optimization intent obvious in code rev
 All hooks ship with declaration files. This gives you inference for hook return values and safer refactors.
 
 ```ts
-import type { UseAbortControllerReturn } from "@dedalik/use-react/useAbortController";
+import type { UseAbortControllerReturn } from '@dedalik/use-react/useAbortController'
 ```
 
 ## SSR safety

@@ -2,19 +2,19 @@
  * Lightweight line parse of docs/.vitepress/data/hookCatalog.ts (no TS runtime).
  * Returns { categoryId: string[] hookNames }.
  */
-import { readFileSync } from "node:fs"
-import { dirname, join } from "node:path"
-import { fileURLToPath } from "node:url"
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 export function loadHookNamesByCategory() {
-  const path = join(__dirname, "../docs/.vitepress/data/hookCatalog.ts")
-  const text = readFileSync(path, "utf8")
+  const path = join(__dirname, '../docs/.vitepress/data/hookCatalog.ts')
+  const text = readFileSync(path, 'utf8')
   /** @type {Record<string, string[]>} */
   const map = {}
   let current = null
-  for (const line of text.split("\n")) {
+  for (const line of text.split('\n')) {
     const idm = line.match(/^\s*id:\s*"([^"]+)",?\s*$/)
     if (idm) {
       current = idm[1]

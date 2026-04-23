@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="usePrevious" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `usePrevious` gives you the value from the previous render.
@@ -30,8 +30,6 @@ Great for change comparisons, transition logic, and conditionally triggering eff
 
 - Previous value (`undefined` on first render).
 
-
-
 `usePrevious` returns the previous render value for a given input. It is helpful when you need to compare the current and previous values without creating re-render loops.
 
 ## Usage
@@ -39,27 +37,27 @@ Great for change comparisons, transition logic, and conditionally triggering eff
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import usePrevious from "@dedalik/use-react/usePrevious";
+import { useState } from 'react'
+import usePrevious from '@dedalik/use-react/usePrevious'
 
 function CounterHistoryExample() {
-  const [count, setCount] = useState(0);
-  const prev = usePrevious(count);
+  const [count, setCount] = useState(0)
+  const prev = usePrevious(count)
 
   return (
     <div>
-      <button type="button" onClick={() => setCount((c) => c + 1)}>
+      <button type='button' onClick={() => setCount((c) => c + 1)}>
         Increment
       </button>
       <p>
-        Now: {count}, before: {prev ?? "none"}
+        Now: {count}, before: {prev ?? 'none'}
       </p>
     </div>
-  );
+  )
 }
 
 export default function CounterHistoryDemo() {
-  return <CounterHistoryExample />;
+  return <CounterHistoryExample />
 }
 ```
 
@@ -101,24 +99,25 @@ export type UsePreviousType = ReturnType<typeof usePrevious>
 ### JavaScript version
 
 ```js
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react'
 
 /**
  * Returns the previous value from the last render cycle.
  */
 export default function usePrevious(value) {
-  const previousRef = useRef();
+  const previousRef = useRef()
 
   useEffect(() => {
-    previousRef.current = value;
-  }, [value]);
+    previousRef.current = value
+  }, [value])
 
-  return previousRef.current;
+  return previousRef.current
 }
 ```
+
 ## Type declarations
 
 ```ts
-declare function usePrevious<T>(value: T): T | undefined;
-export default usePrevious;
+declare function usePrevious<T>(value: T): T | undefined
+export default usePrevious
 ```

@@ -1,10 +1,10 @@
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs'
+import path from 'node:path'
 
-const docsDir = path.resolve(process.cwd(), "docs/functions");
+const docsDir = path.resolve(process.cwd(), 'docs/functions')
 
 const intro =
-  "Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.";
+  'Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.'
 
 /** @type {Record<string, string>} */
 const usageCode = {
@@ -657,36 +657,36 @@ function ViewportReadoutExample() {
 export default function ViewportReadoutDemo() {
   return <ViewportReadoutExample />;
 }`,
-};
+}
 
 function buildUsageSection(code) {
-  return `## Usage\n\n${intro}\n\n\`\`\`tsx\n${code.trim()}\n\`\`\`\n`;
+  return `## Usage\n\n${intro}\n\n\`\`\`tsx\n${code.trim()}\n\`\`\`\n`
 }
 
 function replaceUsage(md, hookName) {
-  const code = usageCode[hookName];
+  const code = usageCode[hookName]
   if (!code) {
-    console.warn("No usage template for", hookName);
-    return md;
+    console.warn('No usage template for', hookName)
+    return md
   }
-  const section = buildUsageSection(code);
+  const section = buildUsageSection(code)
   const pattern =
-    /\r?\n## Usage\r?\n\r?\n[\s\S]*?(?=\r?\n## (?:API Reference|Copy-paste hook|CSS to hide scroll|Type declarations|Type Declarations)\b)/;
+    /\r?\n## Usage\r?\n\r?\n[\s\S]*?(?=\r?\n## (?:API Reference|Copy-paste hook|CSS to hide scroll|Type declarations|Type Declarations)\b)/
   if (!pattern.test(md)) {
-    console.warn("Usage section not found for", hookName);
-    return md;
+    console.warn('Usage section not found for', hookName)
+    return md
   }
-  return md.replace(pattern, `\n${section}`);
+  return md.replace(pattern, `\n${section}`)
 }
 
-const files = fs.readdirSync(docsDir).filter((f) => /^use.*\.md$/.test(f));
+const files = fs.readdirSync(docsDir).filter((f) => /^use.*\.md$/.test(f))
 
 for (const file of files) {
-  const hookName = path.basename(file, ".md");
-  const mdPath = path.join(docsDir, file);
-  const md = fs.readFileSync(mdPath, "utf8");
-  const next = replaceUsage(md, hookName);
-  fs.writeFileSync(mdPath, `${next.trimEnd()}\n`, "utf8");
+  const hookName = path.basename(file, '.md')
+  const mdPath = path.join(docsDir, file)
+  const md = fs.readFileSync(mdPath, 'utf8')
+  const next = replaceUsage(md, hookName)
+  fs.writeFileSync(mdPath, `${next.trimEnd()}\n`, 'utf8')
 }
 
-console.log(`Updated Usage sections in ${files.length} hook docs.`);
+console.log(`Updated Usage sections in ${files.length} hook docs.`)

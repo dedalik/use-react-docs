@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useLocalStorage" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useLocalStorage` syncs React state with browser `localStorage` and keeps a fallback when storage is unavailable.
@@ -32,8 +32,6 @@ It is beginner-friendly for persisted settings (theme, layout, filters) and incl
 
 - `[value, setValue, removeValue]` tuple for reading, updating, and clearing persisted state.
 
-
-
 `useLocalStorage` stores React state in `localStorage` while remaining safe for SSR and privacy-sensitive environments. If storage is unavailable or disabled, it keeps state in memory.
 
 ## Usage
@@ -41,25 +39,25 @@ It is beginner-friendly for persisted settings (theme, layout, filters) and incl
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useLocalStorage from "@dedalik/use-react/useLocalStorage";
+import { useState } from 'react'
+import useLocalStorage from '@dedalik/use-react/useLocalStorage'
 
 function NotesFieldExample() {
-  const [notes, setNotes, clearNotes] = useLocalStorage("usage-demo-notes", "");
+  const [notes, setNotes, clearNotes] = useLocalStorage('usage-demo-notes', '')
 
   return (
     <div>
       <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
-      <button type="button" onClick={() => clearNotes()}>
+      <button type='button' onClick={() => clearNotes()}>
         Clear storage
       </button>
       <p>Also in localStorage key: usage-demo-notes</p>
     </div>
-  );
+  )
 }
 
 export default function NotesFieldDemo() {
-  return <NotesFieldExample />;
+  return <NotesFieldExample />
 }
 ```
 
@@ -210,116 +208,105 @@ export type UseLocalStorageType = ReturnType<typeof useLocalStorage>
 ### JavaScript version
 
 ```js
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-const isBrowser = typeof window !== 'undefined';
-export default function useLocalStorage(
-  key,
-  initialValue,
-  options = {}
-) {
+const isBrowser = typeof window !== 'undefined'
+export default function useLocalStorage(key, initialValue, options = {}) {
   const {
     initializeWithValue = true,
     enabled = true,
     serializer = JSON.stringify,
     deserializer = JSON.parse,
     storage = isBrowser ? window.localStorage : undefined,
-  } = options;
+  } = options
 
   const getInitialValue = useCallback(() => {
-    return initialValue instanceof Function
-      ? initialValue()
-      : initialValue;
-  }, [initialValue]);
+    return initialValue instanceof Function ? initialValue() : initialValue
+  }, [initialValue])
 
   const readValue = useCallback(() => {
-    const fallback = getInitialValue();
+    const fallback = getInitialValue()
 
     if (!isBrowser || !enabled || !storage) {
-      return fallback;
+      return fallback
     }
     try {
-      const rawValue = storage.getItem(key);
-      return rawValue ? deserializer(rawValue) : fallback;
+      const rawValue = storage.getItem(key)
+      return rawValue ? deserializer(rawValue) : fallback
     } catch {
-      return fallback;
+      return fallback
     }
-  }, [deserializer, enabled, getInitialValue, key, storage]);
+  }, [deserializer, enabled, getInitialValue, key, storage])
 
-  const [storedValue, setStoredValue] = useState(() =>
-    initializeWithValue ? readValue() : getInitialValue()
-  );
+  const [storedValue, setStoredValue] = useState(() => (initializeWithValue ? readValue() : getInitialValue()))
 
   useEffect(() => {
     if (!initializeWithValue) {
-      setStoredValue(readValue());
+      setStoredValue(readValue())
     }
-  }, [initializeWithValue, readValue]);
+  }, [initializeWithValue, readValue])
 
   const setValue = useCallback(
     (value) => {
       setStoredValue((currentValue) => {
-        const valueToStore =
-          value instanceof Function ? value(currentValue) : value;
+        const valueToStore = value instanceof Function ? value(currentValue) : value
 
         if (!isBrowser || !enabled || !storage) {
-          return valueToStore;
+          return valueToStore
         }
         try {
-          storage.setItem(key, serializer(valueToStore));
+          storage.setItem(key, serializer(valueToStore))
         } catch {
           // Ignore quota and privacy mode errors and keep state in memory.
         }
-        return valueToStore;
-      });
+        return valueToStore
+      })
     },
-    [enabled, key, serializer, storage]
-  );
+    [enabled, key, serializer, storage],
+  )
 
   const removeValue = useCallback(() => {
-    const fallback = getInitialValue();
-    setStoredValue(fallback);
+    const fallback = getInitialValue()
+    setStoredValue(fallback)
 
     if (!isBrowser || !enabled || !storage) {
-      return;
+      return
     }
     try {
-      storage.removeItem(key);
+      storage.removeItem(key)
     } catch {
       // Ignore privacy mode errors and keep state in memory.
     }
-  }, [enabled, getInitialValue, key, storage]);
+  }, [enabled, getInitialValue, key, storage])
 
   useEffect(() => {
     if (!isBrowser || !enabled || !storage) {
-      return;
+      return
     }
 
     const onStorage = (event) => {
       if (event.storageArea !== storage || event.key !== key) {
-        return;
+        return
       }
 
       if (event.newValue == null) {
-        setStoredValue(getInitialValue());
-        return;
+        setStoredValue(getInitialValue())
+        return
       }
       try {
-        setStoredValue(deserializer(event.newValue));
+        setStoredValue(deserializer(event.newValue))
       } catch {
-        setStoredValue(getInitialValue());
+        setStoredValue(getInitialValue())
       }
-    };
-    window.addEventListener('storage', onStorage);
-    return () => window.removeEventListener('storage', onStorage);
-  }, [deserializer, enabled, getInitialValue, key, storage]);
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [deserializer, enabled, getInitialValue, key, storage])
 
-  return useMemo(
-    () => [storedValue, setValue, removeValue],
-    [removeValue, setValue, storedValue]
-  );
+  return useMemo(() => [storedValue, setValue, removeValue], [removeValue, setValue, storedValue])
 }
 ```
+
 ## Type declarations
 
 ```ts
@@ -327,13 +314,13 @@ declare function useLocalStorage<T>(
   key: string,
   initialValue: T | (() => T),
   options?: {
-    initializeWithValue?: boolean;
-    enabled?: boolean;
-    serializer?: (value: T) => string;
-    deserializer?: (value: string) => T;
-    storage?: Storage;
-  }
-): [T, React.Dispatch<React.SetStateAction<T>>, () => void];
+    initializeWithValue?: boolean
+    enabled?: boolean
+    serializer?: (value: T) => string
+    deserializer?: (value: string) => T
+    storage?: Storage
+  },
+): [T, React.Dispatch<React.SetStateAction<T>>, () => void]
 
-export default useLocalStorage;
+export default useLocalStorage
 ```

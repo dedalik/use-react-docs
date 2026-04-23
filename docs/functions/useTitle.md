@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useTitle" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useTitle` updates `document.title` from your component.
@@ -31,29 +31,28 @@ Useful for route-like screens and contextual tab labels. Optional restore behavi
 
 - This hook returns nothing.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useTitle from "@dedalik/use-react/useTitle";
+import { useState } from 'react'
+import useTitle from '@dedalik/use-react/useTitle'
 
 function TitleToggleExample() {
-  const [label, setLabel] = useState("My page");
-  useTitle(label, true);
+  const [label, setLabel] = useState('My page')
+  useTitle(label, true)
 
   return (
     <div>
       <input value={label} onChange={(e) => setLabel(e.target.value)} />
       <p>Tab title follows input (restored on unmount)</p>
     </div>
-  );
+  )
 }
 
 export default function TitleToggleDemo() {
-  return <TitleToggleExample />;
+  return <TitleToggleExample />
 }
 ```
 
@@ -96,19 +95,19 @@ export default function useTitle(title: string, restoreOnUnmount = false) {
 ### JavaScript version
 
 ```js
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export default function useTitle(title, restoreOnUnmount = false) {
   useEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (typeof document === 'undefined') return
 
-    const previousTitle = document.title;
-    document.title = title;
+    const previousTitle = document.title
+    document.title = title
 
-    if (!restoreOnUnmount) return;
+    if (!restoreOnUnmount) return
     return () => {
-      document.title = previousTitle;
-    };
-  }, [restoreOnUnmount, title]);
+      document.title = previousTitle
+    }
+  }, [restoreOnUnmount, title])
 }
 ```

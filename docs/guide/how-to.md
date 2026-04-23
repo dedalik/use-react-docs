@@ -36,14 +36,14 @@ Peer dependencies are **React** and **React DOM** (17+ through current stable re
 Prefer **per-hook entry points** when you care about predictable dead-code elimination:
 
 ```tsx
-import useDebounce from "@dedalik/use-react/useDebounce";
-import useWindowSize from "@dedalik/use-react/useWindowSize";
+import useDebounce from '@dedalik/use-react/useDebounce'
+import useWindowSize from '@dedalik/use-react/useWindowSize'
 ```
 
 You can still import from the **barrel** when prototyping:
 
 ```tsx
-import { useDebounce, useWindowSize } from "@dedalik/use-react";
+import { useDebounce, useWindowSize } from '@dedalik/use-react'
 ```
 
 For production bundles, the per-hook style is usually the safer default. See [Bundle Optimization](/guide/bundle-optimization) for bundler-specific notes.
@@ -57,13 +57,13 @@ For production bundles, the per-hook style is usually the safer default. See [Bu
 Minimal pattern:
 
 ```tsx
-import { useRef } from "react";
-import useClickOutside from "@dedalik/use-react/useClickOutside";
+import { useRef } from 'react'
+import useClickOutside from '@dedalik/use-react/useClickOutside'
 
 export function Panel() {
-  const ref = useRef<HTMLDivElement>(null);
-  useClickOutside(ref, () => console.log("outside"));
-  return <div ref={ref}>Content</div>;
+  const ref = useRef<HTMLDivElement>(null)
+  useClickOutside(ref, () => console.log('outside'))
+  return <div ref={ref}>Content</div>
 }
 ```
 

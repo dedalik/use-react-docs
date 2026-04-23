@@ -9,8 +9,8 @@ description: >-
   state, browser APIs, observers, async. Tree-shakable imports, SSR notes, and tests.
 
 hero:
-  name: "useReact"
-  text: "Collection of React Hooks"
+  name: 'useReact'
+  text: 'Collection of React Hooks'
   tagline: Typed, tree-shakable utilities with copy-paste examples, SSR callouts, and tests behind every export.
 
   image:

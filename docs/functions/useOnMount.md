@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useOnMount" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useOnMount` runs a callback when component mounts.
@@ -30,8 +30,6 @@ It keeps mount-only setup concise for beginners and avoids repeating lifecycle b
 
 - This hook returns nothing.
 
-
-
 `useOnMount` is a custom React hook designed to execute a callback function when a component mounts. This hook provides a clear and concise way to handle side-effects or initialize states when the component first renders, similar to the `componentDidMount` lifecycle method in class components.
 
 ## Features
@@ -45,20 +43,20 @@ It keeps mount-only setup concise for beginners and avoids repeating lifecycle b
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useCallback, useState } from "react";
-import useOnMount from "@dedalik/use-react/useOnMount";
+import { useCallback, useState } from 'react'
+import useOnMount from '@dedalik/use-react/useOnMount'
 
 function MountPingExample() {
-  const [msg, setMsg] = useState("waiting...");
-  const onMount = useCallback(() => setMsg("mounted"), []);
+  const [msg, setMsg] = useState('waiting...')
+  const onMount = useCallback(() => setMsg('mounted'), [])
 
-  useOnMount(onMount);
+  useOnMount(onMount)
 
-  return <p>{msg}</p>;
+  return <p>{msg}</p>
 }
 
 export default function MountPingDemo() {
-  return <MountPingExample />;
+  return <MountPingExample />
 }
 ```
 
@@ -95,16 +93,17 @@ export default function useOnMount(fn: Fn): void {
 ### JavaScript version
 
 ```js
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export default function useOnMount(fn) {
   useEffect(() => {
     if (typeof fn === 'function') {
-      fn();
+      fn()
     }
-  }, [fn]);
+  }, [fn])
 }
 ```
+
 ## Type Declarations
 
 - `Fn`: Type alias for a function with no arguments and no return value. This is the type of the `fn` argument expected by `useOnMount`.

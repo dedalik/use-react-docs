@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useHash" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useHash` reads and writes `window.location.hash` reactively.
@@ -43,23 +43,23 @@ It helps beginners build lightweight URL-based state (tabs, anchor-driven naviga
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import useHash from "@dedalik/use-react/useHash";
+import useHash from '@dedalik/use-react/useHash'
 
 function HashPanelExample() {
-  const [hash, setHash] = useHash();
+  const [hash, setHash] = useHash()
 
   return (
     <div>
-      <p>Current hash: {hash || "(empty)"}</p>
-      <button type="button" onClick={() => setHash("#section-a")}>
+      <p>Current hash: {hash || '(empty)'}</p>
+      <button type='button' onClick={() => setHash('#section-a')}>
         Set #section-a
       </button>
     </div>
-  );
+  )
 }
 
 export default function HashPanelDemo() {
-  return <HashPanelExample />;
+  return <HashPanelExample />
 }
 ```
 
@@ -140,8 +140,8 @@ export default useHash
 ### JavaScript version
 
 ```js
-import { useCallback, useEffect, useState } from "react";
-import { on, off } from "../utils/helpers";
+import { useCallback, useEffect, useState } from 'react'
+import { on, off } from '../utils/helpers'
 
 /**
  * Custom React hook for reading and updating the URL hash (window.location.hash).
@@ -150,24 +150,24 @@ import { on, off } from "../utils/helpers";
  */
 const useHash = () => {
   // State to store the current hash value.
-  const [hash, setLocalHash] = useState(() => window.location.hash);
+  const [hash, setLocalHash] = useState(() => window.location.hash)
   /**
    * Callback function to update the hash state based on the current window location hash.
    * This function is memoized with useCallback to avoid unnecessary re-creations.
    */
   const onHashChange = useCallback(() => {
-    setLocalHash(window.location.hash);
-  }, []);
+    setLocalHash(window.location.hash)
+  }, [])
   /**
    * useEffect hook to set up and clean up the hashchange event listener.
    * Adds an event listener when the component mounts and removes it when the component unmounts.
    */
   useEffect(() => {
     // Registers the onHashChange event listener for 'hashchange' events.
-    on(window, 'hashchange', onHashChange);
+    on(window, 'hashchange', onHashChange)
     // Cleanup function to remove the event listener.
-    return () => off(window, 'hashchange', onHashChange);
-  }, [onHashChange]);
+    return () => off(window, 'hashchange', onHashChange)
+  }, [onHashChange])
   /**
    * Function to update the URL hash.
    * It checks if the new hash is different from the current one before updating to prevent unnecessary changes.
@@ -177,20 +177,21 @@ const useHash = () => {
   const setHash = useCallback(
     (newHash) => {
       if (newHash !== hash) {
-        window.location.hash = newHash;
+        window.location.hash = newHash
       }
     },
-    [hash]
-  );
+    [hash],
+  )
   // Return the current hash and the function to update it.
-  return [hash, setHash];
-};
+  return [hash, setHash]
+}
 
-export default useHash;
+export default useHash
 ```
+
 ## Type declarations
 
 ```typescript
-declare const useHash: () => [string, (newHash: string) => void];
-export default useHash;
+declare const useHash: () => [string, (newHash: string) => void]
+export default useHash
 ```

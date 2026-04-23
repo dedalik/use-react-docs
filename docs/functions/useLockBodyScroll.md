@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useLockBodyScroll" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useLockBodyScroll` prevents page scrolling while a UI state is active.
@@ -30,45 +30,44 @@ Typical use case is modal or drawer overlays where background scrolling should b
 
 - This hook returns nothing.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useLockBodyScroll from "@dedalik/use-react/useLockBodyScroll";
+import { useState } from 'react'
+import useLockBodyScroll from '@dedalik/use-react/useLockBodyScroll'
 
 function ModalScrollLockExample() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
-  useLockBodyScroll(open);
+  useLockBodyScroll(open)
 
   return (
     <div>
-      <button type="button" onClick={() => setOpen((v) => !v)}>
-        {open ? "Close overlay" : "Open overlay"}
+      <button type='button' onClick={() => setOpen((v) => !v)}>
+        {open ? 'Close overlay' : 'Open overlay'}
       </button>
       {open ? (
         <div
-          role="dialog"
+          role='dialog'
           style={{
-            position: "fixed",
+            position: 'fixed',
             inset: 0,
-            background: "rgba(0,0,0,0.4)",
-            display: "grid",
-            placeItems: "center",
+            background: 'rgba(0,0,0,0.4)',
+            display: 'grid',
+            placeItems: 'center',
           }}
         >
-          <div style={{ background: "#fff", padding: 24 }}>Scroll is locked on the body</div>
+          <div style={{ background: '#fff', padding: 24 }}>Scroll is locked on the body</div>
         </div>
       ) : null}
     </div>
-  );
+  )
 }
 
 export default function ModalScrollLockDemo() {
-  return <ModalScrollLockExample />;
+  return <ModalScrollLockExample />
 }
 ```
 
@@ -108,17 +107,17 @@ export default function useLockBodyScroll(locked = true) {
 ### JavaScript version
 
 ```js
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export default function useLockBodyScroll(locked = true) {
   useEffect(() => {
-    if (typeof document === 'undefined' || !locked) return;
+    if (typeof document === 'undefined' || !locked) return
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [locked]);
+      document.body.style.overflow = previousOverflow
+    }
+  }, [locked])
 }
 ```

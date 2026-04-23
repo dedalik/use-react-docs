@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useEventCallback" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useEventCallback` returns a stable callback reference that always executes the latest callback logic.
@@ -30,28 +30,27 @@ This avoids stale closure bugs in event listeners, timers, and external integrat
 
 - A stable callback function with the same call signature as `fn`.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useEventCallback from "@dedalik/use-react/useEventCallback";
+import { useState } from 'react'
+import useEventCallback from '@dedalik/use-react/useEventCallback'
 
 function StableHandlerExample() {
-  const [count, setCount] = useState(0);
-  const bump = useEventCallback(() => setCount((c) => c + 1));
+  const [count, setCount] = useState(0)
+  const bump = useEventCallback(() => setCount((c) => c + 1))
 
   return (
-    <button type="button" onClick={bump}>
+    <button type='button' onClick={bump}>
       Stable handler clicks: {count}
     </button>
-  );
+  )
 }
 
 export default function StableHandlerDemo() {
-  return <StableHandlerExample />;
+  return <StableHandlerExample />
 }
 ```
 
@@ -87,12 +86,12 @@ export default function useEventCallback<T extends AnyFunction>(fn: T): T {
 ### JavaScript version
 
 ```js
-import { useCallback, useRef } from "react";
+import { useCallback, useRef } from 'react'
 
 export default function useEventCallback(fn) {
-  const fnRef = useRef(fn);
-  fnRef.current = fn;
+  const fnRef = useRef(fn)
+  fnRef.current = fn
 
-  return useCallback((...args) => fnRef.current(...args), []);
+  return useCallback((...args) => fnRef.current(...args), [])
 }
 ```

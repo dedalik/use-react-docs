@@ -1,7 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
+import fs from 'node:fs'
+import path from 'node:path'
 
-const docsDir = path.resolve(process.cwd(), "docs/functions");
+const docsDir = path.resolve(process.cwd(), 'docs/functions')
 
 /** @type {Record<string, string>} */
 const apiSections = {
@@ -536,55 +536,55 @@ None.
 
 Latest inner width and height of the \`window\` (zeros when \`window\` is unavailable).
 `,
-};
+}
 
 function stripOldApiReference(md) {
-  let out = md;
-  out = out.replace(/\n## API Reference[\s\S]*?(?=\n## (?:Copy-paste hook|Type declarations|Type Declarations)\b)/m, "");
+  let out = md
+  out = out.replace(/\n## API Reference[\s\S]*?(?=\n## (?:Copy-paste hook|Type declarations|Type Declarations)\b)/m, '')
   if (/\n## API Reference\b/.test(out)) {
-    const tailMatch = out.match(/\n## API Reference([\s\S]*)$/);
+    const tailMatch = out.match(/\n## API Reference([\s\S]*)$/)
     if (tailMatch) {
-      const tail = tailMatch[1];
-      const tsFence = tail.match(/\n```(?:typescript|ts)\n([\s\S]*?)```\s*$/);
-      if (tsFence && !out.includes("\n## Type declarations") && !out.includes("\n## Type Declarations")) {
-        const restored = `\n## Type declarations\n\n\`\`\`typescript\n${tsFence[1]}\`\`\`\n`;
-        out = out.replace(/\n## API Reference[\s\S]*$/, restored);
+      const tail = tailMatch[1]
+      const tsFence = tail.match(/\n```(?:typescript|ts)\n([\s\S]*?)```\s*$/)
+      if (tsFence && !out.includes('\n## Type declarations') && !out.includes('\n## Type Declarations')) {
+        const restored = `\n## Type declarations\n\n\`\`\`typescript\n${tsFence[1]}\`\`\`\n`
+        out = out.replace(/\n## API Reference[\s\S]*$/, restored)
       } else {
-        out = out.replace(/\n## API Reference[\s\S]*$/, "");
+        out = out.replace(/\n## API Reference[\s\S]*$/, '')
       }
     }
   }
-  return out;
+  return out
 }
 
 function insertApiReference(md, hookName, section) {
-  const markers = ["\n## Copy-paste hook", "\n## Type declarations", "\n## Type Declarations"];
-  let best = -1;
+  const markers = ['\n## Copy-paste hook', '\n## Type declarations', '\n## Type Declarations']
+  let best = -1
   for (const m of markers) {
-    const i = md.indexOf(m);
-    if (i !== -1 && (best === -1 || i < best)) best = i;
+    const i = md.indexOf(m)
+    if (i !== -1 && (best === -1 || i < best)) best = i
   }
-  const block = `\n${section.trim()}\n`;
-  if (best === -1) return `${md.trimEnd()}${block}\n`;
-  return `${md.slice(0, best)}${block}${md.slice(best)}`;
+  const block = `\n${section.trim()}\n`
+  if (best === -1) return `${md.trimEnd()}${block}\n`
+  return `${md.slice(0, best)}${block}${md.slice(best)}`
 }
 
-const files = fs.readdirSync(docsDir).filter((f) => /^use.*\.md$/.test(f));
+const files = fs.readdirSync(docsDir).filter((f) => /^use.*\.md$/.test(f))
 
 for (const file of files) {
-  const hookName = path.basename(file, ".md");
-  const section = apiSections[hookName];
+  const hookName = path.basename(file, '.md')
+  const section = apiSections[hookName]
   if (!section) {
-    console.warn("Missing API template for", hookName);
-    continue;
+    console.warn('Missing API template for', hookName)
+    continue
   }
-  const filePath = path.join(docsDir, file);
-  let md = fs.readFileSync(filePath, "utf8");
-  md = stripOldApiReference(md);
-  if (!md.includes("\n## API Reference")) {
-    md = insertApiReference(md, hookName, section);
+  const filePath = path.join(docsDir, file)
+  let md = fs.readFileSync(filePath, 'utf8')
+  md = stripOldApiReference(md)
+  if (!md.includes('\n## API Reference')) {
+    md = insertApiReference(md, hookName, section)
   }
-  fs.writeFileSync(filePath, md, "utf8");
+  fs.writeFileSync(filePath, md, 'utf8')
 }
 
-console.log(`Unified API Reference in ${files.length} hook docs.`);
+console.log(`Unified API Reference in ${files.length} hook docs.`)

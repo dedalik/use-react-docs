@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useEventListener" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useEventListener` attaches an event listener to `window`, `document`, an element, or another supported target.
@@ -32,27 +32,26 @@ This hook simplifies setup and cleanup logic so beginners can avoid memory leaks
 
 - This hook returns nothing. It manages subscription lifecycle internally.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useEventListener from "@dedalik/use-react/useEventListener";
+import { useState } from 'react'
+import useEventListener from '@dedalik/use-react/useEventListener'
 
 function KeyCounterExample() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
 
-  useEventListener("keydown", () => {
-    setCount((c) => c + 1);
-  });
+  useEventListener('keydown', () => {
+    setCount((c) => c + 1)
+  })
 
-  return <p>Keydown count: {count} (press any key)</p>;
+  return <p>Keydown count: {count} (press any key)</p>
 }
 
 export default function KeyCounterDemo() {
-  return <KeyCounterExample />;
+  return <KeyCounterExample />
 }
 ```
 
@@ -109,29 +108,26 @@ export default function useEventListener<KW extends keyof WindowEventMap>(
 ### JavaScript version
 
 ```js
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react'
 
 export default function useEventListener(eventName, listener, target) {
-  const savedListener = useRef(listener);
+  const savedListener = useRef(listener)
 
   useEffect(() => {
-    savedListener.current = listener;
-  }, [listener]);
+    savedListener.current = listener
+  }, [listener])
 
   useEffect(() => {
     const targetValue =
-      target && 'current' in target
-        ? target.current
-        : target || (typeof window !== 'undefined' ? window : null);
+      target && 'current' in target ? target.current : target || (typeof window !== 'undefined' ? window : null)
 
     if (!targetValue?.addEventListener) {
-      return;
+      return
     }
 
-    const eventListener = (event) => savedListener.current(event);
-    targetValue.addEventListener(eventName, eventListener);
-    return () =>
-      targetValue.removeEventListener(eventName, eventListener);
-  }, [eventName, target]);
+    const eventListener = (event) => savedListener.current(event)
+    targetValue.addEventListener(eventName, eventListener)
+    return () => targetValue.removeEventListener(eventName, eventListener)
+  }, [eventName, target])
 }
 ```

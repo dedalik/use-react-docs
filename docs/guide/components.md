@@ -15,22 +15,22 @@ This makes feature code easier to test, easier to reuse, and simpler to migrate 
 ## Example composition
 
 ```tsx
-import { useState } from "react";
-import useDebounce from "@dedalik/use-react/useDebounce";
-import useAsync from "@dedalik/use-react/useAsync";
+import { useState } from 'react'
+import useDebounce from '@dedalik/use-react/useDebounce'
+import useAsync from '@dedalik/use-react/useAsync'
 
 export default function SearchCard() {
-  const [query, setQuery] = useState("");
-  const debounced = useDebounce(query, 300);
-  const { data, loading, execute } = useAsync(async (q: string) => fetch(`/api?q=${q}`).then((r) => r.json()));
+  const [query, setQuery] = useState('')
+  const debounced = useDebounce(query, 300)
+  const { data, loading, execute } = useAsync(async (q: string) => fetch(`/api?q=${q}`).then((r) => r.json()))
 
   return (
     <div>
       <input value={query} onChange={(e) => setQuery(e.target.value)} />
       <button onClick={() => execute(debounced)}>Search</button>
-      {loading ? "Loading..." : JSON.stringify(data)}
+      {loading ? 'Loading...' : JSON.stringify(data)}
     </div>
-  );
+  )
 }
 ```
 

@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useMediaQuery" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useMediaQuery` evaluates a media query and returns whether it currently matches.
@@ -31,8 +31,6 @@ Use it for behavior-level responsiveness, such as conditional data density, rend
 
 - `boolean` indicating whether the media query currently matches.
 
-
-
 `useMediaQuery` listens to a media query and returns whether it currently matches. It is useful for responsive logic in components, not only responsive CSS styles.
 
 ## Usage
@@ -40,16 +38,16 @@ Use it for behavior-level responsiveness, such as conditional data density, rend
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import useMediaQuery from "@dedalik/use-react/useMediaQuery";
+import useMediaQuery from '@dedalik/use-react/useMediaQuery'
 
 function ColorSchemeExample() {
-  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
 
-  return <p>Dark mode preference: {String(prefersDark)}</p>;
+  return <p>Dark mode preference: {String(prefersDark)}</p>
 }
 
 export default function ColorSchemeDemo() {
-  return <ColorSchemeExample />;
+  return <ColorSchemeExample />
 }
 ```
 
@@ -121,64 +119,53 @@ export type UseMediaQueryType = ReturnType<typeof useMediaQuery>
 ### JavaScript version
 
 ```js
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== 'undefined'
 export default function useMediaQuery(query, options = {}) {
-  const {
-    defaultValue = false,
-    initializeWithValue = true,
-    targetWindow = isBrowser ? window : undefined,
-  } = options;
+  const { defaultValue = false, initializeWithValue = true, targetWindow = isBrowser ? window : undefined } = options
 
   const getMatches = () => {
-    if (
-      !targetWindow ||
-      typeof targetWindow.matchMedia !== 'function'
-    ) {
-      return defaultValue;
+    if (!targetWindow || typeof targetWindow.matchMedia !== 'function') {
+      return defaultValue
     }
-    return targetWindow.matchMedia(query).matches;
-  };
+    return targetWindow.matchMedia(query).matches
+  }
 
-  const [matches, setMatches] = useState(() =>
-    initializeWithValue ? getMatches() : defaultValue
-  );
+  const [matches, setMatches] = useState(() => (initializeWithValue ? getMatches() : defaultValue))
 
   useEffect(() => {
-    if (
-      !targetWindow ||
-      typeof targetWindow.matchMedia !== 'function'
-    ) {
-      return;
+    if (!targetWindow || typeof targetWindow.matchMedia !== 'function') {
+      return
     }
 
-    const mediaQueryList = targetWindow.matchMedia(query);
+    const mediaQueryList = targetWindow.matchMedia(query)
 
     const listener = (event) => {
-      setMatches(event.matches);
-    };
-    setMatches(mediaQueryList.matches);
-    mediaQueryList.addEventListener('change', listener);
+      setMatches(event.matches)
+    }
+    setMatches(mediaQueryList.matches)
+    mediaQueryList.addEventListener('change', listener)
     return () => {
-      mediaQueryList.removeEventListener('change', listener);
-    };
-  }, [query, targetWindow]);
+      mediaQueryList.removeEventListener('change', listener)
+    }
+  }, [query, targetWindow])
 
-  return matches;
+  return matches
 }
 ```
+
 ## Type declarations
 
 ```ts
 declare function useMediaQuery(
   query: string,
   options?: {
-    defaultValue?: boolean;
-    initializeWithValue?: boolean;
-    targetWindow?: Window;
-  }
-): boolean;
+    defaultValue?: boolean
+    initializeWithValue?: boolean
+    targetWindow?: Window
+  },
+): boolean
 
-export default useMediaQuery;
+export default useMediaQuery
 ```

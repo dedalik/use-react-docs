@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useDebounce" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useDebounce` delays value updates until changes stop for the configured delay.
@@ -31,8 +31,6 @@ Beginners often use it for search inputs to avoid hitting the API on every keyst
 
 - Debounced value with the same type as the input value.
 
-
-
 `useDebounce` postpones value updates until the value stops changing for a specified delay. It is useful for search inputs and API calls where every keystroke should not trigger a request.
 
 ## Usage
@@ -40,27 +38,23 @@ Beginners often use it for search inputs to avoid hitting the API on every keyst
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useDebounce from "@dedalik/use-react/useDebounce";
+import { useState } from 'react'
+import useDebounce from '@dedalik/use-react/useDebounce'
 
 function SearchBoxExample() {
-  const [query, setQuery] = useState("");
-  const debouncedQuery = useDebounce(query, 400);
+  const [query, setQuery] = useState('')
+  const debouncedQuery = useDebounce(query, 400)
 
   return (
     <div>
-      <input
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-        placeholder="Type quickly..."
-      />
+      <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder='Type quickly...' />
       <p>Debounced: {debouncedQuery}</p>
     </div>
-  );
+  )
 }
 
 export default function SearchBoxDemo() {
-  return <SearchBoxExample />;
+  return <SearchBoxExample />
 }
 ```
 
@@ -109,29 +103,30 @@ export type UseDebounceType = ReturnType<typeof useDebounce>
 ### JavaScript version
 
 ```js
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 /**
  * Delays value updates until changes stop for the provided delay.
  */
 export default function useDebounce(value, delay = 500) {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+  const [debouncedValue, setDebouncedValue] = useState(value)
 
   useEffect(() => {
     const timeoutId = globalThis.setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+      setDebouncedValue(value)
+    }, delay)
     return () => {
-      globalThis.clearTimeout(timeoutId);
-    };
-  }, [value, delay]);
+      globalThis.clearTimeout(timeoutId)
+    }
+  }, [value, delay])
 
-  return debouncedValue;
+  return debouncedValue
 }
 ```
+
 ## Type declarations
 
 ```ts
-declare function useDebounce<T>(value: T, delay?: number): T;
-export default useDebounce;
+declare function useDebounce<T>(value: T, delay?: number): T
+export default useDebounce
 ```

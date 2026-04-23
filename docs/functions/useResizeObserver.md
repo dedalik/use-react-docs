@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useResizeObserver" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useResizeObserver` tracks element size changes using the Resize Observer API.
@@ -30,30 +30,29 @@ Use it for responsive components that depend on actual element dimensions instea
 
 - Object with `width` and `height` of observed element.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useRef } from "react";
-import useResizeObserver from "@dedalik/use-react/useResizeObserver";
+import { useRef } from 'react'
+import useResizeObserver from '@dedalik/use-react/useResizeObserver'
 
 function MeasuredBoxExample() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { width, height } = useResizeObserver(ref);
+  const ref = useRef<HTMLDivElement>(null)
+  const { width, height } = useResizeObserver(ref)
 
   return (
-    <div ref={ref} style={{ resize: "both", overflow: "auto", border: "1px solid #ccc", padding: 8 }}>
+    <div ref={ref} style={{ resize: 'both', overflow: 'auto', border: '1px solid #ccc', padding: 8 }}>
       <p>
         {Math.round(width)} × {Math.round(height)} px
       </p>
     </div>
-  );
+  )
 }
 
 export default function MeasuredBoxDemo() {
-  return <MeasuredBoxExample />;
+  return <MeasuredBoxExample />
 }
 ```
 
@@ -109,29 +108,29 @@ export default function useResizeObserver(targetRef: RefObject<HTMLElement | nul
 ### JavaScript version
 
 ```js
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export default function useResizeObserver(targetRef) {
-  const [size, setSize] = useState({ width: 0, height: 0 });
+  const [size, setSize] = useState({ width: 0, height: 0 })
 
   useEffect(() => {
-    const target = targetRef.current;
+    const target = targetRef.current
 
-    if (!target || typeof ResizeObserver === 'undefined') return;
+    if (!target || typeof ResizeObserver === 'undefined') return
 
     const observer = new ResizeObserver((entries) => {
-      const entry = entries[0];
+      const entry = entries[0]
 
-      if (!entry) return;
+      if (!entry) return
       setSize({
         width: entry.contentRect.width,
         height: entry.contentRect.height,
-      });
-    });
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, [targetRef]);
+      })
+    })
+    observer.observe(target)
+    return () => observer.disconnect()
+  }, [targetRef])
 
-  return size;
+  return size
 }
 ```

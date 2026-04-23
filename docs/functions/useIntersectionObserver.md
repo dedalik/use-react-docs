@@ -15,8 +15,8 @@ description: >-
 
 <PackageData fn="useIntersectionObserver" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useIntersectionObserver` observes whether an element is visible inside a viewport or container.
@@ -32,31 +32,30 @@ This is a foundational hook for lazy loading, infinite scrolling, and in-view an
 
 - Latest `IntersectionObserverEntry` (or `null` before first observation).
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useRef } from "react";
-import useIntersectionObserver from "@dedalik/use-react/useIntersectionObserver";
+import { useRef } from 'react'
+import useIntersectionObserver from '@dedalik/use-react/useIntersectionObserver'
 
 function SentinelExample() {
-  const ref = useRef<HTMLDivElement>(null);
-  const entry = useIntersectionObserver(ref, { threshold: 0.5 });
+  const ref = useRef<HTMLDivElement>(null)
+  const entry = useIntersectionObserver(ref, { threshold: 0.5 })
 
   return (
-    <div style={{ height: "140vh" }}>
+    <div style={{ height: '140vh' }}>
       <p>Scroll until the box is half visible.</p>
-      <div ref={ref} style={{ height: 80, background: "#eee" }}>
-        {entry?.isIntersecting ? "Visible" : "Not visible"}
+      <div ref={ref} style={{ height: 80, background: '#eee' }}>
+        {entry?.isIntersecting ? 'Visible' : 'Not visible'}
       </div>
     </div>
-  );
+  )
 }
 
 export default function SentinelDemo() {
-  return <SentinelExample />;
+  return <SentinelExample />
 }
 ```
 
@@ -113,37 +112,29 @@ export default function useIntersectionObserver(
 ### JavaScript version
 
 ```js
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-export default function useIntersectionObserver(
-  elementRef,
-  options = {}
-) {
-  const [entry, setEntry] = useState(null);
+export default function useIntersectionObserver(elementRef, options = {}) {
+  const [entry, setEntry] = useState(null)
 
-  const { freezeOnceVisible = false, ...observerOptions } = options;
+  const { freezeOnceVisible = false, ...observerOptions } = options
 
   useEffect(() => {
-    const element = elementRef.current;
+    const element = elementRef.current
 
-    if (!element || typeof IntersectionObserver === 'undefined') return;
+    if (!element || typeof IntersectionObserver === 'undefined') return
 
-    const isFrozen = freezeOnceVisible && entry?.isIntersecting;
+    const isFrozen = freezeOnceVisible && entry?.isIntersecting
 
-    if (isFrozen) return;
+    if (isFrozen) return
 
     const observer = new IntersectionObserver(([nextEntry]) => {
-      setEntry(nextEntry);
-    }, observerOptions);
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, [
-    elementRef,
-    entry?.isIntersecting,
-    freezeOnceVisible,
-    observerOptions,
-  ]);
+      setEntry(nextEntry)
+    }, observerOptions)
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [elementRef, entry?.isIntersecting, freezeOnceVisible, observerOptions])
 
-  return entry;
+  return entry
 }
 ```

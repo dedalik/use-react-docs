@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useMountedState" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useMountedState` returns a function that tells whether component is still mounted.
@@ -30,31 +30,30 @@ This is useful for guarding async callbacks to avoid updates after unmount in co
 
 - Function `() => boolean` that reports mounted status.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useMountedState from "@dedalik/use-react/useMountedState";
+import { useState } from 'react'
+import useMountedState from '@dedalik/use-react/useMountedState'
 
 function MountedProbeExample() {
-  const isMounted = useMountedState();
-  const [label, setLabel] = useState("");
+  const isMounted = useMountedState()
+  const [label, setLabel] = useState('')
 
   return (
     <div>
-      <button type="button" onClick={() => setLabel(isMounted() ? "mounted" : "unmounted")}>
+      <button type='button' onClick={() => setLabel(isMounted() ? 'mounted' : 'unmounted')}>
         Check mounted ref
       </button>
       <p>{label}</p>
     </div>
-  );
+  )
 }
 
 export default function MountedProbeDemo() {
-  return <MountedProbeExample />;
+  return <MountedProbeExample />
 }
 ```
 
@@ -94,18 +93,18 @@ export default function useMountedState(): () => boolean {
 ### JavaScript version
 
 ```js
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from 'react'
 
 export default function useMountedState() {
-  const mountedRef = useRef(false);
+  const mountedRef = useRef(false)
 
   useEffect(() => {
-    mountedRef.current = true;
+    mountedRef.current = true
     return () => {
-      mountedRef.current = false;
-    };
-  }, []);
+      mountedRef.current = false
+    }
+  }, [])
 
-  return useCallback(() => mountedRef.current, []);
+  return useCallback(() => mountedRef.current, [])
 }
 ```

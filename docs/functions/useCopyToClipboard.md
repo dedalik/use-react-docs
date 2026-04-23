@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useCopyToClipboard" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useCopyToClipboard` gives you a copy action and remembers the last copied value.
@@ -30,32 +30,31 @@ It is handy for share links, token copying, and developer tooling UIs where user
 
 - `[copiedText, copy]` where `copy(text)` returns `Promise<boolean>`.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useCopyToClipboard from "@dedalik/use-react/useCopyToClipboard";
+import { useState } from 'react'
+import useCopyToClipboard from '@dedalik/use-react/useCopyToClipboard'
 
 function ShareLinkExample() {
-  const [text, setText] = useState("https://example.com");
-  const [copied, copy] = useCopyToClipboard();
+  const [text, setText] = useState('https://example.com')
+  const [copied, copy] = useCopyToClipboard()
 
   return (
     <div>
       <input value={text} onChange={(e) => setText(e.target.value)} />
-      <button type="button" onClick={() => void copy(text)}>
+      <button type='button' onClick={() => void copy(text)}>
         Copy
       </button>
-      <p>Last copied: {copied || "(empty)"}</p>
+      <p>Last copied: {copied || '(empty)'}</p>
     </div>
-  );
+  )
 }
 
 export default function ShareLinkDemo() {
-  return <ShareLinkExample />;
+  return <ShareLinkExample />
 }
 ```
 
@@ -107,27 +106,24 @@ export default function useCopyToClipboard(): [string, CopyFn] {
 ### JavaScript version
 
 ```js
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react'
 
 export default function useCopyToClipboard() {
-  const [copiedText, setCopiedText] = useState('');
+  const [copiedText, setCopiedText] = useState('')
 
   const copy = useCallback(async (value) => {
-    if (
-      typeof navigator === 'undefined' ||
-      !navigator.clipboard?.writeText
-    ) {
-      return false;
+    if (typeof navigator === 'undefined' || !navigator.clipboard?.writeText) {
+      return false
     }
     try {
-      await navigator.clipboard.writeText(value);
-      setCopiedText(value);
-      return true;
+      await navigator.clipboard.writeText(value)
+      setCopiedText(value)
+      return true
     } catch {
-      return false;
+      return false
     }
-  }, []);
+  }, [])
 
-  return [copiedText, copy];
+  return [copiedText, copy]
 }
 ```

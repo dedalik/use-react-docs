@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useThrottle" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useThrottle` limits how often a rapidly changing value is updated.
@@ -31,29 +31,28 @@ Use it for scroll, resize, and high-frequency events when debouncing is too dela
 
 - Throttled value with the same type as input.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useThrottle from "@dedalik/use-react/useThrottle";
+import { useState } from 'react'
+import useThrottle from '@dedalik/use-react/useThrottle'
 
 function ThrottledSearchExample() {
-  const [query, setQuery] = useState("");
-  const throttled = useThrottle(query, 500);
+  const [query, setQuery] = useState('')
+  const throttled = useThrottle(query, 500)
 
   return (
     <div>
       <input value={query} onChange={(e) => setQuery(e.target.value)} />
       <p>Throttled: {throttled}</p>
     </div>
-  );
+  )
 }
 
 export default function ThrottledSearchDemo() {
-  return <ThrottledSearchExample />;
+  return <ThrottledSearchExample />
 }
 ```
 
@@ -106,31 +105,31 @@ export default function useThrottle<T>(value: T, delay = 500): T {
 ### JavaScript version
 
 ```js
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react'
 
 export default function useThrottle(value, delay = 500) {
-  const [throttledValue, setThrottledValue] = useState(value);
+  const [throttledValue, setThrottledValue] = useState(value)
 
-  const lastExecuted = useRef(0);
+  const lastExecuted = useRef(0)
 
   useEffect(() => {
-    const now = Date.now();
+    const now = Date.now()
 
-    const remaining = delay - (now - lastExecuted.current);
+    const remaining = delay - (now - lastExecuted.current)
 
     if (remaining <= 0) {
-      lastExecuted.current = now;
-      setThrottledValue(value);
-      return;
+      lastExecuted.current = now
+      setThrottledValue(value)
+      return
     }
 
     const timeoutId = globalThis.setTimeout(() => {
-      lastExecuted.current = Date.now();
-      setThrottledValue(value);
-    }, remaining);
-    return () => globalThis.clearTimeout(timeoutId);
-  }, [delay, value]);
+      lastExecuted.current = Date.now()
+      setThrottledValue(value)
+    }, remaining)
+    return () => globalThis.clearTimeout(timeoutId)
+  }, [delay, value])
 
-  return throttledValue;
+  return throttledValue
 }
 ```

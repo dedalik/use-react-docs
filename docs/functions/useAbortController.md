@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useAbortController" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useAbortController` helps you cancel stale async work when a component unmounts or when a new request should replace an old one.
@@ -33,8 +33,6 @@ For beginners, this hook is a safe default for fetch-heavy UIs: search, filters,
 - `renew()`: aborts previous controller and creates a fresh one.
 - `abort()`: aborts current controller immediately.
 
-
-
 `useAbortController` gives you an `AbortController` lifecycle for async operations. It helps cancel pending requests on unmount and avoid race conditions when starting a new request.
 
 ## Usage
@@ -42,29 +40,29 @@ For beginners, this hook is a safe default for fetch-heavy UIs: search, filters,
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import useAbortController from "@dedalik/use-react/useAbortController";
+import useAbortController from '@dedalik/use-react/useAbortController'
 
 function RemotePostExample() {
-  const { renew } = useAbortController();
+  const { renew } = useAbortController()
 
   const load = async () => {
-    const controller = renew();
-    if (!controller) return;
+    const controller = renew()
+    if (!controller) return
 
-    await fetch("https://jsonplaceholder.typicode.com/posts/1", {
+    await fetch('https://jsonplaceholder.typicode.com/posts/1', {
       signal: controller.signal,
-    });
-  };
+    })
+  }
 
   return (
-    <button type="button" onClick={() => void load()}>
+    <button type='button' onClick={() => void load()}>
       Load post (abort-safe)
     </button>
-  );
+  )
 }
 
 export default function RemotePostDemo() {
-  return <RemotePostExample />;
+  return <RemotePostExample />
 }
 ```
 
@@ -150,41 +148,39 @@ export default function useAbortController(): UseAbortControllerReturn {
 ### JavaScript version
 
 ```js
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
-const hasAbortController = typeof AbortController !== 'undefined';
+const hasAbortController = typeof AbortController !== 'undefined'
 function createController() {
-  return hasAbortController ? new AbortController() : null;
+  return hasAbortController ? new AbortController() : null
 }
 /**
  * Provides an AbortController lifecycle that auto-aborts on unmount.
  */
 export default function useAbortController() {
-  const [controller, setController] = useState(() =>
-    createController()
-  );
+  const [controller, setController] = useState(() => createController())
 
   const renew = useCallback(() => {
-    const nextController = createController();
+    const nextController = createController()
     setController((currentController) => {
-      currentController?.abort();
-      return nextController;
-    });
-    return nextController;
-  }, []);
+      currentController?.abort()
+      return nextController
+    })
+    return nextController
+  }, [])
 
   const abort = useCallback(() => {
     setController((currentController) => {
-      currentController?.abort();
-      return createController();
-    });
-  }, []);
+      currentController?.abort()
+      return createController()
+    })
+  }, [])
 
   useEffect(() => {
     return () => {
-      controller?.abort();
-    };
-  }, [controller]);
+      controller?.abort()
+    }
+  }, [controller])
 
   return useMemo(
     () => ({
@@ -193,20 +189,21 @@ export default function useAbortController() {
       renew,
       abort,
     }),
-    [abort, controller, renew]
-  );
+    [abort, controller, renew],
+  )
 }
 ```
+
 ## Type declarations
 
 ```ts
 export interface UseAbortControllerReturn {
-  controller: AbortController | null;
-  signal: AbortSignal | null;
-  renew: () => AbortController | null;
-  abort: () => void;
+  controller: AbortController | null
+  signal: AbortSignal | null
+  renew: () => AbortController | null
+  abort: () => void
 }
 
-declare function useAbortController(): UseAbortControllerReturn;
-export default useAbortController;
+declare function useAbortController(): UseAbortControllerReturn
+export default useAbortController
 ```

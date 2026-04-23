@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import { loadGoogleAnalytics, readStoredConsent, writeStoredConsent } from "../analytics"
+import { onMounted, ref } from 'vue'
+import { loadGoogleAnalytics, readStoredConsent, writeStoredConsent } from '../analytics'
 
 /** Shown only after mount when no prior choice exists (avoids SSR mismatch and flash for returning users). */
 const open = ref(false)
 
 onMounted(() => {
   const stored = readStoredConsent()
-  if (stored === "granted") {
+  if (stored === 'granted') {
     loadGoogleAnalytics()
     return
   }
-  if (stored === "denied") return
+  if (stored === 'denied') return
   open.value = true
 })
 
 function accept() {
-  writeStoredConsent("granted")
+  writeStoredConsent('granted')
   loadGoogleAnalytics()
   open.value = false
 }
 
 function decline() {
-  writeStoredConsent("denied")
+  writeStoredConsent('denied')
   open.value = false
 }
 </script>
@@ -38,16 +38,12 @@ function decline() {
     >
       <p id="cookie-consent-title" class="cookie-consent__title">Cookies and analytics</p>
       <p id="cookie-consent-desc" class="cookie-consent__text">
-        We use Google Analytics to understand how the documentation is used. It only runs if you accept.
-        Declining stores your choice in this browser and does not load analytics scripts.
+        We use Google Analytics to understand how the documentation is used. It only runs if you accept. Declining
+        stores your choice in this browser and does not load analytics scripts.
       </p>
       <div class="cookie-consent__actions">
-        <button type="button" class="cookie-consent__btn cookie-consent__btn--primary" @click="accept">
-          OK
-        </button>
-        <button type="button" class="cookie-consent__btn cookie-consent__btn--ghost" @click="decline">
-          Cancel
-        </button>
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--primary" @click="accept">OK</button>
+        <button type="button" class="cookie-consent__btn cookie-consent__btn--ghost" @click="decline">Cancel</button>
       </div>
     </div>
   </Teleport>
@@ -101,7 +97,10 @@ html.dark .cookie-consent {
   font-size: 13px;
   font-weight: 500;
   border: 1px solid transparent;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .cookie-consent__btn:focus-visible {

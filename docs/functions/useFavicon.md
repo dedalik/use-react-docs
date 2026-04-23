@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useFavicon" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useFavicon` updates the page favicon dynamically at runtime.
@@ -29,8 +29,6 @@ It is useful for branding changes, status indicators, or context-driven visual c
 ### What it returns
 
 - `[favicon, setFavicon]` tuple for reading and updating current favicon value.
-
-
 
 `useFavicon` is a custom React hook that provides an easy and efficient way to dynamically change the favicon of a webpage. A favicon, short for "favorite icon", is a small image displayed in the browser tab next to the page title. This hook allows developers to programmatically update the favicon based on different states or actions within a React application.
 
@@ -46,25 +44,25 @@ It is useful for branding changes, status indicators, or context-driven visual c
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useFavicon from "@dedalik/use-react/useFavicon";
+import { useState } from 'react'
+import useFavicon from '@dedalik/use-react/useFavicon'
 
 function FaviconSwitcherExample() {
-  const [, setFavicon] = useFavicon({ newIcon: "/favicon.ico" });
-  const [url, setUrl] = useState("/favicon.ico");
+  const [, setFavicon] = useFavicon({ newIcon: '/favicon.ico' })
+  const [url, setUrl] = useState('/favicon.ico')
 
   return (
     <div>
       <input value={url} onChange={(e) => setUrl(e.target.value)} />
-      <button type="button" onClick={() => setFavicon(url)}>
+      <button type='button' onClick={() => setFavicon(url)}>
         Apply favicon URL
       </button>
     </div>
-  );
+  )
 }
 
 export default function FaviconSwitcherDemo() {
-  return <FaviconSwitcherExample />;
+  return <FaviconSwitcherExample />
 }
 ```
 
@@ -145,47 +143,43 @@ export type UseFaviconType = ReturnType<typeof useFavicon>
 ### JavaScript version
 
 ```js
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react'
 
-const useFavicon = ({
-  newIcon = '',
-  baseUrl = '',
-  rel = 'icon',
-  doc = document,
-} = {}) => {
-  const [favicon, setFavicon] = useState(newIcon);
+const useFavicon = ({ newIcon = '', baseUrl = '', rel = 'icon', doc = document } = {}) => {
+  const [favicon, setFavicon] = useState(newIcon)
 
   const applyIcon = useCallback(
     (icon) => {
-      let linkElement = doc.head.querySelector(`link[rel*="${rel}"]`);
+      let linkElement = doc.head.querySelector(`link[rel*="${rel}"]`)
 
       if (!linkElement) {
-        linkElement = doc.createElement('link');
-        linkElement.rel = rel;
-        doc.head.appendChild(linkElement);
+        linkElement = doc.createElement('link')
+        linkElement.rel = rel
+        doc.head.appendChild(linkElement)
       }
 
-      const iconUrl = `${baseUrl}${icon}`;
+      const iconUrl = `${baseUrl}${icon}`
 
       if (linkElement.href !== iconUrl) {
-        linkElement.href = iconUrl;
-        linkElement.type = `image/${icon.split('.').pop()}`;
+        linkElement.href = iconUrl
+        linkElement.type = `image/${icon.split('.').pop()}`
       }
     },
-    [baseUrl, rel, doc]
-  );
+    [baseUrl, rel, doc],
+  )
 
   useEffect(() => {
     if (typeof favicon === 'string') {
-      applyIcon(favicon);
+      applyIcon(favicon)
     }
-  }, [favicon, applyIcon]);
+  }, [favicon, applyIcon])
 
-  return [favicon, setFavicon];
-};
+  return [favicon, setFavicon]
+}
 
-export default useFavicon;
+export default useFavicon
 ```
+
 ## Type Declarations
 
 - `UseFaviconOptions`: An object type for passing options to the hook. Contains `newIcon`, `baseUrl`, `rel`, and `doc`.
@@ -195,23 +189,15 @@ export default useFavicon;
 The `useFavicon` hook simplifies the process of changing the favicon dynamically, making it a handy tool for React developers looking to enhance the UI/UX of their web applications.
 
 ```typescript
-import React from "react";
+import React from 'react'
 export interface UseFaviconOptions {
-  newIcon?: string;
-  baseUrl?: string;
-  rel?: string;
-  doc?: Document;
+  newIcon?: string
+  baseUrl?: string
+  rel?: string
+  doc?: Document
 }
-export type UseFaviconReturnType = [
-  string,
-  React.Dispatch<React.SetStateAction<string>>
-];
-declare const useFavicon: ({
-  newIcon,
-  baseUrl,
-  rel,
-  doc,
-}?: UseFaviconOptions) => UseFaviconReturnType;
-export default useFavicon;
-export type UseFaviconType = ReturnType<typeof useFavicon>;
+export type UseFaviconReturnType = [string, React.Dispatch<React.SetStateAction<string>>]
+declare const useFavicon: ({ newIcon, baseUrl, rel, doc }?: UseFaviconOptions) => UseFaviconReturnType
+export default useFavicon
+export type UseFaviconType = ReturnType<typeof useFavicon>
 ```

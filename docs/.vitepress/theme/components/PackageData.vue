@@ -1,29 +1,24 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { data as posts } from "../index.data";
-import exportSizes from "../../../export-size.json";
-import ssrSupport from "../../../ssr-support.json";
-import { getCategoryPath, normalizeHookCategory } from "../composables/hookCategories";
+import { computed } from 'vue'
+import { data as posts } from '../index.data'
+import exportSizes from '../../../export-size.json'
+import ssrSupport from '../../../ssr-support.json'
+import { getCategoryPath, normalizeHookCategory } from '../composables/hookCategories'
 
-const props = defineProps<{ fn: string }>();
+const props = defineProps<{ fn: string }>()
 
 const info = computed(() => {
-  const raw = posts.find((item) => item.sidebar_label === props.fn)!;
+  const raw = posts.find((item) => item.sidebar_label === props.fn)!
   return {
     ...raw,
     category: normalizeHookCategory(raw.sidebar_label, raw.category),
-  };
-});
-const link = computed(
-  () => getCategoryPath(info.value!.category!)
-);
+  }
+})
+const link = computed(() => getCategoryPath(info.value!.category!))
 
-const { size, gzipped } =
-  exportSizes[props.fn as keyof typeof exportSizes] || {};
+const { size, gzipped } = exportSizes[props.fn as keyof typeof exportSizes] || {}
 
-const supportsSsr = computed(
-  () => Boolean(ssrSupport[props.fn as keyof typeof ssrSupport]),
-);
+const supportsSsr = computed(() => Boolean(ssrSupport[props.fn as keyof typeof ssrSupport]))
 </script>
 
 <template>
@@ -44,7 +39,7 @@ const supportsSsr = computed(
     <div opacity="50">SSR</div>
     <div>
       <span :class="['ssr-badge', supportsSsr ? 'ssr-badge--ok' : 'ssr-badge--no']">
-        {{ supportsSsr ? "SSR support" : "Not support" }}
+        {{ supportsSsr ? 'SSR support' : 'Not support' }}
       </span>
     </div>
   </div>

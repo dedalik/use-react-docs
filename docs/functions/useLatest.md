@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useLatest" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useLatest` stores the most recent value inside a ref.
@@ -30,29 +30,28 @@ It is often used together with listeners and async handlers to read fresh values
 
 - A ref object with `.current` always equal to the latest value.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import { useState } from "react";
-import useLatest from "@dedalik/use-react/useLatest";
+import { useState } from 'react'
+import useLatest from '@dedalik/use-react/useLatest'
 
 function LatestMirrorExample() {
-  const [value, setValue] = useState("hello");
-  const latest = useLatest(value);
+  const [value, setValue] = useState('hello')
+  const latest = useLatest(value)
 
   return (
     <div>
       <input value={value} onChange={(e) => setValue(e.target.value)} />
       <p>Ref tracks input: {String(latest.current === value)}</p>
     </div>
-  );
+  )
 }
 
 export default function LatestMirrorDemo() {
-  return <LatestMirrorExample />;
+  return <LatestMirrorExample />
 }
 ```
 
@@ -85,12 +84,12 @@ export default function useLatest<T>(value: T) {
 ### JavaScript version
 
 ```js
-import { useRef } from "react";
+import { useRef } from 'react'
 
 export default function useLatest(value) {
-  const valueRef = useRef(value);
-  valueRef.current = value;
+  const valueRef = useRef(value)
+  valueRef.current = value
 
-  return valueRef;
+  return valueRef
 }
 ```

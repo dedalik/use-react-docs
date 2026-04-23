@@ -15,15 +15,15 @@ without revisiting import strategy later.
 ## Recommended: direct import (single hook)
 
 ```tsx
-import useDebounce from "@dedalik/use-react/useDebounce";
-import useMediaQuery from "@dedalik/use-react/useMediaQuery";
+import useDebounce from '@dedalik/use-react/useDebounce'
+import useMediaQuery from '@dedalik/use-react/useMediaQuery'
 ```
 
 ## Direct import for multiple hooks
 
 ```tsx
-import useDebounce from "@dedalik/use-react/useDebounce";
-import useMediaQuery from "@dedalik/use-react/useMediaQuery";
+import useDebounce from '@dedalik/use-react/useDebounce'
+import useMediaQuery from '@dedalik/use-react/useMediaQuery'
 ```
 
 Use one import line per hook. This keeps import boundaries explicit and avoids accidental package-root imports.

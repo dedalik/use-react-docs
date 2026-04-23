@@ -22,8 +22,8 @@ npm i @dedalik/use-react
 ## Fast import patterns
 
 ```tsx
-import useDebounce from "@dedalik/use-react/useDebounce";
-import useMediaQuery from "@dedalik/use-react/useMediaQuery";
+import useDebounce from '@dedalik/use-react/useDebounce'
+import useMediaQuery from '@dedalik/use-react/useMediaQuery'
 ```
 
 Prefer direct imports when you want the safest bundle optimization path. This approach works especially well
@@ -32,19 +32,19 @@ in mixed or legacy bundler environments where tree-shaking behavior might differ
 ## First example
 
 ```tsx
-import { useState } from "react";
-import useDebounce from "@dedalik/use-react/useDebounce";
+import { useState } from 'react'
+import useDebounce from '@dedalik/use-react/useDebounce'
 
 export default function SearchInput() {
-  const [query, setQuery] = useState("");
-  const debouncedQuery = useDebounce(query, 300);
+  const [query, setQuery] = useState('')
+  const debouncedQuery = useDebounce(query, 300)
 
   return (
     <div>
       <input value={query} onChange={(event) => setQuery(event.target.value)} />
       <p>Debounced: {debouncedQuery}</p>
     </div>
-  );
+  )
 }
 ```
 

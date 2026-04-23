@@ -14,8 +14,8 @@ description: >-
 
 <PackageData fn="useAsync" />
 
-
 Last updated: 23/04/2026, 15:56
+
 ## Overview
 
 `useAsync` wraps an async function and gives you a simple request lifecycle state in one place.
@@ -33,34 +33,33 @@ It is useful for beginners because it standardizes loading, success, and error h
 - `error`: captured error state (or `null` when there is no error).
 - `execute(...args)`: runs the async function with arguments and returns the resulting promise.
 
-
 ## Usage
 
 Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
 
 ```tsx
-import useAsync from "@dedalik/use-react/useAsync";
+import useAsync from '@dedalik/use-react/useAsync'
 
 function JsonUserExample() {
   const { data, loading, error, execute } = useAsync(async (id: number) => {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-    if (!res.ok) throw new Error("Request failed");
-    return res.json();
-  });
+    const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    if (!res.ok) throw new Error('Request failed')
+    return res.json()
+  })
 
   return (
     <div>
-      <button type="button" onClick={() => void execute(1)} disabled={loading}>
+      <button type='button' onClick={() => void execute(1)} disabled={loading}>
         Load user 1
       </button>
-      {error ? <p role="alert">Something went wrong</p> : null}
+      {error ? <p role='alert'>Something went wrong</p> : null}
       {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : null}
     </div>
-  );
+  )
 }
 
 export default function JsonUserDemo() {
-  return <JsonUserExample />;
+  return <JsonUserExample />
 }
 ```
 
@@ -131,14 +130,14 @@ export default function useAsync<T, Args extends unknown[]>(
 ### JavaScript version
 
 ```js
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react'
 
 export default function useAsync(asyncFunction) {
   const [state, setState] = useState({
     loading: false,
     data: null,
     error: null,
-  });
+  })
 
   const execute = useCallback(
     async (...args) => {
@@ -146,22 +145,22 @@ export default function useAsync(asyncFunction) {
         ...currentState,
         loading: true,
         error: null,
-      }));
+      }))
       try {
-        const data = await asyncFunction(...args);
-        setState({ loading: false, data, error: null });
-        return data;
+        const data = await asyncFunction(...args)
+        setState({ loading: false, data, error: null })
+        return data
       } catch (error) {
-        setState({ loading: false, data: null, error });
-        throw error;
+        setState({ loading: false, data: null, error })
+        throw error
       }
     },
-    [asyncFunction]
-  );
+    [asyncFunction],
+  )
 
   return {
     ...state,
     execute,
-  };
+  }
 }
 ```
