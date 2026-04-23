@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import { buildCoreFunctionsSidebarGroup } from "./data/hookCatalog";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -51,125 +52,7 @@ export default defineConfig({
           { text: "Guidelines", link: "/guide/guidelines" },
         ],
       },
-      {
-        text: "Core Functions",
-        collapsed: false,
-        items: [
-          {
-            text: "Overview",
-            link: "/functions/",
-          },
-          {
-            text: "State",
-            link: "/functions/state",
-            collapsed: false,
-            items: [
-              { text: "useToggle", link: "/functions/useToggle" },
-              { text: "useDebounce", link: "/functions/useDebounce" },
-              { text: "usePrevious", link: "/functions/usePrevious" },
-              { text: "useLatest", link: "/functions/useLatest" },
-              { text: "useThrottle", link: "/functions/useThrottle" },
-            ],
-          },
-          {
-            text: "Elements",
-            link: "/functions/elements",
-            collapsed: false,
-            items: [
-              { text: "useTextareaAutoSize", link: "/functions/useTextareaAutoSize" },
-              { text: "useClickOutside", link: "/functions/useClickOutside" },
-              { text: "useDraggable", link: "/functions/useDraggable" },
-            ],
-          },
-          {
-            text: "Browser",
-            link: "/functions/browser",
-            collapsed: true,
-            items: [
-              { text: "useHash", link: "/functions/useHash" },
-              { text: "useFavicon", link: "/functions/useFavicon" },
-              { text: "useMediaQuery", link: "/functions/useMediaQuery" },
-              { text: "useWindowSize", link: "/functions/useWindowSize" },
-              { text: "useTitle", link: "/functions/useTitle" },
-              { text: "useLockBodyScroll", link: "/functions/useLockBodyScroll" },
-              { text: "useScript", link: "/functions/useScript" },
-              { text: "usePageVisibility", link: "/functions/usePageVisibility" },
-              { text: "useCopyToClipboard", link: "/functions/useCopyToClipboard" },
-            ],
-          },
-          {
-            text: "Sensors",
-            link: "/functions/sensors",
-            collapsed: true,
-            items: [
-              { text: "useIdle", link: "/functions/useIdle" },
-              { text: "useIntersectionObserver", link: "/functions/useIntersectionObserver" },
-              { text: "useResizeObserver", link: "/functions/useResizeObserver" },
-              { text: "useMutationObserver", link: "/functions/useMutationObserver" },
-            ],
-          },
-          {
-            text: "Network",
-            link: "/functions/network",
-            collapsed: true,
-            items: [
-              { text: "useAsync", link: "/functions/useAsync" },
-              { text: "useAbortController", link: "/functions/useAbortController" },
-            ],
-          },
-          {
-            text: "Animation",
-            link: "/functions/animation",
-            collapsed: true,
-            items: [{ text: "useRafState", link: "/functions/useRafState" }],
-          },
-          {
-            text: "Component",
-            link: "/functions/component",
-            collapsed: true,
-            items: [
-              { text: "useOnMount", link: "/functions/useOnMount" },
-              { text: "useMountedState", link: "/functions/useMountedState" },
-            ],
-          },
-          {
-            text: "Watch",
-            link: "/functions/watch",
-            collapsed: true,
-            items: [{ text: "useEventListener", link: "/functions/useEventListener" }],
-          },
-          {
-            text: "Reactivity",
-            link: "/functions/reactivity",
-            collapsed: true,
-            items: [{ text: "useEventCallback", link: "/functions/useEventCallback" }],
-          },
-          {
-            text: "Array",
-            link: "/functions/array",
-            collapsed: true,
-            items: [],
-          },
-          {
-            text: "Time",
-            link: "/functions/time",
-            collapsed: true,
-            items: [
-              { text: "useTimeout", link: "/functions/useTimeout" },
-              { text: "useInterval", link: "/functions/useInterval" },
-            ],
-          },
-          {
-            text: "Utilities",
-            link: "/functions/utilities",
-            collapsed: true,
-            items: [
-              { text: "useLocalStorage", link: "/functions/useLocalStorage" },
-              { text: "useSessionStorage", link: "/functions/useSessionStorage" },
-            ],
-          },
-        ],
-      },
+      buildCoreFunctionsSidebarGroup(),
     ] as any,
 
     head: [

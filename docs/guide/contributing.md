@@ -30,6 +30,14 @@ npm run lint
 - Update docs page for changed hook APIs.
 - Use clear Conventional Commit messages.
 
+## Documentation site: new or renamed hooks
+
+The Functions sidebar and the home page category grid both read from a single catalog:
+
+- `docs/.vitepress/data/hookCatalog.ts` - add the hook under the right category (links and `sidebarCollapsed` for the group).
+- `docs/ssr-support.json` - set `true` when the hook is safe with `window` / `document` absent, otherwise `false`.
+- Regenerate bundle size data with `npm run docs:build` (runs `export-size` first) when `@dedalik/use-react` exports change.
+
 ## Writing high-signal PR descriptions
 
 Include:

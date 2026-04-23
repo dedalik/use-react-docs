@@ -19,6 +19,10 @@
     "size": "621 B",
     "gzipped": "328 B"
   },
+  "useDraggable": {
+    "size": "6.6 kB",
+    "gzipped": "1.7 kB"
+  },
   "useEventCallback": {
     "size": "415 B",
     "gzipped": "250 B"

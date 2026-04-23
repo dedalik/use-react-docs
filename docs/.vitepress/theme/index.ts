@@ -3,6 +3,8 @@ import { nextTick, onMounted, watch } from "vue";
 import { useRoute } from "vitepress";
 // import Test from "./components/Note.vue";
 import PackageData from "./components/PackageData.vue";
+import HomeHookShowcase from "./components/HomeHookShowcase.vue";
+import HomeSsrSnapshot from "./components/HomeSsrSnapshot.vue";
 
 import "./styles/tailwind.css";
 import "./styles/styles.css";
@@ -59,5 +61,7 @@ export default {
   enhanceApp({ app }) {
     // register your custom global components
     app.component("PackageData", PackageData);
+    app.component("HomeHookShowcase", HomeHookShowcase);
+    app.component("HomeSsrSnapshot", HomeSsrSnapshot);
   },
 };
