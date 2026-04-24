@@ -13,9 +13,16 @@ need predictable behavior in both browser-only and SSR environments.
 
 ## Choose hooks by responsibility
 
-- State transitions: `useToggle`, `usePrevious`, `useThrottle`
-- Browser interaction: `useMediaQuery`, `useWindowSize`, `useTitle`
-- Async/network: `useAsync`, `useAbortController`
+- State transitions: `useToggle`, `useCounter`, `usePrevious`, `useThrottle`, `useVModel`
+- Browser interaction: `useMediaQuery`, `useBreakpoints`, `useWindowSize`, `useTitle`, `useUserMedia`, `useDisplayMedia`
+- Layout reads: `useElementBounding`, `useElementSize`, `useResizeObserver`, `useElementVisibility`
+- Async/network: `useAsync`, `useAbortController`, `useFetch`, `useWebSocket`
+- Small collections: `useList`, `useCycleList`, `useStepper`
+- Clocks and ticks: `useNow`, `useTimestamp`, `useDateFormat`, `useTimeAgo`, `useCountdown`, `useInterval`, `useTimeout`
+- File picking and drops: `useFileDialog`, `useDropZone`
+- Selection UI: `useTextSelection`
+- Gestures: `usePointer`, `useSwipe`, `useDraggable`
+- Storage: `useLocalStorage`, `useSessionStorage`, `useStorage`
 
 When selecting hooks, start from the problem domain instead of implementation details. For example, if
 the problem is "too many requests", pick timing/network hooks first (`useDebounce`, `useAbortController`)
@@ -28,7 +35,7 @@ for projects with strict dependency policies or internal platform repos that can
 
 ## Prefer explicit cancellation
 
-For request-heavy screens, combine `useAbortController` with `useAsync` to avoid race conditions.
+For request-heavy screens, combine `useAbortController` with `useAsync`, or use `useFetch` for declarative GET-style JSON loads with built-in abort on dependency changes.
 
 This is especially important in UI flows where users type quickly, switch tabs, or update filters repeatedly.
 Without cancellation, stale responses can overwrite newer state and create misleading UI.

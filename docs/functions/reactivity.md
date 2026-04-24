@@ -1,7 +1,7 @@
 ---
 title: Reactivity hooks
 sidebar: true
-description: 'Reactivity: useEventCallback. @dedalik/use-react TypeScript docs.'
+description: 'Reactivity: useEventCallback, refAutoReset, refDebounced, refThrottled. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

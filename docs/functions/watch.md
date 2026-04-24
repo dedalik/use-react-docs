@@ -1,7 +1,7 @@
 ---
 title: Watch hooks
 sidebar: true
-description: 'Watch: useEventListener. @dedalik/use-react TypeScript docs.'
+description: 'Watch: useEventListener, watchImmediate, watchOnce, whenever, watchDebounced, watchThrottled, watchAtMost, watchArray, watchPausable, watchTriggerable, watchWithFilter, watchDeep, watchIgnorable. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

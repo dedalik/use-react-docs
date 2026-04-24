@@ -15,6 +15,10 @@
     "size": "1.3 kB",
     "gzipped": "505 B"
   },
+  "useCountdown": {
+    "size": "3.4 kB",
+    "gzipped": "1.1 kB"
+  },
   "useDebounce": {
     "size": "621 B",
     "gzipped": "328 B"
@@ -114,6 +118,10 @@
   "useTimeout": {
     "size": "546 B",
     "gzipped": "269 B"
+  },
+  "useTimestamp": {
+    "size": "749 B",
+    "gzipped": "390 B"
   },
   "useTitle": {
     "size": "539 B",
