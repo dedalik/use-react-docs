@@ -4,6 +4,28 @@ Official documentation and marketing site for [**useReact**](https://usereact.or
 
 This repository is a **[VitePress](https://vitepress.dev/)** project: guides, API reference for every hook, a custom theme (Vue + Tailwind), and small Node utilities that generate sidebars, sitemaps, and optional bundle-size data.
 
+## API snapshot
+
+- **Current exports:** `188` (hooks + utilities)
+- **Canonical naming:** all hook APIs use `use*` prefixes (`useWatch*`, `useWhenever`, `useRef*`)
+- **Transition hook:** `usePresenceTransition` (renamed to avoid collision with React's built-in `useTransition`)
+- **Export size source:** `docs/export-size.json` (generated from sibling `../use-react/dist`)
+
+### Core sections on docs site
+
+- `State`
+- `Elements`
+- `Browser`
+- `Sensors`
+- `Network`
+- `Animation`
+- `Component`
+- `Watch`
+- `Reactivity`
+- `Array`
+- `Time`
+- `Utilities`
+
 ## Requirements
 
 - **Node.js 24.x** (see `engines` in `package.json` and `.nvmrc`) - matches GitHub Actions and recommended Vercel settings.
@@ -43,6 +65,12 @@ Open the URL VitePress prints (usually `http://localhost:5173`). Edit Markdown u
 | `utils/`           | Node scripts: sitemap, SEO injection, export-size, hook catalog helpers                           |
 
 Hook sidebar and listings are driven by the shared catalog under `docs/.vitepress/data/` and related utilities - see **`docs/guide/contributing.md`** when adding or renaming hooks.
+
+When hook names change, update these sources together:
+
+- `docs/.vitepress/data/hookCatalog.ts` (navigation and grouping)
+- `docs/functions/*.md` (per-hook pages, frontmatter, examples)
+- `docs/export-size.json` (size table used in docs and package README)
 
 ## Deployment
 
