@@ -162,7 +162,7 @@
   "useToNumber": true,
   "useToString": true,
   "useToggle": true,
-  "useTransition": true,
+  "usePresenceTransition": true,
   "useUrlSearchParams": true,
   "useUserMedia": true,
   "useVibrate": true,

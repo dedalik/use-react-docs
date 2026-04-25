@@ -100,7 +100,7 @@ export const hookCategoryOverrides: Record<string, string> = {
   useTimeoutFn: 'Animation',
   useRafFn: 'Animation',
   useAnimate: 'Animation',
-  useTransition: 'Animation',
+  usePresenceTransition: 'Animation',
 
   useOnMount: 'Component',
   useMountedState: 'Component',

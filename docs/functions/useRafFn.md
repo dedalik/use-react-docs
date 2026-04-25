@@ -81,7 +81,7 @@ export default function Demo() {
 
 **`isActive`**, **`start`**, **`stop`**
 
-> **Note:** This is **not** the same as React 18’s concurrent **`useTransition`**. The library’s [`useTransition` hook](./useTransition) controls enter/exit stages.
+> **Note:** This is **not** the same as React 18’s concurrent **`useTransition`**. The library’s [`usePresenceTransition`](./usePresenceTransition) hook controls enter/exit stages.
 
 ## Copy-paste hook
 

@@ -1,25 +1,25 @@
 ---
-title: Transition stage state helper
-sidebar_label: useTransition
+title: Presence transition stage helper
+sidebar_label: usePresenceTransition
 category: Animation
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useTransition.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/usePresenceTransition.tsx'
 description: >-
-  useTransition from @dedalik/use-react: derive enter/exit stages with mount control.
+  usePresenceTransition from @dedalik/use-react: derive enter/exit stages with mount control (no clash with React’s useTransition).
 ---
 
-# useTransition()
+# usePresenceTransition()
 
-<PackageData fn="useTransition" />
+<PackageData fn="usePresenceTransition" />
 
-Last updated: 24/04/2026
+Last updated: 25/04/2026
 
 ## Overview
 
-`useTransition` (this **library** hook, **not** React 18’s concurrent **`useTransition`**) takes a **visibility** boolean **`show`** and a **duration** in ms (default **300**). When **`show`** flips to **true**, it sets **`mounted` true** immediately, moves **`stage`** to **`entering`**, and after **`duration`** sets **`entered`**. When **`show`** is **false**, it sets **`exiting`**, and after **`duration`** sets **`exited`** and **`mounted` false** so you can unmount the subtree. The effect **clears** the timer on re‑run and cleanup, which avoids double‑firing. Initial state matches **`show`**: if **true** you get **`mounted`**/ **`entered`**; if **false** **`exited`**. The **`idle`** value exists in the type for symmetry but the implementation never sets it-treat the union as a hint for your own FSM. Use it to drive **CSS** classes (opacity/transform) in sync with mount timing.
+`usePresenceTransition` takes a **visibility** boolean **`show`** and a **duration** in ms (default **300**). When **`show`** flips to **true**, it sets **`mounted` true** immediately, moves **`stage`** to **`entering`**, and after **`duration`** sets **`entered`**. When **`show`** is **false**, it sets **`exiting`**, and after **`duration`** sets **`exited`** and **`mounted` false** so you can unmount the subtree. The effect **clears** the timer on re‑run and cleanup, which avoids double‑firing. Initial state matches **`show`**: if **true** you get **`mounted`** / **`entered`**; if **false** **`exited`**. The **`idle`** value exists in the type for symmetry but the implementation never sets it-treat the union as a hint for your own FSM. Use it to drive **CSS** classes (opacity/transform) in sync with mount timing.
 
-> **Name collision:** This hook is different from `import { useTransition } from 'react'`. Import from `@dedalik/use-react/useTransition` to get this one.
+> **React 18:** This is **not** `import { useTransition } from 'react'`. That concurrent hook keeps a different name; import this one from `@dedalik/use-react/usePresenceTransition`.
 
 ### What it accepts
 
@@ -29,7 +29,7 @@ Last updated: 24/04/2026
 ### What it returns
 
 - **`mounted`**: `boolean` - true while the child should be in the tree
-- **`stage`**: `TransitionStage` - **`entering` | `entered` | `exiting` | `exited`**
+- **`stage`**: `PresenceTransitionStage` - **`entering` | `entered` | `exiting` | `exited`**
 
 ## Usage
 
@@ -38,11 +38,11 @@ Tie a panel’s **opacity** to **`stage`**, and toggle **`show`**; use **`durati
 ```tsx
 import type { CSSProperties } from 'react'
 import { useState } from 'react'
-import useTransition from '@dedalik/use-react/useTransition'
+import usePresenceTransition from '@dedalik/use-react/usePresenceTransition'
 
 function Example() {
   const [open, setOpen] = useState(false)
-  const { mounted, stage } = useTransition(open, 400)
+  const { mounted, stage } = usePresenceTransition(open, 400)
 
   const style: CSSProperties = {
     opacity: stage === 'entering' || stage === 'exiting' ? 0 : 1,
@@ -72,9 +72,9 @@ export default function Demo() {
 
 ## API Reference
 
-### `useTransition` (use-react)
+### `usePresenceTransition`
 
-**Signature:** `useTransition(show: boolean, duration = 300): UseTransitionReturn`
+**Signature:** `usePresenceTransition(show: boolean, duration = 300): UsePresenceTransitionReturn`
 
 #### Parameters
 
@@ -85,7 +85,7 @@ export default function Demo() {
 
 **`mounted`**, **`stage`**
 
-**Type** - `TransitionStage`: `'idle' | 'entering' | 'entered' | 'exiting' | 'exited'`
+**Type** - `PresenceTransitionStage`: `'idle' | 'entering' | 'entered' | 'exiting' | 'exited'`
 
 ## Copy-paste hook
 
@@ -94,19 +94,22 @@ export default function Demo() {
 ```tsx
 import { useEffect, useState } from 'react'
 
-export type TransitionStage = 'idle' | 'entering' | 'entered' | 'exiting' | 'exited'
+export type PresenceTransitionStage = 'idle' | 'entering' | 'entered' | 'exiting' | 'exited'
 
-export interface UseTransitionReturn {
+export interface UsePresenceTransitionReturn {
   mounted: boolean
-  stage: TransitionStage
+  stage: PresenceTransitionStage
 }
 
 /**
- * Derives transition stage and mount state from a boolean toggle.
+ * Derives enter/exit stage and mount flag from a boolean `show` (presence-style transitions).
  */
-export default function useTransition(show: boolean, duration = 300): UseTransitionReturn {
+export default function usePresenceTransition(
+  show: boolean,
+  duration = 300,
+): UsePresenceTransitionReturn {
   const [mounted, setMounted] = useState(show)
-  const [stage, setStage] = useState<TransitionStage>(show ? 'entered' : 'exited')
+  const [stage, setStage] = useState<PresenceTransitionStage>(show ? 'entered' : 'exited')
 
   useEffect(() => {
     let timeoutId: number | null = null
@@ -138,9 +141,9 @@ export default function useTransition(show: boolean, duration = 300): UseTransit
 import { useEffect, useState } from 'react'
 
 /**
- * Derives transition stage and mount state from a boolean toggle.
+ * Derives enter/exit stage and mount flag from a boolean `show`.
  */
-export default function useTransition(show, duration = 300) {
+export default function usePresenceTransition(show, duration = 300) {
   const [mounted, setMounted] = useState(show)
   const [stage, setStage] = useState(show ? 'entered' : 'exited')
 

@@ -185,7 +185,7 @@ export const hookCategoriesCatalog: HookCategoryCatalog[] = [
       { name: 'useTimeoutFn', link: '/functions/useTimeoutFn' },
       { name: 'useRafFn', link: '/functions/useRafFn' },
       { name: 'useAnimate', link: '/functions/useAnimate' },
-      { name: 'useTransition', link: '/functions/useTransition' },
+      { name: 'usePresenceTransition', link: '/functions/usePresenceTransition' },
     ],
   },
   {

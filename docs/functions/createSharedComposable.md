@@ -17,7 +17,9 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`createSharedComposable` wraps a **factory** `(...args: A) => R` and returns a **new** function. The **first** time that function is **invoked**, it runs **`factory(...args)`**, **stores** the return value, and **sets** a **flag**; every **later** invocation **ignores** new **arguments** and returns the **same** **cached** **instance**. This is useful when the **factory** is a **custom** **hook** (or **hook**-shaped **composable**): the **first** **mounting** **component** “wins” the **state**; **siblings** **share** it. It is **not** React-**concurrent**-safe by **itself** if the **factory** has **per-call** **assumptions**-use for **intentional** **singletons** (e.g. one **shared** **ref** or **event** **buffer**). For **independent** **state** per **call** **site**, do **not** use this **wrapper**.
+`createSharedComposable` wraps a **factory** `(...args: A) => R` and returns a **new** function. The **first** time that function is **invoked**, it runs **`factory(...args)`**, **stores** the return value, and **sets** a **flag**; every **later** invocation **ignores** new **arguments** and returns the **same** **cached** **instance**.
+
+**Rules of Hooks:** `factory` must **not** call React hooks (`useState`, `useEffect`, …). Because the factory runs **only once**, a hook-based factory would execute hooks a single time and break React’s expectations for per-component hook order. Use this helper only for **hook-free** singletons: plain objects, services, caches, or composables that do not use React state or effects. For per-component state, use normal hooks or context instead.
 
 ### What it accepts
 
@@ -29,27 +31,34 @@ Last updated: 24/04/2026
 
 ## Usage
 
-**First** **hook** **call** with **`'alpha'`** **freezes** the **label**; a **second** **component** calling with **`'beta'`** still sees **`'alpha'`** (intentional **singleton**).
+**First** call passes **`'app'`** into the factory; a **second** component calling with **`'other'`** still receives the **same** logger object (arguments after the first call are ignored).
 
 ```tsx
-import { useState } from 'react'
 import createSharedComposable from '@dedalik/use-react/createSharedComposable'
 
-const useSharedLabel = createSharedComposable((prefix: string) => {
-  const [text, setText] = useState(prefix)
-  return { text, setText }
-})
+type Logger = { log: (message: string) => void }
+
+const getSharedLogger = createSharedComposable((prefix: string): Logger => ({
+  log(message: string) {
+    // eslint-disable-next-line no-console
+    console.log(`[${prefix}] ${message}`)
+  },
+}))
 
 function A() {
-  const { text } = useSharedLabel('alpha')
-  return <p>A reads: {text}</p>
+  const { log } = getSharedLogger('app')
+  return (
+    <button type="button" onClick={() => log('click from A')}>
+      A
+    </button>
+  )
 }
 
 function B() {
-  const { setText } = useSharedLabel('beta')
+  const { log } = getSharedLogger('other')
   return (
-    <button type="button" onClick={() => setText('from B')}>
-      Update shared state
+    <button type="button" onClick={() => log('click from B')}>
+      B
     </button>
   )
 }
@@ -80,7 +89,8 @@ export default function Demo() {
 
 ```ts
 /**
- * Creates a shared singleton result for plain composable factories.
+ * Returns a singleton wrapper around `factory`.
+ * `factory` must not call React hooks - only plain singletons or hook-free composables.
  */
 export default function createSharedComposable<A extends unknown[], R>(factory: (...args: A) => R) {
   let initialized = false
@@ -100,7 +110,8 @@ export default function createSharedComposable<A extends unknown[], R>(factory: 
 
 ```js
 /**
- * Creates a shared singleton result for plain composable factories.
+ * Returns a singleton wrapper around `factory`.
+ * `factory` must not call React hooks.
  */
 export default function createSharedComposable(factory) {
   let initialized = false

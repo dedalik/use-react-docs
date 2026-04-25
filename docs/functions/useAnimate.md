@@ -89,7 +89,7 @@ export default function Demo() {
 
 **`isSupported`**, **`running`**, **`play`**, **`cancel`**
 
-> **Not** React 18’s concurrent `useTransition`. For enter/exit **stage** state, see the library’s [`useTransition`](./useTransition) hook (different name collision).
+> **Not** React 18’s concurrent `useTransition`. For enter/exit **stage** state, see [`usePresenceTransition`](./usePresenceTransition).
 
 ## Copy-paste hook
 

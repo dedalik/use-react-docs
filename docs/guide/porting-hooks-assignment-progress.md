@@ -158,7 +158,7 @@ description: >-
 - [x] useTimeout
 - [x] useTimeoutFn
 - [x] useTimestamp
-- [x] useTransition
+- [x] usePresenceTransition
 
 ## Component
 
