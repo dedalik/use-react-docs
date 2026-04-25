@@ -4,60 +4,59 @@ sidebar_label: useLocalStorage
 category: Storage
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useLocalStorage'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useLocalStorage.tsx'
 description: >-
-  useLocalStorage from @dedalik/use-react: Persist state in localStorage.
-  TypeScript, tree-shakable import, examples, SSR notes.
+  useLocalStorage from @dedalik/use-react: useState-like API backed by localStorage, sync, SSR-safe.
 ---
 
 # useLocalStorage()
 
 <PackageData fn="useLocalStorage" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useLocalStorage` syncs React state with browser `localStorage` and keeps a fallback when storage is unavailable.
-
-It is beginner-friendly for persisted settings (theme, layout, filters) and includes options for SSR-safe initialization and custom serialization.
+`useLocalStorage` mirrors **`useState`** with a persistent layer: you pass a **storage key**, an **initial value** (or lazy initializer), and optional **options**. On each **set**, it updates React state and **writes** through **`serializer`** (default **`JSON.stringify`**) to **`localStorage`** (or a custom **`storage`**). Reads use **`deserializer`** (default **`JSON.parse`)**. If **`enabled`** is false, **`localStorage`** is missing, or a write **throws** (quota, private mode), state still updates **in memory**. It listens to the global **`storage`** event so **other tabs** editing the same key rehydrate this hook. **`removeValue`** clears the key and resets to **initial**. **`initializeWithValue: false`** defers the first read until after mount (avoids some SSR footguns). Defaults assume a **browser**; on the **server** it uses **initial** only.
 
 ### What it accepts
 
-- `key`: storage key.
-- `initialValue`: initial state or lazy initializer function.
-- `options` (optional): serializer, deserializer, and storage behavior flags.
+1. **`key`**: `string`
+2. **`initialValue`**: `T` or `() => T`
+3. **`options`** (optional): `initializeWithValue?`, `enabled?`, `serializer?`, `deserializer?`, `storage?`
 
 ### What it returns
 
-- `[value, setValue, removeValue]` tuple for reading, updating, and clearing persisted state.
-
-`useLocalStorage` stores React state in `localStorage` while remaining safe for SSR and privacy-sensitive environments. If storage is unavailable or disabled, it keeps state in memory.
+- **Tuple** `[T, setValue, removeValue]` - **`setValue`** like **`useState`**, **`removeValue`** clears storage and resets to initial
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Persist **theme** and a **reset**; optional **`enabled`** stays useful when gating for tests or embeds.
 
 ```tsx
-import { useState } from 'react'
 import useLocalStorage from '@dedalik/use-react/useLocalStorage'
 
-function NotesFieldExample() {
-  const [notes, setNotes, clearNotes] = useLocalStorage('usage-demo-notes', '')
+function Example() {
+  const [theme, setTheme, remove] = useLocalStorage<'light' | 'dark'>('app:theme', 'light', {
+    enabled: true,
+    initializeWithValue: true,
+  })
 
   return (
     <div>
-      <textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
-      <button type='button' onClick={() => clearNotes()}>
-        Clear storage
+      <p>Current theme: {theme}</p>
+      <button type="button" onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}>
+        Toggle
       </button>
-      <p>Also in localStorage key: usage-demo-notes</p>
+      <button type="button" onClick={remove}>
+        Use default
+      </button>
     </div>
   )
 }
 
-export default function NotesFieldDemo() {
-  return <NotesFieldExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -65,19 +64,11 @@ export default function NotesFieldDemo() {
 
 ### `useLocalStorage`
 
-**Signature:** `useLocalStorage<T>(key, initialValue, options?)`
-
-#### Parameters
-
-1. **`key`** - `localStorage` key string.
-2. **`initialValue`** - Initial value or lazy `() => T` when nothing is stored yet.
-3. **`options`** (optional) - `initializeWithValue`, `enabled`, `serializer`, `deserializer`, `storage`.
-
-#### Returns
-
-Tuple `[value, setValue, removeValue]` - same ergonomics as `useState`, plus explicit removal from storage.
+**Signature:** `useLocalStorage<T>(key: string, initialValue: InitialValue<T>, options?: UseLocalStorageOptions<T>): [T, SetValue<T>, () => void]`
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
@@ -205,12 +196,13 @@ export default function useLocalStorage<T>(
 export type UseLocalStorageType = ReturnType<typeof useLocalStorage>
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
+
 export default function useLocalStorage(key, initialValue, options = {}) {
   const {
     initializeWithValue = true,
@@ -230,6 +222,7 @@ export default function useLocalStorage(key, initialValue, options = {}) {
     if (!isBrowser || !enabled || !storage) {
       return fallback
     }
+
     try {
       const rawValue = storage.getItem(key)
       return rawValue ? deserializer(rawValue) : fallback
@@ -254,11 +247,13 @@ export default function useLocalStorage(key, initialValue, options = {}) {
         if (!isBrowser || !enabled || !storage) {
           return valueToStore
         }
+
         try {
           storage.setItem(key, serializer(valueToStore))
         } catch {
           // Ignore quota and privacy mode errors and keep state in memory.
         }
+
         return valueToStore
       })
     },
@@ -272,6 +267,7 @@ export default function useLocalStorage(key, initialValue, options = {}) {
     if (!isBrowser || !enabled || !storage) {
       return
     }
+
     try {
       storage.removeItem(key)
     } catch {
@@ -293,34 +289,18 @@ export default function useLocalStorage(key, initialValue, options = {}) {
         setStoredValue(getInitialValue())
         return
       }
+
       try {
         setStoredValue(deserializer(event.newValue))
       } catch {
         setStoredValue(getInitialValue())
       }
     }
+
     window.addEventListener('storage', onStorage)
     return () => window.removeEventListener('storage', onStorage)
   }, [deserializer, enabled, getInitialValue, key, storage])
 
   return useMemo(() => [storedValue, setValue, removeValue], [removeValue, setValue, storedValue])
 }
-```
-
-## Type declarations
-
-```ts
-declare function useLocalStorage<T>(
-  key: string,
-  initialValue: T | (() => T),
-  options?: {
-    initializeWithValue?: boolean
-    enabled?: boolean
-    serializer?: (value: T) => string
-    deserializer?: (value: string) => T
-    storage?: Storage
-  },
-): [T, React.Dispatch<React.SetStateAction<T>>, () => void]
-
-export default useLocalStorage
 ```

@@ -1,45 +1,69 @@
 ---
-title: Live Unix timestamp in milliseconds
+title: Live millisecond timestamp
 sidebar_label: useTimestamp
 category: Time
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useTimestamp'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useTimestamp.tsx'
 description: >-
-  useTimestamp from @dedalik/use-react: Date.now() on an interval. TypeScript,
-  tree-shakable import, examples, SSR notes.
+  useTimestamp from @dedalik/use-react: Date.now on an interval, same as useNow but number.
 ---
 
 # useTimestamp()
 
 <PackageData fn="useTimestamp" />
 
-Last updated: 23/04/2026
+Last updated: 24/04/2026
 
 ## Overview
 
-`useTimestamp` returns `Date.now()` and refreshes it on a timer—lighter than keeping a full `Date` (`useNow`) when you only need a millisecond epoch for keys, cache busting, or comparisons.
+`useTimestamp` is **`useNow`** in **numeric** form: **`state`** holds **`Date.now()`** and a **`setInterval`** refreshes it. **Default** `interval` **1000** ms; **`null` or `0`** (or `≤0`) **disables** ticking after the initial value. Handy for **stale-time** math, **elapsed** ms, or passing a **number** to APIs; pair with `new Date(ts)` for display. Same **caveats** on background tab throttling. Server render uses the first **`Date.now()`** at that moment.
 
 ### What it accepts
 
-- **`options.interval`** (optional, default `1000`) — ms between updates, or `null` / `0` to freeze at mount.
+- Optional **`options`**: `{ interval?: number | null }` - same semantics as **useNow**
 
 ### What it returns
 
-- `number` — Unix timestamp in milliseconds.
-
-## SSR
-
-First render uses the server clock; after hydration the interval may advance the value—same caveats as `useNow`.
+- **`number`**: Unix ms (wall clock)
 
 ## Usage
 
+Show **elapsed** ms since a **Start** **click** (timestamp stored in state), updating every **100 ms** while **running**.
+
 ```tsx
+import { useState } from 'react'
 import useTimestamp from '@dedalik/use-react/useTimestamp'
 
-export default function EpochDemo() {
-  const ts = useTimestamp({ interval: 1000 })
-  return <output>{ts}</output>
+function Example() {
+  const [start, setStart] = useState<number | null>(null)
+  const [running, setRunning] = useState(false)
+  const now = useTimestamp({ interval: running ? 100 : 0 })
+  const elapsed = start == null ? 0 : now - start
+
+  return (
+    <div>
+      <p>Elapsed: {start == null ? '-' : `${(elapsed / 1000).toFixed(1)}s`}</p>
+      <button
+        type="button"
+        onClick={() => {
+          if (!running) {
+            setStart(Date.now())
+            setRunning(true)
+          } else {
+            setRunning(false)
+            setStart(null)
+          }
+        }}
+      >
+        {running ? 'Stop' : 'Start'}
+      </button>
+    </div>
+  )
+}
+
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -47,24 +71,66 @@ export default function EpochDemo() {
 
 ### `useTimestamp`
 
-**Signature:** `useTimestamp(options?): number`
-
-#### Parameters
-
-1. **`options`** — `{ interval?: number | null }`.
-
-#### Returns
-
-Milliseconds since Unix epoch.
+**Signature:** `useTimestamp(options?: UseTimestampOptions): number`
 
 ## Copy-paste hook
 
-Source of truth: [`useTimestamp.tsx` on GitHub](https://github.com/dedalik/use-react/blob/main/src/hooks/useTimestamp.tsx).
+### TypeScript
 
-## Type declarations
+```tsx
+import { useEffect, useState } from 'react'
 
-```ts
-declare function useTimestamp(options?: { interval?: number | null }): number
+export interface UseTimestampOptions {
+  interval?: number | null
+}
 
-export default useTimestamp
+/**
+ * Live Unix timestamp in milliseconds (`Date.now()`), refreshed on an interval (client only).
+ */
+export default function useTimestamp(options: UseTimestampOptions = {}): number {
+  const { interval = 1000 } = options
+  const [ts, setTs] = useState(() => Date.now())
+
+  useEffect(() => {
+    if (interval == null || interval <= 0) {
+      return
+    }
+
+    const id = window.setInterval(() => {
+      setTs(Date.now())
+    }, interval)
+
+    return () => window.clearInterval(id)
+  }, [interval])
+
+  return ts
+}
+```
+
+### JavaScript
+
+```js
+import { useEffect, useState } from 'react'
+
+/**
+ * Live Unix timestamp in milliseconds (`Date.now()`), refreshed on an interval (client only).
+ */
+export default function useTimestamp(options = {}) {
+  const { interval = 1000 } = options
+  const [ts, setTs] = useState(() => Date.now())
+
+  useEffect(() => {
+    if (interval == null || interval <= 0) {
+      return
+    }
+
+    const id = window.setInterval(() => {
+      setTs(Date.now())
+    }, interval)
+
+    return () => window.clearInterval(id)
+  }, [interval])
+
+  return ts
+}
 ```

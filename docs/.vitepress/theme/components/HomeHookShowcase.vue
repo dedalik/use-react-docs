@@ -7,6 +7,17 @@ import { hookCategoriesCatalog, totalHooks } from '../../data/hookCatalog'
   <div class="home-showcase" aria-labelledby="home-showcase-title">
     <div class="home-showcase__glow" aria-hidden="true" />
 
+    <div class="home-showcase__hero-badges" aria-label="Project highlights">
+      <div class="home-showcase__hero-badge home-showcase__hero-badge--primary">
+        <span class="home-showcase__hero-value">{{ totalHooks }}</span>
+        <span class="home-showcase__hero-label">hooks</span>
+      </div>
+      <div class="home-showcase__hero-badge">
+        <span class="home-showcase__hero-value home-showcase__hero-value--small">Tree-shakable</span>
+        <span class="home-showcase__hero-label">imports</span>
+      </div>
+    </div>
+
     <div class="home-showcase__inner">
       <p class="home-showcase__eyebrow">
         <span class="home-showcase__pulse" aria-hidden="true" />
@@ -86,6 +97,59 @@ import { hookCategoriesCatalog, totalHooks } from '../../data/hookCatalog'
 .home-showcase__inner {
   position: relative;
   z-index: 1;
+}
+
+.home-showcase__hero-badges {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.home-showcase__hero-badge {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 170px;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, transparent);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--vp-c-bg-soft) 92%, var(--vp-c-brand-1)) 0%,
+    color-mix(in srgb, var(--vp-c-bg-soft) 96%, var(--vp-c-brand-soft)) 100%
+  );
+  box-shadow: 0 14px 30px -24px color-mix(in srgb, var(--vp-c-brand-1) 48%, transparent);
+}
+
+.home-showcase__hero-badge--primary {
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
+}
+
+.home-showcase__hero-value {
+  display: block;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--vp-c-text-1);
+}
+
+.home-showcase__hero-value--small {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  letter-spacing: -0.01em;
+}
+
+.home-showcase__hero-label {
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-2);
 }
 
 .home-showcase__eyebrow {

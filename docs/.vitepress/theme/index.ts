@@ -46,6 +46,32 @@ function enhanceCollapsibleCodeBlocks() {
   })
 }
 
+function lockCoreFunctionsSidebarGroup() {
+  if (typeof document === 'undefined') return
+
+  const labels = document.querySelectorAll<HTMLElement>('.VPSidebarItem .text')
+  labels.forEach((label) => {
+    if (label.textContent?.trim() !== 'Core Functions') return
+
+    const group = label.closest<HTMLElement>('.VPSidebarItem')
+    if (!group) return
+    group.classList.add('core-functions-locked')
+
+    const button = group.querySelector<HTMLElement>(':scope > .item > .button')
+    if (!button || button.dataset.coreLocked === '1') return
+
+    button.dataset.coreLocked = '1'
+    button.addEventListener(
+      'click',
+      (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+      },
+      true,
+    )
+  })
+}
+
 export default {
   ...DefaultTheme,
   Layout: () =>
@@ -57,7 +83,10 @@ export default {
 
     const refreshBlocks = async () => {
       await nextTick()
-      requestAnimationFrame(() => enhanceCollapsibleCodeBlocks())
+      requestAnimationFrame(() => {
+        enhanceCollapsibleCodeBlocks()
+        lockCoreFunctionsSidebarGroup()
+      })
     }
 
     onMounted(refreshBlocks)

@@ -4,10 +4,9 @@ sidebar_label: useCloned
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useCloned'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useCloned.tsx'
 description: >-
-  useCloned from @dedalik/use-react: memoized deep clone with structuredClone
-  fallback. TypeScript, tree-shakable import, examples, SSR notes.
+  useCloned from @dedalik/use-react: memoized deep clone via structuredClone with JSON fallback.
 ---
 
 # useCloned()
@@ -18,28 +17,49 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`useCloned` returns a memoized deep clone of the provided value. It is useful when you need an isolated copy for local UI mutations while keeping source data immutable.
+`useCloned` **deep-clones** the **`value`** you pass in and **memoizes** that clone on **`[value]`** identity (referential equality only-**same object reference** returns the **cached** clone from the last time that reference was seen). It prefers **`globalThis.structuredClone`** when available; otherwise it falls back to **`JSON.parse(JSON.stringify(value))`**, which does **not** preserve **`Date`**, **`Map`**, **`undefined`**, or **circular** structures. Use it when you receive **props** or **context** objects you want to **mutate** locally (e.g. form **drafts**) without touching the **source** object, while avoiding a new clone on every render when the **parent** keeps the same **reference**.
 
 ### What it accepts
 
-- **`value`** — any serializable value to clone.
+1. **`value`**: `T`
 
 ### What it returns
 
-- Deep-cloned value with the same shape/type (`T`).
-
-## SSR
-
-Safe for SSR as long as the input is serializable in your runtime.
+- **`T`** - a **new** deep copy when **`value`** changes by reference
 
 ## Usage
 
+**Mutate** a **draft** object while the **source** instance (same **shape**) stays unchanged; **`tick`** only forces a re-render after in-place mutation.
+
 ```tsx
+import { useMemo, useState } from 'react'
 import useCloned from '@dedalik/use-react/useCloned'
 
-export default function DraftEditor({ payload }: { payload: { title: string } }) {
-  const draft = useCloned(payload)
-  return <pre>{JSON.stringify(draft, null, 2)}</pre>
+function Example() {
+  const source = useMemo(() => ({ label: 'Hello', n: 0 }), [])
+  const draft = useCloned(source)
+  const [, setTick] = useState(0)
+
+  return (
+    <div>
+      <p>
+        Source n: {source.n} - draft n: {draft.n}
+      </p>
+      <button
+        type="button"
+        onClick={() => {
+          draft.n += 1
+          setTick((t) => t + 1)
+        }}
+      >
+        Increment draft only
+      </button>
+    </div>
+  )
+}
+
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -49,22 +69,48 @@ export default function DraftEditor({ payload }: { payload: { title: string } })
 
 **Signature:** `useCloned<T>(value: T): T`
 
-#### Parameters
-
-1. **`value`** - Input to clone.
-
-#### Returns
-
-Deep-cloned copy.
-
 ## Copy-paste hook
 
-Source of truth: [`useCloned.tsx` on GitHub](https://github.com/dedalik/use-react/blob/main/src/hooks/useCloned.tsx).
+### TypeScript
 
-## Type declarations
+```tsx
+import { useMemo } from 'react'
 
-```ts
-declare function useCloned<T>(value: T): T
+function cloneValue<T>(value: T): T {
+  if (typeof globalThis.structuredClone === 'function') {
+    return globalThis.structuredClone(value)
+  }
 
-export default useCloned
+  // Fallback for environments without structuredClone support
+  return JSON.parse(JSON.stringify(value)) as T
+}
+
+/**
+ * Returns a memoized deep clone of the provided value.
+ */
+export default function useCloned<T>(value: T): T {
+  return useMemo(() => cloneValue(value), [value])
+}
+```
+
+### JavaScript
+
+```js
+import { useMemo } from 'react'
+
+function cloneValue(value) {
+  if (typeof globalThis.structuredClone === 'function') {
+    return globalThis.structuredClone(value)
+  }
+
+  // Fallback for environments without structuredClone support
+  return JSON.parse(JSON.stringify(value))
+}
+
+/**
+ * Returns a memoized deep clone of the provided value.
+ */
+export default function useCloned(value) {
+  return useMemo(() => cloneValue(value), [value])
+}
 ```

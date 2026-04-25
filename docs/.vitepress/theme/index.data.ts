@@ -7,7 +7,7 @@ export default createContentLoader('functions/*.md', {
 
     return raw
       .map(({ frontmatter }) => frontmatter)
-      .filter((item) => typeof item?.sidebar_label === 'string' && item.sidebar_label.startsWith('use'))
+      .filter((item) => typeof item?.sidebar_label === 'string')
       .sort((a, b) => {
         const aDate = Number(a?.date || 0)
         const bDate = Number(b?.date || 0)

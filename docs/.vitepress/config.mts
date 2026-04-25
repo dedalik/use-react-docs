@@ -1,7 +1,16 @@
 import { defineConfig } from 'vitepress'
+import type { PageData } from 'vitepress'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { buildCoreFunctionsSidebarGroup } from './data/hookCatalog'
 import { transformHead as seoTransformHead } from './seo/transformHead'
+
+function editUrlForPage(page: PageData): string {
+  const m = page.relativePath.match(/^functions\/(.+)\.md$/)
+  if (m) {
+    return `https://github.com/dedalik/use-react/blob/main/src/hooks/${m[1]}.tsx`
+  }
+  return `https://github.com/dedalik/use-react-docs/blob/main/docs/${page.relativePath}`
+}
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -33,7 +42,7 @@ export default defineConfig({
   themeConfig: {
     logo: '/favicon.png',
     editLink: {
-      pattern: 'https://github.com/dedalik/use-react/tree/main/:path',
+      pattern: editUrlForPage,
       text: 'Suggest changes to this page',
     },
     // https://vitepress.dev/reference/default-theme-config
@@ -62,7 +71,7 @@ export default defineConfig({
           { text: 'Guidelines', link: '/guide/guidelines' },
         ],
       },
-      buildCoreFunctionsSidebarGroup(),
+      ...buildCoreFunctionsSidebarGroup(),
     ] as any,
 
     head: [
@@ -111,6 +120,23 @@ export default defineConfig({
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
         },
+      ],
+
+      // Google tag (gtag.js) - G-FBEWF72TFF
+      [
+        'script',
+        {
+          async: '',
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-FBEWF72TFF',
+        },
+      ],
+      [
+        'script',
+        {},
+        `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FBEWF72TFF');`,
       ],
     ],
 

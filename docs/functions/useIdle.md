@@ -4,7 +4,7 @@ sidebar_label: useIdle
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useIdle'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useIdle.tsx'
 description: >-
   useIdle from @dedalik/use-react: Detect user inactivity. TypeScript,
   tree-shakable import, examples, SSR notes.
@@ -14,37 +14,42 @@ description: >-
 
 <PackageData fn="useIdle" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useIdle` tells you whether the user has been inactive for a given timeout.
-
-Use it for auto-logout prompts, low-priority refreshes, and UI behavior that should change when users stop interacting.
+`useIdle` starts a timer: after **`timeout`** milliseconds with no **mousemove**, **mousedown**, **keydown**, **touchstart**, or **scroll** on `window`, it flips to **`true`** (user is considered idle); any of those events resets the timer and clears idle until the next quiet period. Listeners are registered with **`{ passive: true }`** on add for scroll performance, and the effect re-binds when **`timeout`** changes-use it to dim UI, pause video, or defer analytics after inactivity, not as a security timeout.
 
 ### What it accepts
 
-- `timeout` (optional): inactivity window in milliseconds.
+- **`timeout`** (optional) - Idle delay in ms. Default **`60_000`** (one minute).
 
 ### What it returns
 
-- `boolean` idle state (`true` when user is inactive).
+- **`boolean`** - **`true`** if the user has been inactive for **`timeout`** ms.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Shorter **5 s** timeout for a demo “away” banner (no `JSON.stringify`).
 
 ```tsx
 import useIdle from '@dedalik/use-react/useIdle'
 
-function IdleBannerExample() {
-  const idle = useIdle(5000)
+function Example() {
+  const isIdle = useIdle(5_000)
 
-  return <p>{idle ? 'Idle (5s)' : 'Active'}</p>
+  return (
+    <div>
+      <h3>Idle detection</h3>
+      <p>
+        Status: <strong>{isIdle ? 'idle - move the mouse to wake' : 'active'}</strong>
+      </p>
+    </div>
+  )
 }
 
-export default function IdleBannerDemo() {
-  return <IdleBannerExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -56,13 +61,15 @@ export default function IdleBannerDemo() {
 
 #### Parameters
 
-1. **`timeout`** - Milliseconds without user activity before switching to idle (default `60000`).
+- **`timeout`** (`number`, optional) - Milliseconds of no input before **idle**. Default `60000`.
 
 #### Returns
 
-`true` when the user is considered idle, `false` while activity resets the timer.
+**`boolean`** - Whether the idle timer has fired.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect, useRef, useState } from 'react'
@@ -104,15 +111,15 @@ export default function useIdle(timeout = 60_000): boolean {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useRef, useState } from 'react'
 
 const events = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll']
-export default function useIdle(timeout = 60000) {
-  const [isIdle, setIsIdle] = useState(false)
 
+export default function useIdle(timeout = 60_000) {
+  const [isIdle, setIsIdle] = useState(false)
   const timeoutRef = useRef()
 
   useEffect(() => {
@@ -124,16 +131,20 @@ export default function useIdle(timeout = 60000) {
       if (timeoutRef.current) {
         window.clearTimeout(timeoutRef.current)
       }
+
       timeoutRef.current = window.setTimeout(() => {
         setIsIdle(true)
       }, timeout)
     }
+
     reset()
     events.forEach((eventName) => window.addEventListener(eventName, reset, { passive: true }))
+
     return () => {
       if (timeoutRef.current) {
         window.clearTimeout(timeoutRef.current)
       }
+
       events.forEach((eventName) => window.removeEventListener(eventName, reset))
     }
   }, [timeout])

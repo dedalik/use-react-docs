@@ -1,12 +1,12 @@
 # useReact documentation
 
-Official documentation and marketing site for [**useReact**](https://usereact.org) — the hook collection published as [`@dedalik/use-react`](https://www.npmjs.com/package/@dedalik/use-react) on npm.
+Official documentation and marketing site for [**useReact**](https://usereact.org) - the hook collection published as [`@dedalik/use-react`](https://www.npmjs.com/package/@dedalik/use-react) on npm.
 
 This repository is a **[VitePress](https://vitepress.dev/)** project: guides, API reference for every hook, a custom theme (Vue + Tailwind), and small Node utilities that generate sidebars, sitemaps, and optional bundle-size data.
 
 ## Requirements
 
-- **Node.js 24.x** (see `engines` in `package.json` and `.nvmrc`) — matches GitHub Actions and recommended Vercel settings.
+- **Node.js 24.x** (see `engines` in `package.json` and `.nvmrc`) - matches GitHub Actions and recommended Vercel settings.
 
 ## Quick start
 
@@ -28,7 +28,7 @@ Open the URL VitePress prints (usually `http://localhost:5173`). Edit Markdown u
 | `npm run docs:preview`           | Preview the last production build                                                  |
 | `npm run docs:seo`               | Run `utils/inject-seo.mjs` to refresh meta descriptions where configured           |
 | `npm run exportsize:generate`    | Regenerate `docs/export-size.json` when a sibling `../use-react/dist` build exists |
-| `npm run format`                 | Prettier — Markdown, Vue, CSS, theme TS, and `utils/*.mjs`                         |
+| `npm run format`                 | Prettier - Markdown, Vue, CSS, theme TS, and `utils/*.mjs`                         |
 | `npm run format:check`           | CI-style formatting check                                                          |
 
 `docs:build` runs **`predocs:build`** first (`exportsize:generate`). In CI or on hosts without a local `use-react` build, export-size generation **skips** and the site uses the committed **`docs/export-size.json`**.
@@ -42,7 +42,7 @@ Open the URL VitePress prints (usually `http://localhost:5173`). Edit Markdown u
 | `docs/public/`     | Static assets (favicons, `robots.txt`, etc.)                                                      |
 | `utils/`           | Node scripts: sitemap, SEO injection, export-size, hook catalog helpers                           |
 
-Hook sidebar and listings are driven by the shared catalog under `docs/.vitepress/data/` and related utilities — see **`docs/guide/contributing.md`** when adding or renaming hooks.
+Hook sidebar and listings are driven by the shared catalog under `docs/.vitepress/data/` and related utilities - see **`docs/guide/contributing.md`** when adding or renaming hooks.
 
 ## Deployment
 
