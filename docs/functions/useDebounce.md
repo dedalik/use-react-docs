@@ -13,8 +13,7 @@ description: >-
 # useDebounce()
 
 <PackageData fn="useDebounce" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useDebounce/basic" title="Live demo: useDebounce" />
 
 ## Overview
 

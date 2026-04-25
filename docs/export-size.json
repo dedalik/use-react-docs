@@ -1,56 +1,4 @@
 {
-  "createEventHook": {
-    "size": "98 B",
-    "gzipped": "105 B"
-  },
-  "createGlobalState": {
-    "size": "102 B",
-    "gzipped": "106 B"
-  },
-  "createInjectionState": {
-    "size": "108 B",
-    "gzipped": "109 B"
-  },
-  "createSharedComposable": {
-    "size": "112 B",
-    "gzipped": "112 B"
-  },
-  "createUnrefFn": {
-    "size": "94 B",
-    "gzipped": "103 B"
-  },
-  "get": {
-    "size": "70 B",
-    "gzipped": "89 B"
-  },
-  "isDefined": {
-    "size": "82 B",
-    "gzipped": "95 B"
-  },
-  "makeDestructurable": {
-    "size": "100 B",
-    "gzipped": "104 B"
-  },
-  "onElementRemoval": {
-    "size": "97 B",
-    "gzipped": "102 B"
-  },
-  "onKeyStroke": {
-    "size": "87 B",
-    "gzipped": "98 B"
-  },
-  "onLongPress": {
-    "size": "87 B",
-    "gzipped": "98 B"
-  },
-  "onStartTyping": {
-    "size": "91 B",
-    "gzipped": "98 B"
-  },
-  "set": {
-    "size": "70 B",
-    "gzipped": "89 B"
-  },
   "useAbortController": {
     "size": "1.6 kB",
     "gzipped": "500 B"
@@ -208,8 +156,8 @@
     "gzipped": "328 B"
   },
   "useDebouncedRefHistory": {
-    "size": "2.4 kB",
-    "gzipped": "782 B"
+    "size": "2.7 kB",
+    "gzipped": "838 B"
   },
   "useDebounceFn": {
     "size": "1016 B",
@@ -436,8 +384,8 @@
     "gzipped": "370 B"
   },
   "useOnMount": {
-    "size": "226 B",
-    "gzipped": "169 B"
+    "size": "786 B",
+    "gzipped": "470 B"
   },
   "usePageLeave": {
     "size": "788 B",
@@ -572,8 +520,8 @@
     "gzipped": "419 B"
   },
   "useStorage": {
-    "size": "1.5 kB",
-    "gzipped": "581 B"
+    "size": "2.0 kB",
+    "gzipped": "805 B"
   },
   "useStorageAsync": {
     "size": "2.9 kB",
@@ -608,8 +556,8 @@
     "gzipped": "381 B"
   },
   "useThrottledRefHistory": {
-    "size": "3.2 kB",
-    "gzipped": "920 B"
+    "size": "3.5 kB",
+    "gzipped": "974 B"
   },
   "useThrottleFn": {
     "size": "1.4 kB",

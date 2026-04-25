@@ -654,7 +654,7 @@ input {
 .hide-nav .VPSidebar {
   --vp-nav-height: 22px;
 }
-/* 
+/*
 :root {
   --vp-local-nav-bg-color: var(--vp-c-bg);
 }
@@ -1036,11 +1036,11 @@ html:not(.dark) .vp-code span {
 
 .vp-doc p,
 .vp-doc summary {
-  margin: 16px 0;
+  margin: 0;
 }
 
 .vp-doc p {
-  line-height: 28px;
+  line-height: 24px;
 }
 
 .vp-doc blockquote {

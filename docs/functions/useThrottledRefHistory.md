@@ -12,8 +12,7 @@ description: >-
 # useThrottledRefHistory()
 
 <PackageData fn="useThrottledRefHistory" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useThrottledRefHistory/basic" title="Live demo: useThrottledRefHistory" />
 
 ## Overview
 

@@ -1,12 +1,11 @@
 import DefaultTheme from 'vitepress/theme'
 import { h, nextTick, onMounted, watch } from 'vue'
 import { useRoute } from 'vitepress'
-import CookieConsentBanner from './components/CookieConsentBanner.vue'
-import { applyConsentFromStorage } from './analytics'
-// import Test from "./components/Note.vue";
 import PackageData from './components/PackageData.vue'
 import HomeHookShowcase from './components/HomeHookShowcase.vue'
+import HomeBottomCta from './components/HomeBottomCta.vue'
 import HomeHeroStats from './components/HomeHeroStats.vue'
+import HookLiveDemo from './components/HookLiveDemo.vue'
 
 import './styles/tailwind.css'
 import './styles/styles.css'
@@ -78,7 +77,6 @@ export default {
   Layout: () =>
     h(DefaultTheme.Layout!, null, {
       'home-hero-after': () => h(HomeHeroStats),
-      'layout-bottom': () => h(CookieConsentBanner),
     }),
   setup() {
     const route = useRoute()
@@ -99,9 +97,7 @@ export default {
     const { app } = ctx
     app.component('PackageData', PackageData)
     app.component('HomeHookShowcase', HomeHookShowcase)
-    // VitePress passes a minimal router (no vue-router isReady); defer to microtask after app boot.
-    if (typeof window !== 'undefined') {
-      queueMicrotask(() => applyConsentFromStorage())
-    }
+    app.component('HomeBottomCta', HomeBottomCta)
+    app.component('HookLiveDemo', HookLiveDemo)
   },
 }

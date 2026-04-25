@@ -13,8 +13,7 @@ description: >-
 # useLatest()
 
 <PackageData fn="useLatest" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useLatest/basic" title="Live demo: useLatest" />
 
 ## Overview
 
