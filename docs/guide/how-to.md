@@ -75,9 +75,15 @@ Each hook has its own page with **overview**, **parameters**, **return value**, 
 Common starting points:
 
 - **Debounce or throttle user input** - `useDebounce`, `useThrottle`
-- **Media and layout** - `useMediaQuery`, `useWindowSize`, `useResizeObserver`
-- **Persistence** - `useLocalStorage`, `useSessionStorage`
-- **Async work** - `useAsync`, `useAbortController`
+- **Media and layout** - `useMediaQuery`, `useBreakpoints`, `useWindowSize`, `useResizeObserver`, `useElementBounding`, `useElementSize`, `useElementVisibility`, `useUserMedia`, `useDisplayMedia`
+- **Persistence** - `useLocalStorage`, `useSessionStorage`, `useStorage`
+- **Async work** - `useAsync`, `useAbortController`, `useFetch`, `useWebSocket`
+- **Counters and small lists** - `useCounter`, `useList`, `useCycleList`, `useStepper`
+- **Controlled inputs** - `useVModel`
+- **Clocks** - `useNow`, `useTimestamp`, `useDateFormat`, `useTimeAgo`, `useCountdown`, `useInterval`, `useTimeout`
+- **File uploads** - `useFileDialog`, `useDropZone`
+- **Text selection** - `useTextSelection`
+- **Pointer gestures** - `usePointer`, `useSwipe`, `useDraggable`
 
 ## How to use useReact with Vite
 

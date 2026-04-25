@@ -4,7 +4,7 @@ sidebar_label: useDebounce
 category: State
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useDebounce'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useDebounce.tsx'
 description: >-
   useDebounce from @dedalik/use-react: Delay value updates until input settles.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,47 +14,53 @@ description: >-
 
 <PackageData fn="useDebounce" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useDebounce` delays value updates until changes stop for the configured delay.
-
-Beginners often use it for search inputs to avoid hitting the API on every keystroke and to smooth expensive computations.
+`useDebounce` returns a delayed version of a rapidly changing value and updates it only after the value stays unchanged for the given timeout. This helps reduce noisy updates during typing, scrolling, or slider interaction, so expensive work (like filtering, API calls, or validation) runs less often and only after user input settles.
 
 ### What it accepts
 
-- `value`: value to debounce.
-- `delay` (optional): delay in milliseconds.
+- `value: T`.
+- `delay = 500`.
 
 ### What it returns
 
-- Debounced value with the same type as the input value.
-
-`useDebounce` postpones value updates until the value stops changing for a specified delay. It is useful for search inputs and API calls where every keystroke should not trigger a request.
+- Returns `T`.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Real-world example: instant input with delayed search trigger.
 
 ```tsx
 import { useState } from 'react'
 import useDebounce from '@dedalik/use-react/useDebounce'
 
-function SearchBoxExample() {
+function Example() {
   const [query, setQuery] = useState('')
   const debouncedQuery = useDebounce(query, 400)
 
   return (
     <div>
-      <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder='Type quickly...' />
-      <p>Debounced: {debouncedQuery}</p>
+      <h3>Product Search</h3>
+      <input
+        type='search'
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder='Type to search...'
+      />
+
+      <p>Typing value: {query || '-'}</p>
+      <p>Debounced value (400ms): {debouncedQuery || '-'}</p>
+
+      {debouncedQuery ? <p>Searching API for: "{debouncedQuery}"</p> : <p>Start typing to trigger search.</p>}
     </div>
   )
 }
 
-export default function SearchBoxDemo() {
-  return <SearchBoxExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -62,16 +68,16 @@ export default function SearchBoxDemo() {
 
 ### `useDebounce`
 
-**Signature:** `useDebounce<T>(value: T, delay?: number): T`
+**Signature:** `useDebounce(value: T, delay = 500): T`
 
 #### Parameters
 
-1. **`value`** - Any value to debounce (string, number, object, etc.).
-2. **`delay`** - Optional debounce window in milliseconds (default `500`).
+1. **`value`** (`T`) - See type in signature.
+2. **Parameter** - `delay`.
 
 #### Returns
 
-The latest **debounced** value: it updates only after `value` stops changing for `delay` ms.
+Returns `T`.
 
 ## Copy-paste hook
 
@@ -100,14 +106,9 @@ export default function useDebounce<T>(value: T, delay = 500): T {
 export type UseDebounceType = ReturnType<typeof useDebounce>
 ```
 
-### JavaScript version
-
 ```js
 import { useEffect, useState } from 'react'
 
-/**
- * Delays value updates until changes stop for the provided delay.
- */
 export default function useDebounce(value, delay = 500) {
   const [debouncedValue, setDebouncedValue] = useState(value)
 
@@ -115,6 +116,7 @@ export default function useDebounce(value, delay = 500) {
     const timeoutId = globalThis.setTimeout(() => {
       setDebouncedValue(value)
     }, delay)
+
     return () => {
       globalThis.clearTimeout(timeoutId)
     }
@@ -122,11 +124,4 @@ export default function useDebounce(value, delay = 500) {
 
   return debouncedValue
 }
-```
-
-## Type declarations
-
-```ts
-declare function useDebounce<T>(value: T, delay?: number): T
-export default useDebounce
 ```

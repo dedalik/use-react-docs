@@ -4,7 +4,7 @@ sidebar_label: useRafState
 category: Performance
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useRafState'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useRafState.tsx'
 description: >-
   useRafState from @dedalik/use-react: Schedule state updates with
   requestAnimationFrame. TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,45 +14,44 @@ description: >-
 
 <PackageData fn="useRafState" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useRafState` updates state in `requestAnimationFrame` instead of immediately.
-
-It helps smooth frequent UI updates driven by pointer movement, scrolling, or animation loops.
+`useRafState` is **`useState`**-shaped, but the setter defers the actual **`setState`** to the next **animation frame**: every call **cancels** a previously scheduled frame, then **`requestAnimationFrame`**, and only the latest value wins if you trigger many updates in one screen paint (for example, pointer move). It follows **`SetStateAction`** (value or updater function). In **SSR** (no `window`) it **falls back to synchronous** **`setState`**, so there is no extra delay on the server. Use it to coalesce high‑frequency visual updates; do not use it for logic that must commit immediately every time.
 
 ### What it accepts
 
-- `initialState`: initial value for state.
+- **`initialState`**: `T`
 
 ### What it returns
 
-- `[state, setState]` tuple with RAF-scheduled updates.
+- A tuple **`[state, setRafState]`** with the same `T` and **`SetStateAction`** semantics as React’s **`useState`**, except updates are applied after **rAF**.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Track pointer position; rapid **`mousemove`** updates are merged to one state commit per frame.
 
 ```tsx
-import { useState } from 'react'
+import { useRef } from 'react'
 import useRafState from '@dedalik/use-react/useRafState'
 
-function SmoothCounterExample() {
-  const [count, setCount] = useRafState(0)
-
+function Example() {
+  const [pos, setRafState] = useRafState({ x: 0, y: 0 })
+  const onMove = (e: React.MouseEvent) => {
+    setRafState({ x: e.clientX, y: e.clientY })
+  }
   return (
-    <div>
-      <p>{count}</p>
-      <button type='button' onClick={() => setCount((c) => c + 1)}>
-        RAF increment
-      </button>
+    <div onMouseMove={onMove} style={{ minHeight: 200, border: '1px solid #ccc' }}>
+      <p>
+        client: <strong>{pos.x}</strong> × <strong>{pos.y}</strong>
+      </p>
     </div>
   )
 }
 
-export default function SmoothCounterDemo() {
-  return <SmoothCounterExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -60,17 +59,19 @@ export default function SmoothCounterDemo() {
 
 ### `useRafState`
 
-**Signature:** `useRafState<T>(initialState: T): [T, React.Dispatch<React.SetStateAction<T>>]`
+**Signature:** `useRafState<T>(initialState: T): [T, SetRafState<T>]`
 
 #### Parameters
 
-1. **`initialState`** - Initial state (same as `useState`).
+1. **`initialState`**
 
 #### Returns
 
-Tuple `[state, setState]` where updates are scheduled via `requestAnimationFrame` in the browser.
+**`[state, setRafState]`**
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react'
@@ -100,14 +101,13 @@ export default function useRafState<T>(initialState: T): [T, SetRafState<T>] {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useCallback, useRef, useState } from 'react'
 
 export default function useRafState(initialState) {
   const frameRef = useRef()
-
   const [state, setState] = useState(initialState)
 
   const setRafState = useCallback((value) => {
@@ -119,6 +119,7 @@ export default function useRafState(initialState) {
     if (frameRef.current) {
       window.cancelAnimationFrame(frameRef.current)
     }
+
     frameRef.current = window.requestAnimationFrame(() => {
       setState(value)
     })

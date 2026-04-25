@@ -4,7 +4,7 @@ sidebar_label: useFavicon
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useFavicon'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useFavicon.tsx'
 description: >-
   useFavicon from @dedalik/use-react: Update the page favicon dynamically.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,55 +14,62 @@ description: >-
 
 <PackageData fn="useFavicon" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useFavicon` updates the page favicon dynamically at runtime.
-
-It is useful for branding changes, status indicators, or context-driven visual cues in tabs (for example, alerts).
+`useFavicon` keeps the current favicon path in React state and, on every change, finds or creates a `<link rel="…">` in the document head, sets its `href` to `baseUrl` + filename, and sets `type` from the file extension so the browser swaps the tab icon without a full reload. You can point at static assets under a CDN path (`baseUrl`), match an existing link via `rel` (for example `icon` vs `shortcut icon`), or pass a custom `doc` when updating a non-default document (tests, embedded HTML). The hook returns a tuple `[favicon, setFavicon]` like `useState`, so you can seed an initial icon from `newIcon` and drive updates from UI or side effects.
 
 ### What it accepts
 
-- `options` (optional): initial icon, base URL, relation type, and target document.
+- Optional **`newIcon`** - Initial filename or path fragment (joined with `baseUrl`). Default `''`.
+- Optional **`baseUrl`** - Prefix for the final `href` (for example `/icons/` or a CDN origin). Default `''`.
+- Optional **`rel`** - `rel` selector / attribute for the link node (`querySelector('link[rel*="…"]')`). Default `'icon'`.
+- Optional **`doc`** - Target `Document` (default `document`).
 
 ### What it returns
 
-- `[favicon, setFavicon]` tuple for reading and updating current favicon value.
-
-`useFavicon` is a custom React hook that provides an easy and efficient way to dynamically change the favicon of a webpage. A favicon, short for "favorite icon", is a small image displayed in the browser tab next to the page title. This hook allows developers to programmatically update the favicon based on different states or actions within a React application.
-
-## Features
-
-- **Dynamic Favicon Update:** Easily change the favicon at runtime without the need to reload the page.
-- **Customizable Options:** Supports customization including the icon URL, base URL, and relationship attribute (`rel`).
-- **Document Injection:** Dynamically inserts a `<link>` element into the document head if it does not already exist, ensuring compatibility with all web pages.
-- **Efficient Rendering:** Uses React's `useState` and `useCallback` for optimized rendering and re-rendering only when necessary.
+- A tuple **`[favicon, setFavicon]`**: current icon string and a state setter that triggers a head `<link>` update on the next commit.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Example: default vs “busy” favicon under a shared asset prefix, with an explicit `rel` and `document` (all options visible).
 
 ```tsx
-import { useState } from 'react'
 import useFavicon from '@dedalik/use-react/useFavicon'
 
-function FaviconSwitcherExample() {
-  const [, setFavicon] = useFavicon({ newIcon: '/favicon.ico' })
-  const [url, setUrl] = useState('/favicon.ico')
+function Example() {
+  const [favicon, setFavicon] = useFavicon({
+    newIcon: 'favicon.ico',
+    baseUrl: '/brand/icons/',
+    rel: 'icon',
+    doc: document,
+  })
 
   return (
     <div>
-      <input value={url} onChange={(e) => setUrl(e.target.value)} />
-      <button type='button' onClick={() => setFavicon(url)}>
-        Apply favicon URL
-      </button>
+      <h3>Tab icon</h3>
+      <p>
+        Current file: <strong>{favicon || '-'}</strong>
+      </p>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <button type='button' onClick={() => setFavicon('favicon.ico')}>
+          Default
+        </button>
+        <button type='button' onClick={() => setFavicon('favicon-busy.png')}>
+          Busy
+        </button>
+      </div>
+      <p style={{ marginTop: 12, opacity: 0.75 }}>
+        The tab icon updates without a full reload; in devtools → Elements → head, the matching link href becomes{' '}
+        <code>/brand/icons/</code> plus the filename.
+      </p>
     </div>
   )
 }
 
-export default function FaviconSwitcherDemo() {
-  return <FaviconSwitcherExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -70,22 +77,27 @@ export default function FaviconSwitcherDemo() {
 
 ### `useFavicon`
 
-**Signature:** `useFavicon(options?): [string, React.Dispatch<React.SetStateAction<string>>]`
+**Signature:** `useFavicon(options?: UseFaviconOptions): UseFaviconReturnType`
 
 #### Parameters
 
-Optional **`options`** object:
+Optional object **`UseFaviconOptions`**:
 
-- `newIcon` - Initial favicon path or URL.
-- `baseUrl` - Prefix applied before `newIcon`.
-- `rel` - Link `rel` (default `icon`).
-- `doc` - Target `Document` (tests / non-default documents).
+- **`newIcon`** (`string`, optional) - Initial icon filename or suffix; combined with `baseUrl` for `href`. Default `''`.
+- **`baseUrl`** (`string`, optional) - Prefix prepended to `newIcon`. Default `''`.
+- **`rel`** (`string`, optional) - Used to find/create the `<link>` (`link[rel*="…"]`). Default `'icon'`.
+- **`doc`** (`Document`, optional) - Document whose `<head>` is updated. Default `document`.
 
 #### Returns
 
-Tuple `[favicon, setFavicon]` - current favicon string and setter to update it (and the DOM link).
+Tuple **`[favicon, setFavicon]`** (`UseFaviconReturnType`):
+
+- **`favicon`** - Current icon string in state.
+- **`setFavicon`** - React state setter; updates state and re-runs the effect that applies the icon.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import React, { useState, useEffect, useCallback } from 'react'
@@ -140,10 +152,10 @@ export default useFavicon
 export type UseFaviconType = ReturnType<typeof useFavicon>
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 const useFavicon = ({ newIcon = '', baseUrl = '', rel = 'icon', doc = document } = {}) => {
   const [favicon, setFavicon] = useState(newIcon)
@@ -159,7 +171,6 @@ const useFavicon = ({ newIcon = '', baseUrl = '', rel = 'icon', doc = document }
       }
 
       const iconUrl = `${baseUrl}${icon}`
-
       if (linkElement.href !== iconUrl) {
         linkElement.href = iconUrl
         linkElement.type = `image/${icon.split('.').pop()}`
@@ -178,26 +189,4 @@ const useFavicon = ({ newIcon = '', baseUrl = '', rel = 'icon', doc = document }
 }
 
 export default useFavicon
-```
-
-## Type Declarations
-
-- `UseFaviconOptions`: An object type for passing options to the hook. Contains `newIcon`, `baseUrl`, `rel`, and `doc`.
-
-- `UseFaviconReturnType`: A tuple return type from the hook. It consists of the current favicon string and a dispatch function to update the favicon.
-
-The `useFavicon` hook simplifies the process of changing the favicon dynamically, making it a handy tool for React developers looking to enhance the UI/UX of their web applications.
-
-```typescript
-import React from 'react'
-export interface UseFaviconOptions {
-  newIcon?: string
-  baseUrl?: string
-  rel?: string
-  doc?: Document
-}
-export type UseFaviconReturnType = [string, React.Dispatch<React.SetStateAction<string>>]
-declare const useFavicon: ({ newIcon, baseUrl, rel, doc }?: UseFaviconOptions) => UseFaviconReturnType
-export default useFavicon
-export type UseFaviconType = ReturnType<typeof useFavicon>
 ```
