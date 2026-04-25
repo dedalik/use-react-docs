@@ -13,8 +13,7 @@ description: >-
 # useEventCallback()
 
 <PackageData fn="useEventCallback" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useEventCallback/basic" title="Live demo: useEventCallback" />
 
 ## Overview
 

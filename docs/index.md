@@ -22,6 +22,9 @@ hero:
       text: Explore functions
       link: /functions/
     - theme: alt
+      text: Demo
+      link: '#live-demos'
+    - theme: alt
       text: Get started
       link: /guide/get-started
     - theme: alt
@@ -41,9 +44,6 @@ features:
   - icon: 🚀
     title: Built for modern React
     details: Aimed at React 17, 18, and 19 peers - hooks respect typical client constraints and play nicely with Strict Mode lifecycles.
-  - icon: 📚
-    title: Curated, growing catalog
-    details: Over thirty focused hooks across state, DOM, browser APIs, observers, and async flows - each with its own reference page.
   - icon: 🌿
     title: Fully tree-shakable
     details: ESM and CJS builds expose per-hook modules so bundlers can drop code paths you never import.
@@ -62,3 +62,5 @@ features:
 ---
 
 <HomeHookShowcase />
+
+<HomeBottomCta />

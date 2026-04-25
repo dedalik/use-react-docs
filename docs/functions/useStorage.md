@@ -12,8 +12,7 @@ description: >-
 # useStorage()
 
 <PackageData fn="useStorage" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useStorage/basic" title="Live demo: useStorage" />
 
 ## Overview
 

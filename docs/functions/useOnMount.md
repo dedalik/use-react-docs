@@ -13,8 +13,7 @@ description: >-
 # useOnMount()
 
 <PackageData fn="useOnMount" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useOnMount/basic" title="Live demo: useOnMount" />
 
 ## Overview
 

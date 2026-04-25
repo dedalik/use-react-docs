@@ -13,8 +13,7 @@ description: >-
 # useCounter()
 
 <PackageData fn="useCounter" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useCounter/basic" title="Live demo: useCounter" />
 
 ## Overview
 

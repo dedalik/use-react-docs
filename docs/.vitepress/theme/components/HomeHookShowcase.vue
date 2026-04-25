@@ -1,47 +1,166 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { withBase } from 'vitepress'
-import { hookCategoriesCatalog } from '../../data/hookCatalog'
+import { homeStateDemos } from '../../data/homeStateDemos'
+
+/** Open card ids - several demos can stay open at once. */
+const expandedDemos = ref<string[]>([])
+
+/** All State cards show full preview (overrides per-card list for display). */
+const showAllDemos = ref(true)
+
+const anyDemosOpen = computed(() => showAllDemos.value || expandedDemos.value.length > 0)
+
+function isCardExpanded(demo: string) {
+  return showAllDemos.value || expandedDemos.value.includes(demo)
+}
+
+function toggleShowAllDemos() {
+  if (anyDemosOpen.value) {
+    showAllDemos.value = false
+    expandedDemos.value = []
+  } else {
+    showAllDemos.value = true
+  }
+}
+
+function onDemoItemClick(demo: string, ev: MouseEvent) {
+  const el = ev.target as HTMLElement | null
+  if (!el) return
+
+  if (el.closest('.hook-live-demo__title-link')) return
+
+  const open = isCardExpanded(demo)
+
+  if (open) {
+    if (!el.closest('.hook-live-demo__header')) return
+    if (showAllDemos.value) {
+      showAllDemos.value = false
+      expandedDemos.value = homeStateDemos.map((i) => i.demo).filter((d) => d !== demo)
+    } else {
+      expandedDemos.value = expandedDemos.value.filter((d) => d !== demo)
+    }
+    return
+  }
+
+  if (!expandedDemos.value.includes(demo)) {
+    expandedDemos.value = [...expandedDemos.value, demo]
+  }
+}
+
+function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
+  if (ev.key !== 'Enter' && ev.key !== ' ') return
+  if (ev.target !== ev.currentTarget) return
+  ev.preventDefault()
+  const open = isCardExpanded(demo)
+  if (open) {
+    if (showAllDemos.value) {
+      showAllDemos.value = false
+      expandedDemos.value = homeStateDemos.map((i) => i.demo).filter((d) => d !== demo)
+    } else {
+      expandedDemos.value = expandedDemos.value.filter((d) => d !== demo)
+    }
+  } else if (!expandedDemos.value.includes(demo)) {
+    expandedDemos.value = [...expandedDemos.value, demo]
+  }
+}
 </script>
 
 <template>
-  <div class="home-showcase" aria-labelledby="home-showcase-title">
-    <div class="home-showcase__glow" aria-hidden="true" />
+  <div id="live-demos" class="home-showcase" aria-labelledby="home-showcase-title" tabindex="-1">
+    <div class="home-showcase__glow-clip" aria-hidden="true">
+      <div class="home-showcase__glow" />
+    </div>
 
     <div class="home-showcase__inner">
-      <h2 id="home-showcase-title" class="home-showcase__title">Browse by category</h2>
-      <p class="home-showcase__lead">
-        Each hook is documented with types, copy-paste examples, and SSR notes where it matters. Jump into a category
-        overview or open a hook directly.
+      <h2 id="home-showcase-title" class="home-showcase__title">Live component examples</h2>
+      <p class="home-showcase__intro">
+        These are real in-page previews: each card links to the hook’s full reference. More categories will land here
+        next.
       </p>
 
-      <div class="home-showcase__grid">
-        <article
-          v-for="(cat, index) in hookCategoriesCatalog"
-          :key="cat.id"
-          class="home-card"
-          :style="{ '--stagger': String(index) }"
-        >
-          <div class="home-card__head">
-            <h3 class="home-card__title">
-              <a class="home-card__title-link" :href="withBase(cat.overviewLink)">{{ cat.title }}</a>
-            </h3>
-            <span class="home-card__count" :data-empty="cat.hooks.length === 0">
-              <template v-if="cat.hooks.length === 0">Soon</template>
-              <template v-else> {{ cat.hooks.length }} hook{{ cat.hooks.length === 1 ? '' : 's' }} </template>
-            </span>
+      <section class="home-showcase__section" aria-labelledby="home-showcase-state-title">
+        <div class="home-showcase__section-head">
+          <h3 id="home-showcase-state-title" class="home-showcase__section-title">State</h3>
+          <div class="home-showcase__toggle-sticky">
+            <button
+              type="button"
+              class="home-showcase__toggle"
+              :aria-expanded="anyDemosOpen"
+              aria-controls="home-state-demos-panel"
+              @click="toggleShowAllDemos"
+            >
+              <span class="home-showcase__toggle-icon" aria-hidden="true">
+                <svg
+                  v-if="anyDemosOpen"
+                  class="home-showcase__toggle-svg"
+                  viewBox="0 0 12 12"
+                  width="12"
+                  height="12"
+                  focusable="false"
+                >
+                  <path
+                    d="M2.5 4.5L6 7.5L9.5 4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="home-showcase__toggle-svg"
+                  viewBox="0 0 12 12"
+                  width="12"
+                  height="12"
+                  focusable="false"
+                >
+                  <path
+                    d="M4.5 2.5L7.5 6L4.5 9.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span class="home-showcase__toggle-label">
+                {{ anyDemosOpen ? 'Hide' : 'Show' }} all demos
+              </span>
+            </button>
           </div>
-          <p class="home-card__desc">{{ cat.description }}</p>
-          <ul v-if="cat.hooks.length" class="home-card__hooks" :aria-label="`${cat.title} hooks`">
-            <li v-for="h in cat.hooks" :key="h.name">
-              <a class="home-chip" :href="withBase(h.link)">
-                <code>{{ h.name }}</code>
-              </a>
-            </li>
-          </ul>
-          <p v-else class="home-card__empty">More hooks landing here - watch the changelog.</p>
-          <a class="home-card__cta" :href="withBase(cat.overviewLink)">Category overview →</a>
-        </article>
-      </div>
+        </div>
+        <p class="home-showcase__section-lead">
+          Toggles, counters, debounce, storage, ref history, and related helpers - click a card to open its live preview.
+          Browse
+          <a class="home-showcase__state-link" :href="withBase('/functions/state')">State in the function list →</a>
+        </p>
+
+        <div id="home-state-demos-panel" class="home-state-demos" role="list">
+          <article
+            v-for="(item, index) in homeStateDemos"
+            :key="item.demo"
+            class="home-state-demos__item"
+            :class="{ 'home-state-demos__item--expanded': isCardExpanded(item.demo) }"
+            :style="{ '--stagger': String(index) }"
+            role="listitem"
+            tabindex="0"
+            :aria-expanded="isCardExpanded(item.demo)"
+            @click="onDemoItemClick(item.demo, $event)"
+            @keydown="onDemoItemKeydown(item.demo, $event)"
+          >
+            <HookLiveDemo
+              :demo="item.demo"
+              :title="item.title"
+              :title-href="withBase(`/functions/${item.demo.split('/')[0]}`)"
+            />
+          </article>
+        </div>
+      </section>
+
+      <!-- e.g. <section class="home-showcase__section" …> + homeBrowserDemos when ready -->
     </div>
   </div>
 </template>
@@ -52,7 +171,16 @@ import { hookCategoriesCatalog } from '../../data/hookCatalog'
   margin: 0 auto;
   max-width: 1160px;
   padding: 3rem 1.5rem 4rem;
+  scroll-margin-top: calc(var(--vp-nav-height, 64px) + 0.75rem);
+}
+
+/* Clip glow so transform/inset never widen the page (horizontal scrollbar). Sticky stays on .inner. */
+.home-showcase__glow-clip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .home-showcase__glow {
@@ -81,101 +209,6 @@ import { hookCategoriesCatalog } from '../../data/hookCatalog'
   z-index: 1;
 }
 
-.home-showcase__hero-badges {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-
-.home-showcase__hero-badge {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 170px;
-  padding: 0.75rem 1rem;
-  border-radius: 14px;
-  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 72%, transparent);
-  background: linear-gradient(
-    140deg,
-    color-mix(in srgb, var(--vp-c-bg-soft) 92%, var(--vp-c-brand-1)) 0%,
-    color-mix(in srgb, var(--vp-c-bg-soft) 96%, var(--vp-c-brand-soft)) 100%
-  );
-  box-shadow: 0 14px 30px -24px color-mix(in srgb, var(--vp-c-brand-1) 48%, transparent);
-}
-
-.home-showcase__hero-badge--primary {
-  border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
-}
-
-.home-showcase__hero-value {
-  display: block;
-  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: var(--vp-c-text-1);
-}
-
-.home-showcase__hero-value--small {
-  font-size: clamp(1rem, 1.8vw, 1.2rem);
-  letter-spacing: -0.01em;
-}
-
-.home-showcase__hero-label {
-  margin-top: 0.2rem;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--vp-c-text-2);
-}
-
-.home-showcase__eyebrow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--vp-c-brand-1);
-  margin: 0 0 1rem;
-}
-
-.home-showcase__eyebrow-sep {
-  color: var(--vp-c-text-3);
-  font-weight: 400;
-}
-
-.home-showcase__pulse {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  background: var(--vp-c-brand-1);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--vp-c-brand-1) 45%, transparent);
-  animation: home-pulse 2.4s ease-out infinite;
-}
-
-@keyframes home-pulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--vp-c-brand-1) 45%, transparent);
-  }
-  70% {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 10px transparent;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 transparent;
-  }
-}
-
 .home-showcase__title {
   font-size: clamp(1.65rem, 2.5vw, 2.1rem);
   font-weight: 700;
@@ -194,7 +227,7 @@ import { hookCategoriesCatalog } from '../../data/hookCatalog'
   background-clip: text;
 }
 
-.home-showcase__lead {
+.home-showcase__intro {
   max-width: 52rem;
   margin: 0 0 2.25rem;
   font-size: 1.05rem;
@@ -202,170 +235,175 @@ import { hookCategoriesCatalog } from '../../data/hookCatalog'
   color: var(--vp-c-text-2);
 }
 
-.home-showcase__grid {
-  display: grid;
-  gap: 1.25rem;
-  grid-template-columns: 1fr;
+.home-showcase__section {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
 }
 
-@media (min-width: 640px) {
-  .home-showcase__grid {
+.home-showcase__section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.home-showcase__toggle-sticky {
+  position: sticky;
+  top: calc(var(--vp-nav-height, 64px) + 0.5rem);
+  z-index: 30;
+  align-self: flex-start;
+  margin-left: auto;
+}
+
+.home-showcase__section-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--vp-c-text-1);
+}
+
+.home-showcase__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem 0.45rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  color: var(--vp-c-text-1);
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 88%, var(--vp-c-bg-alt));
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 78%, transparent);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.home-showcase__toggle-label {
+  line-height: 1.2;
+  padding: 0.02em 0 0;
+}
+
+.home-showcase__toggle:hover {
+  color: var(--vp-c-brand-1);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 40%, var(--vp-c-divider));
+  background: color-mix(in srgb, var(--vp-c-brand-1) 8%, var(--vp-c-bg-soft));
+}
+
+.home-showcase__toggle:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}
+
+.home-showcase__toggle-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: 0;
+  color: currentColor;
+  opacity: 0.9;
+}
+
+.home-showcase__toggle-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.home-showcase__section-lead {
+  max-width: 52rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+}
+
+.home-showcase__state-link {
+  display: inline;
+  font-weight: 600;
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  margin-left: 0.25rem;
+  white-space: nowrap;
+}
+
+.home-showcase__state-link:hover {
+  text-decoration: underline;
+}
+
+/* Two demos per row from tablet up; one column on narrow viewports. */
+.home-state-demos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 900px) {
+  .home-state-demos {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1100px) {
-  .home-showcase__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-.home-card {
+.home-state-demos__item {
   --stagger: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 1.35rem 1.35rem 1.15rem;
-  border-radius: 16px;
-  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 80%, transparent);
-  background: linear-gradient(
-    155deg,
-    color-mix(in srgb, var(--vp-c-bg-soft) 92%, var(--vp-c-brand-1)) 0%,
-    var(--vp-c-bg-soft) 48%,
-    var(--vp-c-bg-alt) 100%
-  );
-  box-shadow: 0 18px 40px -28px color-mix(in srgb, var(--vp-c-brand-1) 35%, transparent);
+  gap: 0.5rem;
+  min-width: 0;
   opacity: 0;
-  transform: translate3d(0, 14px, 0);
-  animation: home-card-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(0.06s + (var(--stagger) * 0.045s));
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.25s ease,
-    box-shadow 0.35s ease;
+  transform: translate3d(0, 10px, 0);
+  animation: home-state-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.04s + (var(--stagger) * 0.02s));
+  border-radius: 16px;
+  outline-offset: 2px;
 }
 
-.home-card:hover {
-  transform: translate3d(0, -4px, 0);
-  border-color: color-mix(in srgb, var(--vp-c-brand-1) 35%, var(--vp-c-divider));
-  box-shadow: 0 22px 48px -22px color-mix(in srgb, var(--vp-c-brand-1) 42%, transparent);
+.home-state-demos__item:not(.home-state-demos__item--expanded) {
+  cursor: pointer;
 }
 
-@keyframes home-card-in {
+.home-state-demos__item:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+}
+
+.home-state-demos__item :deep(.hook-live-demo) {
+  margin: 0;
+}
+
+/* Collapsed: header only; expanded card shows preview + source as usual. */
+.home-state-demos__item:not(.home-state-demos__item--expanded) :deep(.hook-live-demo__preview),
+.home-state-demos__item:not(.home-state-demos__item--expanded) :deep(.hook-live-demo__source) {
+  display: none !important;
+}
+
+.home-state-demos__item:not(.home-state-demos__item--expanded) :deep(.hook-live-demo__header) {
+  border-bottom: none;
+}
+
+@keyframes home-state-in {
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
 }
 
-.home-card__head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-}
-
-.home-card__title {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.home-card__title-link {
-  color: var(--vp-c-text-1);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.home-card__title-link:hover {
-  color: var(--vp-c-brand-1);
-}
-
-.home-card__count {
-  flex-shrink: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent);
-  color: var(--vp-c-brand-1);
-}
-
-.home-card__count[data-empty='true'] {
-  background: color-mix(in srgb, var(--vp-c-text-3) 22%, transparent);
-  color: var(--vp-c-text-2);
-}
-
-.home-card__desc {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: var(--vp-c-text-2);
-  flex: 1;
-}
-
-.home-card__hooks {
-  list-style: none;
-  margin: 0.15rem 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.home-chip {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.28rem 0.55rem;
-  border-radius: 10px;
-  font-size: 0.78rem;
-  text-decoration: none;
-  color: var(--vp-c-text-code);
-  background: color-mix(in srgb, var(--vp-c-bg-alt) 88%, var(--vp-c-brand-1));
-  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 70%, transparent);
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.home-chip:hover {
-  border-color: color-mix(in srgb, var(--vp-c-brand-1) 45%, var(--vp-c-divider));
-  transform: translateY(-1px);
-}
-
-.home-chip code {
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.78rem;
-}
-
-.home-card__empty {
-  margin: 0.15rem 0 0;
-  font-size: 0.85rem;
-  font-style: italic;
-  color: var(--vp-c-text-3);
-}
-
-.home-card__cta {
-  margin-top: 0.15rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--vp-c-brand-1);
-  text-decoration: none;
-  align-self: flex-start;
-}
-
-.home-card__cta:hover {
-  text-decoration: underline;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .home-showcase__glow,
-  .home-showcase__pulse,
-  .home-card {
+  .home-state-demos__item {
     animation: none !important;
   }
 
@@ -373,12 +411,8 @@ import { hookCategoriesCatalog } from '../../data/hookCatalog'
     opacity: 0.4;
   }
 
-  .home-card {
+  .home-state-demos__item {
     opacity: 1;
-    transform: none;
-  }
-
-  .home-card:hover {
     transform: none;
   }
 }

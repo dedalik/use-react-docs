@@ -12,8 +12,7 @@ description: >-
 # useManualRefHistory()
 
 <PackageData fn="useManualRefHistory" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useManualRefHistory/basic" title="Live demo: useManualRefHistory" />
 
 ## Overview
 
