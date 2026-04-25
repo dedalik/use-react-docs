@@ -3,7 +3,7 @@ title: Functions useReact Hooks
 category: Functions
 hide_table_of_contents: false
 description: >-
-  Browse 32 React hooks from @dedalik/use-react: filter by category, copy-paste
+  Browse 188 React hooks from @dedalik/use-react: filter by category, copy-paste
   examples, bundle sizes, SSR table. TypeScript-first.
 ---
 

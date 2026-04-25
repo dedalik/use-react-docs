@@ -1,4 +1,4 @@
-/** GA4 measurement ID — keep in sync with cookie / consent flow only (no SSG injection). */
+/** GA4 measurement ID - keep in sync with cookie / consent flow only (no SSG injection). */
 export const GA_MEASUREMENT_ID = 'G-FBEWF72TFF'
 
 const STORAGE_KEY = 'usereact-cookie-consent'

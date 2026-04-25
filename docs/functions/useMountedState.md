@@ -4,7 +4,7 @@ sidebar_label: useMountedState
 category: Lifecycle
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useMountedState'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useMountedState.tsx'
 description: >-
   useMountedState from @dedalik/use-react: Check if component is mounted.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,46 +14,57 @@ description: >-
 
 <PackageData fn="useMountedState" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useMountedState` returns a function that tells whether component is still mounted.
-
-This is useful for guarding async callbacks to avoid updates after unmount in complex request flows.
+`useMountedState` returns a **stable function** that reads a ref: **`true`** after the first **client** `useEffect` runs (post-mount) and **`false`** after unmount. Use it to **guard** **`setState`** or DOM updates after **`async`** work-if the component unmounted while a Promise was pending, you can skip the update. The getter is **synchronous** and does not cause re-renders; it only reflects mount state at call time. On the **server**, the ref stays **`false`** because the effect never runs, so treat `isMounted()` as **false** during SSR. It does not replace **AbortController** for cancelling fetches; it only answers “is this tree still mounted?”
 
 ### What it accepts
 
-- No arguments.
+- None.
 
 ### What it returns
 
-- Function `() => boolean` that reports mounted status.
+- **`isMounted`**: `() => boolean` - **true** only after mount effect, **false** after unmount (and before mount on the server)
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+After a **fake** delay, call **`setState`** only if **`isMounted()`** is still true.
 
 ```tsx
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import useMountedState from '@dedalik/use-react/useMountedState'
 
-function MountedProbeExample() {
+function Example() {
   const isMounted = useMountedState()
-  const [label, setLabel] = useState('')
+  const [label, setLabel] = useState('idle')
+
+  const load = useCallback(async () => {
+    setLabel('loading…')
+    await new Promise((r) => setTimeout(r, 1500))
+    if (isMounted()) {
+      setLabel('done (still mounted)')
+    }
+  }, [isMounted])
 
   return (
     <div>
-      <button type='button' onClick={() => setLabel(isMounted() ? 'mounted' : 'unmounted')}>
-        Check mounted ref
-      </button>
-      <p>{label}</p>
+      <p>Status: {label}</p>
+      <p>
+        <button type='button' onClick={load}>
+          Start async
+        </button>
+      </p>
+      <p>
+        <small>Unmount this component before 1.5s to see that we avoid the final state update.</small>
+      </p>
     </div>
   )
 }
 
-export default function MountedProbeDemo() {
-  return <MountedProbeExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -69,9 +80,11 @@ None.
 
 #### Returns
 
-A function `isMounted()` that returns whether the component is still mounted (useful after `await`).
+A **stable** no-arg function that returns the current mounted flag.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useCallback, useEffect, useRef } from 'react'
@@ -90,7 +103,7 @@ export default function useMountedState(): () => boolean {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useCallback, useEffect, useRef } from 'react'

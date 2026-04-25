@@ -4,7 +4,7 @@ sidebar_label: useLatest
 category: State
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useLatest'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useLatest.tsx'
 description: >-
   useLatest from @dedalik/use-react: Store the latest value in a ref.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,44 +14,53 @@ description: >-
 
 <PackageData fn="useLatest" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useLatest` stores the most recent value inside a ref.
-
-It is often used together with listeners and async handlers to read fresh values without re-subscribing effects.
+`useLatest` keeps the newest value in a mutable ref (`React.MutableRefObject<T>`) and updates `ref.current` on every render. This is useful when you need a stable callback (for example, an interval, subscription, or event listener) that always reads the latest props/state without re-creating the callback or re-subscribing on every change.
 
 ### What it accepts
 
-- `value`: any value that should be kept up to date.
+- `value: T`.
 
 ### What it returns
 
-- A ref object with `.current` always equal to the latest value.
+- A ref whose `current` always points at the latest `value`. Type `React.MutableRefObject<T>`.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Real-world example: log the latest counter from a stable interval without restarting the timer when the count changes.
 
 ```tsx
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useLatest from '@dedalik/use-react/useLatest'
 
-function LatestMirrorExample() {
-  const [value, setValue] = useState('hello')
-  const latest = useLatest(value)
+function Example() {
+  const [count, setCount] = useState(0)
+  const latestCountRef = useLatest(count)
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      // Always reads the newest count, even though this effect only runs once.
+      console.log('latest count:', latestCountRef.current)
+    }, 1000)
+
+    return () => window.clearInterval(id)
+  }, [])
 
   return (
     <div>
-      <input value={value} onChange={(e) => setValue(e.target.value)} />
-      <p>Ref tracks input: {String(latest.current === value)}</p>
+      <h3>Live Counter</h3>
+      <p>Current: {count}</p>
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+      <p>Open the console to see the interval log update as you click.</p>
     </div>
   )
 }
 
-export default function LatestMirrorDemo() {
-  return <LatestMirrorExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -59,15 +68,15 @@ export default function LatestMirrorDemo() {
 
 ### `useLatest`
 
-**Signature:** `useLatest<T>(value: T): React.MutableRefObject<T>`
+**Signature:** `useLatest(value: T)`
 
 #### Parameters
 
-1. **`value`** - Any value to keep in `.current` on every render.
+1. **`value`** (`T`) - See type in signature.
 
 #### Returns
 
-A ref whose `.current` always equals the latest `value`.
+A ref whose `current` always points at the latest `value`. (`React.MutableRefObject<T>`).
 
 ## Copy-paste hook
 
@@ -81,15 +90,12 @@ export default function useLatest<T>(value: T) {
 }
 ```
 
-### JavaScript version
-
 ```js
 import { useRef } from 'react'
 
 export default function useLatest(value) {
   const valueRef = useRef(value)
   valueRef.current = value
-
   return valueRef
 }
 ```

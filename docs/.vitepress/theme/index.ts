@@ -6,6 +6,7 @@ import { applyConsentFromStorage } from './analytics'
 // import Test from "./components/Note.vue";
 import PackageData from './components/PackageData.vue'
 import HomeHookShowcase from './components/HomeHookShowcase.vue'
+import HomeHeroStats from './components/HomeHeroStats.vue'
 
 import './styles/tailwind.css'
 import './styles/styles.css'
@@ -46,10 +47,37 @@ function enhanceCollapsibleCodeBlocks() {
   })
 }
 
+function lockCoreFunctionsSidebarGroup() {
+  if (typeof document === 'undefined') return
+
+  const labels = document.querySelectorAll<HTMLElement>('.VPSidebarItem .text')
+  labels.forEach((label) => {
+    if (label.textContent?.trim() !== 'Core Functions') return
+
+    const group = label.closest<HTMLElement>('.VPSidebarItem')
+    if (!group) return
+    group.classList.add('core-functions-locked')
+
+    const button = group.querySelector<HTMLElement>(':scope > .item > .button')
+    if (!button || button.dataset.coreLocked === '1') return
+
+    button.dataset.coreLocked = '1'
+    button.addEventListener(
+      'click',
+      (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+      },
+      true,
+    )
+  })
+}
+
 export default {
   ...DefaultTheme,
   Layout: () =>
     h(DefaultTheme.Layout!, null, {
+      'home-hero-after': () => h(HomeHeroStats),
       'layout-bottom': () => h(CookieConsentBanner),
     }),
   setup() {
@@ -57,7 +85,10 @@ export default {
 
     const refreshBlocks = async () => {
       await nextTick()
-      requestAnimationFrame(() => enhanceCollapsibleCodeBlocks())
+      requestAnimationFrame(() => {
+        enhanceCollapsibleCodeBlocks()
+        lockCoreFunctionsSidebarGroup()
+      })
     }
 
     onMounted(refreshBlocks)
