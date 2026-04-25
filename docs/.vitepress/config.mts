@@ -1,7 +1,16 @@
 import { defineConfig } from 'vitepress'
+import type { PageData } from 'vitepress'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { buildCoreFunctionsSidebarGroup } from './data/hookCatalog'
 import { transformHead as seoTransformHead } from './seo/transformHead'
+
+function editUrlForPage(page: PageData): string {
+  const m = page.relativePath.match(/^functions\/(.+)\.md$/)
+  if (m) {
+    return `https://github.com/dedalik/use-react/blob/main/src/hooks/${m[1]}.tsx`
+  }
+  return `https://github.com/dedalik/use-react-docs/blob/main/docs/${page.relativePath}`
+}
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -30,10 +39,76 @@ export default defineConfig({
       dark: 'vitesse-dark',
     },
   },
+  head: [
+    ['meta', { name: 'theme-color', content: '#ffffff' }],
+    ['link', { rel: 'icon', href: '/favicon-32x32.png', type: 'image/png' }],
+    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    ['meta', { property: 'og:title', content: 'UseReact' }],
+    ['meta', { property: 'og:image', content: 'https://usereact.org/logo.png' }],
+    [
+      'meta',
+      {
+        property: 'og:description',
+        content: 'React Hooks and Utilities Collection',
+      },
+    ],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:creator', content: '@antfu7' }],
+    ['meta', { name: 'twitter:image', content: 'https://usereact.org/logo.png' }],
+    [
+      'meta',
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
+      },
+    ],
+
+    ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
+    [
+      'link',
+      {
+        rel: 'preconnect',
+        crossorigin: 'anonymous',
+        href: 'https://fonts.gstatic.com',
+      },
+    ],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
+      },
+    ],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
+      },
+    ],
+
+    // Google tag (gtag.js) - G-FBEWF72TFF
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://www.googletagmanager.com/gtag/js?id=G-FBEWF72TFF',
+      },
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-FBEWF72TFF');`,
+    ],
+  ],
+
   themeConfig: {
     logo: '/favicon.png',
     editLink: {
-      pattern: 'https://github.com/dedalik/use-react/tree/main/:path',
+      pattern: editUrlForPage,
       text: 'Suggest changes to this page',
     },
     // https://vitepress.dev/reference/default-theme-config
@@ -62,57 +137,8 @@ export default defineConfig({
           { text: 'Guidelines', link: '/guide/guidelines' },
         ],
       },
-      buildCoreFunctionsSidebarGroup(),
+      ...buildCoreFunctionsSidebarGroup(),
     ] as any,
-
-    head: [
-      ['meta', { name: 'theme-color', content: '#ffffff' }],
-      ['link', { rel: 'icon', href: '/favicon-32x32.png', type: 'image/png' }],
-      ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
-      ['meta', { property: 'og:title', content: 'UseReact' }],
-      ['meta', { property: 'og:image', content: 'https://usereact.org/logo.png' }],
-      [
-        'meta',
-        {
-          property: 'og:description',
-          content: 'React Hooks and Utilities Collection',
-        },
-      ],
-      ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-      ['meta', { name: 'twitter:creator', content: '@antfu7' }],
-      ['meta', { name: 'twitter:image', content: 'https://usereact.org/logo.png' }],
-      [
-        'meta',
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
-        },
-      ],
-
-      ['link', { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' }],
-      [
-        'link',
-        {
-          rel: 'preconnect',
-          crossorigin: 'anonymous',
-          href: 'https://fonts.gstatic.com',
-        },
-      ],
-      [
-        'link',
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap',
-        },
-      ],
-      [
-        'link',
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
-        },
-      ],
-    ],
 
     socialLinks: [{ icon: 'github', link: 'https://github.com/dedalik/use-react' }],
 

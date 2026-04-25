@@ -4,7 +4,7 @@ sidebar_label: useWindowSize
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useWindowSize'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useWindowSize.tsx'
 description: >-
   useWindowSize from @dedalik/use-react: Track window width and height.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,41 +14,46 @@ description: >-
 
 <PackageData fn="useWindowSize" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useWindowSize` tracks the browser viewport width and height.
-
-This hook is useful for responsive rendering decisions and layout behavior that depends on viewport dimensions.
+`useWindowSize` seeds **`width`** and **`height`** from **`window.innerWidth` / `innerHeight`** on the client (and **`0` / `0`** during SSR), then attaches a **`resize`** listener that copies fresh dimensions into React state on every viewport change-unlike **`useSSRWidth`**, this value stays live for responsive layouts, canvas sizing, or breakpoint-free “fluid” UI. The listener is removed on unmount; there is no debounce, so very chatty resize handlers elsewhere should not duplicate heavy work inside render-derive memoized layout flags instead.
 
 ### What it accepts
 
-- No arguments.
+- None.
 
 ### What it returns
 
-- Object with current `width` and `height`.
+- **`width`**, **`height`** - Current inner viewport size in CSS pixels (`number`).
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Show dimensions and a simple orientation hint (no `JSON.stringify`).
 
 ```tsx
 import useWindowSize from '@dedalik/use-react/useWindowSize'
 
-function ViewportReadoutExample() {
+function Example() {
   const { width, height } = useWindowSize()
+  const orientation = width >= height ? 'landscape-ish' : 'portrait-ish'
 
   return (
-    <p>
-      {width} × {height}
-    </p>
+    <div>
+      <h3>Viewport</h3>
+      <p>
+        <strong>{width}</strong> × <strong>{height}</strong> px
+      </p>
+      <p>
+        Aspect hint: <strong>{orientation}</strong>
+      </p>
+    </div>
   )
 }
 
-export default function ViewportReadoutDemo() {
-  return <ViewportReadoutExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -56,7 +61,7 @@ export default function ViewportReadoutDemo() {
 
 ### `useWindowSize`
 
-**Signature:** `useWindowSize(): { width: number; height: number }`
+**Signature:** `useWindowSize(): WindowSize`
 
 #### Parameters
 
@@ -64,9 +69,14 @@ None.
 
 #### Returns
 
-Latest inner width and height of the `window` (zeros when `window` is unavailable).
+Object **`WindowSize`**:
+
+- **`width`** (`number`) - `window.innerWidth` (0 on server).
+- **`height`** (`number`) - `window.innerHeight` (0 on server).
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect, useState } from 'react'
@@ -102,12 +112,13 @@ export default function useWindowSize(): WindowSize {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useState } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
+
 export default function useWindowSize() {
   const [size, setSize] = useState(() => ({
     width: isBrowser ? window.innerWidth : 0,
@@ -123,6 +134,7 @@ export default function useWindowSize() {
         height: window.innerHeight,
       })
     }
+
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
   }, [])

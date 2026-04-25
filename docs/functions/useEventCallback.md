@@ -4,7 +4,7 @@ sidebar_label: useEventCallback
 category: State
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useEventCallback'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useEventCallback.tsx'
 description: >-
   useEventCallback from @dedalik/use-react: Keep callback identity stable.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,43 +14,62 @@ description: >-
 
 <PackageData fn="useEventCallback" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useEventCallback` returns a stable callback reference that always executes the latest callback logic.
-
-This avoids stale closure bugs in event listeners, timers, and external integrations while keeping a stable function identity.
+`useEventCallback` returns a **function whose reference is stable** across renders (empty **`useCallback`** deps) while always **invoking the latest** **`fn`**: each render overwrites **`fnRef.current`**, and the returned wrapper calls **`fnRef.current(...args)`**. That lets you pass a handler into **`useEffect` / `useMemo` / `memo`** dependency arrays **without** listing the inner `fn` and **without** stale closures when the wrapper is invoked later. It is the same “latest callback” pattern as the familiar **`useEvent`** / `useEventCallback` recipes. **Parameters** and **`this`** are forwarded to the current `fn` as a normal function call; there is no attempt to **bind** `this`.
 
 ### What it accepts
 
-- `fn`: callback function you want to keep up to date.
+- **`fn`**: a function of any arity (`T extends AnyFunction`)
 
 ### What it returns
 
-- A stable callback function with the same call signature as `fn`.
+- The **same** callable `T` type-**identity-stable** for React’s referential dependencies
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Keep a child **`memo`’d**; pass a **stable** `onSave` that still reads fresh **`count`** (increment then save).
 
 ```tsx
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import useEventCallback from '@dedalik/use-react/useEventCallback'
 
-function StableHandlerExample() {
+const Toolbar = memo(function Toolbar({ onSave }: { onSave: () => void }) {
+  return (
+    <button type='button' onClick={onSave}>
+      Save snapshot
+    </button>
+  )
+})
+
+function Example() {
   const [count, setCount] = useState(0)
-  const bump = useEventCallback(() => setCount((c) => c + 1))
+  const [log, setLog] = useState<string[]>([])
+
+  const onSave = useEventCallback(() => {
+    setLog((L) => [...L.slice(-5), `saved: count is ${count}`])
+  })
 
   return (
-    <button type='button' onClick={bump}>
-      Stable handler clicks: {count}
-    </button>
+    <div>
+      <p>Count: {count}</p>
+      <button type='button' onClick={() => setCount((c) => c + 1)}>
+        +1
+      </button>
+      <Toolbar onSave={onSave} />
+      <ul>
+        {log.map((l, i) => (
+          <li key={i}>{l}</li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
-export default function StableHandlerDemo() {
-  return <StableHandlerExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -58,17 +77,19 @@ export default function StableHandlerDemo() {
 
 ### `useEventCallback`
 
-**Signature:** `useEventCallback<T extends (...args: any[]) => any>(fn: T): T`
+**Signature:** `useEventCallback<T extends AnyFunction>(fn: T): T`
 
 #### Parameters
 
-1. **`fn`** - Callback whose latest implementation should always run (avoids stale closures).
+1. **`fn`**
 
 #### Returns
 
-A **stable** function reference with the same call signature as `fn`, always forwarding to the newest `fn`.
+Stable wrapper with the same `T` signature; runs the most recently passed **`fn`**.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useCallback, useRef } from 'react'
@@ -83,7 +104,7 @@ export default function useEventCallback<T extends AnyFunction>(fn: T): T {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useCallback, useRef } from 'react'
