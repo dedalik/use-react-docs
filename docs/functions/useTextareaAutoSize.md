@@ -4,7 +4,7 @@ sidebar_label: useTextareaAutoSize
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useTextareaAutoSize'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useTextareaAutoSize.tsx'
 description: >-
   useTextareaAutoSize from @dedalik/use-react: Auto-resize textarea to fit
   content. TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,63 +14,76 @@ description: >-
 
 <PackageData fn="useTextareaAutoSize" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useTextareaAutoSize` automatically resizes a textarea based on content height.
-
-This improves typing experience by removing fixed-height friction and keeping long-form inputs readable.
+`useTextareaAutoSize` measures a `<textarea>`’s `scrollHeight` and applies the computed height either directly on the textarea or on an optional `styleTarget` wrapper, so the field grows/shrinks as the user types without manual height bookkeeping. It also exposes `input`/`setInput` state (kept in sync with `options.input` when provided) and `triggerResize` for cases where layout changes without a value change (fonts loaded, window resized, programmatic DOM updates).
 
 ### What it accepts
 
-- `options` (optional): textarea ref, current input, resize callback, and custom style target.
+- `options?: UseTextareaAutoSizeOptions` - Optional configuration (`elementRef`, `input`, `onResize`, `styleTarget`).
 
 ### What it returns
 
-- Object containing `textareaRef`, `input`, `setInput`, and `triggerResize`.
-
-Automatically adjust the height of a textarea based on its content.
+- `textareaRef`: Ref to attach to the `<textarea>` (or your provided `elementRef`). Type `React.RefObject<HTMLTextAreaElement | null>`.
+- `input`: Current textarea text managed by the hook. Type `string | undefined`.
+- `setInput`: Updates `input` and triggers a resize pass. Type `(next: string | undefined) => void`.
+- `triggerResize`: Recomputes height from the current DOM state. Type `() => void`.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Real-world example: auto-grow a comment box, optionally sizing a wrapper (`styleTarget`) and observing resize events via `onResize`.
 
 ```tsx
+import { useEffect, useRef, useState } from 'react'
 import useTextareaAutoSize from '@dedalik/use-react/useTextareaAutoSize'
 
-function AutoGrowNotesExample() {
-  const { textareaRef, input, setInput } = useTextareaAutoSize()
+function Example() {
+  const shellRef = useRef<HTMLDivElement | null>(null)
+  const [styleTarget, setStyleTarget] = useState<HTMLElement | undefined>(undefined)
+  const [resizeCount, setResizeCount] = useState(0)
+
+  useEffect(() => {
+    setStyleTarget(shellRef.current ?? undefined)
+  }, [])
+
+  const { textareaRef, input, setInput } = useTextareaAutoSize({
+    styleTarget,
+    onResize: () => setResizeCount((c) => c + 1),
+  })
 
   return (
-    <textarea
-      ref={textareaRef}
-      value={input ?? ''}
-      onChange={(e) => setInput(e.target.value)}
-      rows={1}
-      style={{ width: '100%', minHeight: 40 }}
-      placeholder='Type multiple lines...'
-    />
+    <div>
+      <h3>Comment</h3>
+      <div
+        ref={shellRef}
+        style={{
+          border: '1px solid #ddd',
+          borderRadius: 8,
+          padding: 12,
+          minHeight: 120,
+        }}
+      >
+        <textarea
+          ref={textareaRef}
+          value={input ?? ''}
+          onChange={(event) => setInput(event.target.value)}
+          placeholder='Write a comment…'
+          style={{ width: '100%', resize: 'none', lineHeight: 1.4 }}
+        />
+      </div>
+      <p>Characters: {(input ?? '').length}</p>
+      <p>Resize events: {resizeCount}</p>
+      <button type='button' onClick={() => setInput(`${input ?? ''}\nThanks!`)}>
+        Append line
+      </button>
+    </div>
   )
 }
 
-export default function AutoGrowNotesDemo() {
-  return <AutoGrowNotesExample />
-}
-```
-
-## CSS to hide scroll
-
-```css
-/* Hide scrollbar for Chrome, Safari and Opera */
-textarea::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-textarea {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -78,22 +91,24 @@ textarea {
 
 ### `useTextareaAutoSize`
 
-**Signature:** `useTextareaAutoSize(options?)`
+**Signature:** `useTextareaAutoSize(options?: UseTextareaAutoSizeOptions)`
 
 #### Parameters
 
-Optional **`options`**:
-
-- `elementRef` / internal ref - textarea element.
-- `input` - controlled text value driving height recalculation.
-- `onResize` - callback after height change.
-- `styleTarget` - optional element whose height should mirror the textarea.
+1. **`options?`** (optional `UseTextareaAutoSizeOptions`) - `elementRef` uses an external textarea ref; `input` controls the text from outside; `onResize` runs after height updates; `styleTarget` applies height to a wrapper element instead of the textarea.
 
 #### Returns
 
-`{ textareaRef, input, setInput, triggerResize }` - refs, state, and manual resize trigger.
+Object with:
+
+- `textareaRef` - Ref to attach to the `<textarea>` (or your provided `elementRef`). (`React.RefObject<HTMLTextAreaElement | null>`).
+- `input` - Current textarea text managed by the hook. (`string | undefined`).
+- `setInput` - Updates `input` and triggers a resize pass. (`(next: string | undefined) => void`).
+- `triggerResize` - Recomputes height from the current DOM state. (`() => void`).
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect, useRef, useState, useCallback, RefObject } from 'react'
@@ -157,43 +172,40 @@ export default function useTextareaAutoSize(options?: UseTextareaAutoSizeOptions
 export type UseTextareaAutoSizeType = ReturnType<typeof useTextareaAutoSize>
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useRef, useState, useCallback } from 'react'
 
 export default function useTextareaAutoSize(options) {
   const [input, setInput] = useState(options?.input)
-
   const internalTextareaRef = useRef(null)
-
   const textareaRef = options?.elementRef || internalTextareaRef
 
   const triggerResize = useCallback(() => {
     const textarea = textareaRef.current
-
     if (!textarea) return
 
     let height = ''
-    textarea.style.height = '1px'
 
+    textarea.style.height = '1px'
     const textareaScrollHeight = textarea.scrollHeight
-    // If style target is provided update its height
+
     if (options?.styleTarget) {
       options.styleTarget.style.height = `${textareaScrollHeight}px`
-    }
-    // else update textarea's height by updating height variable
-    else {
+    } else {
       height = `${textareaScrollHeight}px`
     }
+
     textarea.style.height = height
+
     options?.onResize?.()
   }, [options, textareaRef])
 
   useEffect(() => {
     triggerResize()
   }, [input, triggerResize])
-  // Updating the local state when the input prop changes
+
   useEffect(() => {
     setInput(options?.input)
   }, [options?.input])
@@ -201,30 +213,8 @@ export default function useTextareaAutoSize(options) {
   return {
     textareaRef,
     input,
-    setInput, // To allow updating the input externally
+    setInput,
     triggerResize,
   }
 }
-```
-
-## Type declarations
-
-```typescript
-interface UseTextareaAutosizeOptions {
-  /** Textarea element to autosize. */
-  element?: HTMLTextAreaElement | undefined
-  /** Textarea content. */
-  input?: string | undefined
-  /** Function called when the textarea size changes. */
-  onResize?: () => void
-  /** Specify style target to apply the height based on textarea content. If not provided it will use textarea itself.  */
-  styleTarget?: HTMLElement
-}
-export declare function useTextareaAutoSize(options?: UseTextareaAutosizeOptions): {
-  textarea: import('react').MutableRefObject<HTMLTextAreaElement | null>
-  input: string | undefined
-  setInput: import('react').Dispatch<import('react').SetStateAction<string | undefined>>
-  triggerResize: () => void
-}
-export type UseTextareaAutosizeReturn = ReturnType<typeof useTextareaAutoSize>
 ```

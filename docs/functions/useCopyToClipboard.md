@@ -4,7 +4,7 @@ sidebar_label: useCopyToClipboard
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useCopyToClipboard'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useCopyToClipboard.tsx'
 description: >-
   useCopyToClipboard from @dedalik/use-react: Copy text to the clipboard.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,47 +14,66 @@ description: >-
 
 <PackageData fn="useCopyToClipboard" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useCopyToClipboard` gives you a copy action and remembers the last copied value.
-
-It is handy for share links, token copying, and developer tooling UIs where users frequently copy values.
+`useCopyToClipboard` keeps the last successfully written string in React state and exposes an async **`copy(value)`** that uses **`navigator.clipboard.writeText`** when available (secure context + permission), returning **`true`** or **`false`** without throwing on failure. The first tuple slot mirrors what was last accepted by the clipboard API-handy for “Copied!” badges-while failures leave the previous value unchanged; there is no built-in timeout reset, so clear **`copiedText`** in your own effect if you want ephemeral feedback.
 
 ### What it accepts
 
-- No arguments.
+- None.
 
 ### What it returns
 
-- `[copiedText, copy]` where `copy(text)` returns `Promise<boolean>`.
+- Tuple **`[copiedText, copy]`** - Last copied string and **`copy`** async function.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Controlled input plus copy button; show outcome without `JSON.stringify`.
 
 ```tsx
 import { useState } from 'react'
 import useCopyToClipboard from '@dedalik/use-react/useCopyToClipboard'
 
-function ShareLinkExample() {
-  const [text, setText] = useState('https://example.com')
-  const [copied, copy] = useCopyToClipboard()
+function Example() {
+  const [draft, setDraft] = useState('Hello from use-react')
+  const [copiedText, copy] = useCopyToClipboard()
+  const [lastOk, setLastOk] = useState<boolean | null>(null)
 
   return (
     <div>
-      <input value={text} onChange={(e) => setText(e.target.value)} />
-      <button type='button' onClick={() => void copy(text)}>
-        Copy
-      </button>
-      <p>Last copied: {copied || '(empty)'}</p>
+      <h3>Clipboard</h3>
+      <textarea
+        rows={3}
+        style={{ width: '100%', maxWidth: 420, fontFamily: 'monospace' }}
+        value={draft}
+        onChange={(event) => setDraft(event.target.value)}
+      />
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+        <button
+          type='button'
+          onClick={async () => {
+            const ok = await copy(draft)
+            setLastOk(ok)
+          }}
+        >
+          Copy to clipboard
+        </button>
+      </div>
+      <p>
+        Last hook state:{' '}
+        <strong>{copiedText ? `"${copiedText.slice(0, 40)}${copiedText.length > 40 ? '…' : ''}"` : '-'}</strong>
+      </p>
+      <p style={{ marginBottom: 0 }}>
+        Last call: <strong>{lastOk === null ? '-' : lastOk ? 'success' : 'failed (permissions / context)'}</strong>
+      </p>
     </div>
   )
 }
 
-export default function ShareLinkDemo() {
-  return <ShareLinkExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -72,10 +91,12 @@ None.
 
 Tuple:
 
-1. **`copiedText`** - Last string successfully passed to `copy`, or empty string.
-2. **`copy`** - `(value: string) => Promise<boolean>`. Returns `false` if the Clipboard API is unavailable or write fails.
+1. **`copiedText`** (`string`) - Last string passed to a successful `writeText`.
+2. **`copy`** (`(value: string) => Promise<boolean>`) - Writes text to the clipboard.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useCallback, useState } from 'react'
@@ -103,7 +124,7 @@ export default function useCopyToClipboard(): [string, CopyFn] {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useCallback, useState } from 'react'
@@ -115,6 +136,7 @@ export default function useCopyToClipboard() {
     if (typeof navigator === 'undefined' || !navigator.clipboard?.writeText) {
       return false
     }
+
     try {
       await navigator.clipboard.writeText(value)
       setCopiedText(value)

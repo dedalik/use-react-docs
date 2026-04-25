@@ -2,8 +2,8 @@
 title: Browser hooks
 sidebar: true
 description: >-
-  Browser: useHash, useFavicon, useMediaQuery, useWindowSize (+5 more).
-  @dedalik/use-react TypeScript docs.
+  Browser: useHash, useFavicon, useMediaQuery, useWindowSize (+40 more),
+  including useBluetooth, useGamepad, useMemory, useMediaControls, usePerformanceObserver, useClipboardItems, useEyeDropper, useFileSystemAccess, useCssSupports, useCssVar, useBroadcastChannel, useFileDialog, useWebWorker, useWebWorkerFn, useFullscreen, useImage, useObjectUrl, useDark, usePreferredDark, and usePreferredColorScheme. @dedalik/use-react TypeScript docs.
 ---
 
 <script setup>

@@ -4,7 +4,7 @@ sidebar_label: useToggle
 category: State
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useToggle'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useToggle.tsx'
 description: >-
   useToggle from @dedalik/use-react: Toggle boolean state. TypeScript,
   tree-shakable import, examples, SSR notes.
@@ -14,44 +14,51 @@ description: >-
 
 <PackageData fn="useToggle" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useToggle` manages a boolean value with convenient toggle and setter actions.
-
-It is one of the simplest and most practical hooks for UI states like open/closed, enabled/disabled, and visible/hidden.
+`useToggle` manages a boolean flag and returns both a quick toggle action and an explicit setter. It is useful for UI states like open/closed panels, modal visibility, enabled/disabled controls, or any two-state behavior where you sometimes flip the current value and sometimes force a specific next value.
 
 ### What it accepts
 
-- `initialValue` (optional): starting boolean state.
+- `initialValue = false`.
 
 ### What it returns
 
-- `[value, toggle, set]` tuple.
+- Position **1**: `boolean`.
+- Position **2**: `() => void`.
+- Position **3**: `(nextValue: boolean) => void`.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Real-world example: control a settings panel with a default open state, plus separate actions for toggle/open/close.
 
 ```tsx
 import useToggle from '@dedalik/use-react/useToggle'
 
-function PanelToggleExample() {
-  const [open, toggle] = useToggle(false)
+function Example() {
+  const [isOpen, toggleOpen, setOpen] = useToggle(true)
 
   return (
     <div>
-      <button type='button' onClick={() => toggle()}>
-        {open ? 'Hide' : 'Show'} panel
-      </button>
-      {open ? <div style={{ marginTop: 8 }}>Panel content</div> : null}
+      <h3>Settings Panel</h3>
+      <p>Status: {isOpen ? 'Open' : 'Closed'}</p>
+      <div style={{ display: 'flex', gap: 8 }}>
+        <button onClick={toggleOpen}>Toggle</button>
+        <button onClick={() => setOpen(true)}>Open</button>
+        <button onClick={() => setOpen(false)}>Close</button>
+      </div>
+
+      {isOpen && (
+        <section style={{ marginTop: 12, padding: 12, border: '1px solid #ddd' }}>Panel content is visible.</section>
+      )}
     </div>
   )
 }
 
-export default function PanelToggleDemo() {
-  return <PanelToggleExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -59,15 +66,19 @@ export default function PanelToggleDemo() {
 
 ### `useToggle`
 
-**Signature:** `useToggle(initialValue?: boolean): UseToggleReturn`
+**Signature:** `useToggle(initialValue = false): UseToggleReturn`
 
 #### Parameters
 
-1. **`initialValue`** - Starting boolean (default `false`).
+1. **Parameter** - `initialValue`.
 
 #### Returns
 
-Tuple `[value, toggle, set]` - current flag, flip function, and explicit setter.
+Tuple:
+
+1. `boolean`
+2. `() => void`
+3. `(nextValue: boolean) => void`
 
 ## Copy-paste hook
 
@@ -90,8 +101,6 @@ export default function useToggle(initialValue = false): UseToggleReturn {
   return [value, toggle, set]
 }
 ```
-
-### JavaScript version
 
 ```js
 import { useCallback, useState } from 'react'

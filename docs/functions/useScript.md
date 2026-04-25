@@ -4,7 +4,7 @@ sidebar_label: useScript
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useScript'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useScript.tsx'
 description: >-
   useScript from @dedalik/use-react: Load external scripts with status.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,37 +14,55 @@ description: >-
 
 <PackageData fn="useScript" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useScript` loads external scripts and reports their loading status.
-
-Useful for integrating third-party SDKs in a controlled way while handling loading and error states in React UI.
+`useScript` manages a **`<script async src="…">`** lifecycle keyed by **`src`**: when **`src`** is set it reuses an existing tag with the same URL if one is already in the document (status jumps to **`ready`**), otherwise inserts a new node into **`document.body`**, listens for **`load`** / **`error`**, and reports **`idle` → `loading` → `ready` | `error`**. On cleanup it detaches listeners and **removes only scripts it created**, so shared CDN libraries loaded elsewhere are not deleted; omitting **`src`** yields **`idle`**. Use the status to gate code that assumes globals such as **`window._`** after loading Lodash from a CDN.
 
 ### What it accepts
 
-- `src` (optional): script URL to load.
+- **`src`** (optional) - Absolute or root-relative script URL. Omit or **`undefined`** to stay idle.
 
 ### What it returns
 
-- Status string: `idle`, `loading`, `ready`, or `error`.
+- **`ScriptStatus`** - **`'idle' | 'loading' | 'ready' | 'error'`**.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Load a tiny public script and show status; toggle **`src`** to demonstrate the parameter (no `JSON.stringify`).
 
 ```tsx
+import { useState } from 'react'
 import useScript from '@dedalik/use-react/useScript'
 
-function AnalyticsStubExample() {
-  const status = useScript('https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js')
+const LODASH_CDN = 'https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js'
 
-  return <p>Script status: {status}</p>
+function Example() {
+  const [enabled, setEnabled] = useState(false)
+  const status = useScript(enabled ? LODASH_CDN : undefined)
+  const displayStatus = enabled ? status : 'idle'
+  const lodashReady = enabled && status === 'ready' && typeof window !== 'undefined' && '_' in window
+
+  return (
+    <div>
+      <h3>External script</h3>
+      <p>
+        Status: <strong>{displayStatus}</strong>
+        {enabled ? null : <span style={{ opacity: 0.75 }}> (no src - hook stays idle)</span>}
+      </p>
+      <button type='button' onClick={() => setEnabled((value) => !value)}>
+        {enabled ? 'Unload URL' : 'Load Lodash from CDN'}
+      </button>
+      <p style={{ marginTop: 12 }}>
+        Global <code>_</code> available: <strong>{lodashReady ? 'yes' : 'no'}</strong>
+      </p>
+    </div>
+  )
 }
 
-export default function AnalyticsStubDemo() {
-  return <AnalyticsStubExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -56,18 +74,20 @@ export default function AnalyticsStubDemo() {
 
 #### Parameters
 
-1. **`src`** - Script URL. Omit or pass `undefined` for idle state without loading.
+- **`src`** (`string`, optional) - Script URL to inject or match.
 
 #### Returns
 
-Status string: `idle` | `loading` | `ready` | `error`.
+**`ScriptStatus`** - `'idle' | 'loading' | 'ready' | 'error'`.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect, useState } from 'react'
 
-type ScriptStatus = 'idle' | 'loading' | 'ready' | 'error'
+export type ScriptStatus = 'idle' | 'loading' | 'ready' | 'error'
 
 export default function useScript(src?: string): ScriptStatus {
   const [status, setStatus] = useState<ScriptStatus>(() => {
@@ -112,7 +132,7 @@ export default function useScript(src?: string): ScriptStatus {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useState } from 'react'
@@ -120,9 +140,7 @@ import { useEffect, useState } from 'react'
 export default function useScript(src) {
   const [status, setStatus] = useState(() => {
     if (!src) return 'idle'
-
     if (typeof document === 'undefined') return 'loading'
-
     const existingScript = document.querySelector(`script[src="${src}"]`)
     return existingScript ? 'ready' : 'loading'
   })
@@ -131,7 +149,6 @@ export default function useScript(src) {
     if (!src || typeof document === 'undefined') return
 
     let script = document.querySelector(`script[src="${src}"]`)
-
     let created = false
 
     if (!script) {
@@ -143,11 +160,12 @@ export default function useScript(src) {
     }
 
     const onLoad = () => setStatus('ready')
-
     const onError = () => setStatus('error')
+
     script.addEventListener('load', onLoad)
     script.addEventListener('error', onError)
     setStatus('loading')
+
     return () => {
       script?.removeEventListener('load', onLoad)
       script?.removeEventListener('error', onError)

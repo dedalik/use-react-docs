@@ -88,3 +88,8 @@
 .vp-doc .code-collapse-toggle:hover {
   background: var(--vp-c-bg-elv);
 }
+
+/* Keep "Core Functions" sidebar group always expanded. */
+.VPSidebarItem.core-functions-locked > .item .caret {
+  display: none !important;
+}
