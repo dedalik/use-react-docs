@@ -1,55 +1,55 @@
 {
   "createEventHook": {
-    "size": "635 B",
-    "gzipped": "295 B"
+    "size": "98 B",
+    "gzipped": "105 B"
   },
   "createGlobalState": {
-    "size": "854 B",
-    "gzipped": "368 B"
+    "size": "102 B",
+    "gzipped": "106 B"
   },
   "createInjectionState": {
-    "size": "748 B",
-    "gzipped": "371 B"
+    "size": "108 B",
+    "gzipped": "109 B"
   },
   "createSharedComposable": {
-    "size": "920 B",
-    "gzipped": "501 B"
+    "size": "112 B",
+    "gzipped": "112 B"
   },
   "createUnrefFn": {
-    "size": "265 B",
-    "gzipped": "183 B"
+    "size": "94 B",
+    "gzipped": "103 B"
   },
   "get": {
-    "size": "596 B",
-    "gzipped": "336 B"
+    "size": "70 B",
+    "gzipped": "89 B"
   },
   "isDefined": {
-    "size": "193 B",
-    "gzipped": "157 B"
+    "size": "82 B",
+    "gzipped": "95 B"
   },
   "makeDestructurable": {
-    "size": "982 B",
-    "gzipped": "423 B"
+    "size": "100 B",
+    "gzipped": "104 B"
   },
   "onElementRemoval": {
-    "size": "898 B",
-    "gzipped": "436 B"
+    "size": "97 B",
+    "gzipped": "102 B"
   },
   "onKeyStroke": {
-    "size": "892 B",
-    "gzipped": "478 B"
+    "size": "87 B",
+    "gzipped": "98 B"
   },
   "onLongPress": {
-    "size": "795 B",
-    "gzipped": "384 B"
+    "size": "87 B",
+    "gzipped": "98 B"
   },
   "onStartTyping": {
-    "size": "1.2 kB",
-    "gzipped": "522 B"
+    "size": "91 B",
+    "gzipped": "98 B"
   },
   "set": {
-    "size": "661 B",
-    "gzipped": "342 B"
+    "size": "70 B",
+    "gzipped": "89 B"
   },
   "useAbortController": {
     "size": "1.6 kB",
@@ -324,8 +324,8 @@
     "gzipped": "532 B"
   },
   "useHash": {
-    "size": "1.0 kB",
-    "gzipped": "425 B"
+    "size": "1015 B",
+    "gzipped": "426 B"
   },
   "useIdle": {
     "size": "1.2 kB",

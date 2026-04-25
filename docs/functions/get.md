@@ -4,7 +4,7 @@ sidebar_label: get
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/get.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/utils/get.tsx'
 description: >-
   get from @dedalik/use-react: safe nested get by dot path with optional fallback.
 ---
@@ -34,7 +34,7 @@ Last updated: 24/04/2026
 **Render** a **name** from a **nested** **profile**; **missing** paths show **“Guest”**.
 
 ```tsx
-import get from '@dedalik/use-react/get'
+import get from '@dedalik/use-react/utils/get'
 
 type Row = { user?: { profile?: { displayName?: string } } } | null
 

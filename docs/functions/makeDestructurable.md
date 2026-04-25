@@ -4,7 +4,7 @@ sidebar_label: makeDestructurable
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/makeDestructurable.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/utils/makeDestructurable.tsx'
 description: >-
   makeDestructurable from @dedalik/use-react: object + iterable for dual destructuring.
 ---
@@ -33,7 +33,7 @@ Last updated: 24/04/2026
 **Response**-style **value**: **object** for **`path`**, **tuple** for **HTTP** **code** and **text**.
 
 ```tsx
-import makeDestructurable from '@dedalik/use-react/makeDestructurable'
+import makeDestructurable from '@dedalik/use-react/utils/makeDestructurable'
 
 function Example() {
   const res = makeDestructurable({ path: '/dashboard' }, [200, 'OK'])

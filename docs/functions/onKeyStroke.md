@@ -4,7 +4,7 @@ sidebar_label: onKeyStroke
 category: Event
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/onKeyStroke.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/events/onKeyStroke.tsx'
 description: >-
   onKeyStroke from @dedalik/use-react: add keydown/keyup listener with key filter, cleanup fn.
 ---
@@ -35,7 +35,7 @@ Close a **panel** on **Escape**; listen on **`window`**, default **`keydown`**.
 
 ```tsx
 import { useEffect, useState } from 'react'
-import onKeyStroke from '@dedalik/use-react/onKeyStroke'
+import onKeyStroke from '@dedalik/use-react/events/onKeyStroke'
 
 function Example() {
   const [open, setOpen] = useState(true)

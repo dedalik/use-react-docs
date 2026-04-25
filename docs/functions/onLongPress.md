@@ -4,7 +4,7 @@ sidebar_label: onLongPress
 category: Event
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/onLongPress.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/events/onLongPress.tsx'
 description: >-
   onLongPress from @dedalik/use-react: mousedown/touch long press with delay, no React hook.
 ---
@@ -34,7 +34,7 @@ Last updated: 24/04/2026
 
 ```tsx
 import { useState } from 'react'
-import onLongPress from '@dedalik/use-react/onLongPress'
+import onLongPress from '@dedalik/use-react/events/onLongPress'
 
 function Example() {
   const [msg, setMsg] = useState('hold the button')

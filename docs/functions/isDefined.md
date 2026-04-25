@@ -4,7 +4,7 @@ sidebar_label: isDefined
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/isDefined.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/utils/isDefined.tsx'
 description: >-
   isDefined from @dedalik/use-react: null and undefined type guard, filter-friendly.
 ---
@@ -32,7 +32,7 @@ Last updated: 24/04/2026
 **Filter** a **list** of **ids** (some **missing**); **map** to **length** only for **defined** **strings**.
 
 ```tsx
-import isDefined from '@dedalik/use-react/isDefined'
+import isDefined from '@dedalik/use-react/utils/isDefined'
 
 function Example() {
   const ids = ['a', null, 'bb', undefined, 'ccc'] as (string | null | undefined)[]

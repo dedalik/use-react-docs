@@ -4,7 +4,7 @@ sidebar_label: onStartTyping
 category: Event
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/onStartTyping.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/events/onStartTyping.tsx'
 description: >-
   onStartTyping from @dedalik/use-react: first printable key after idle, keydown on target.
 ---
@@ -34,7 +34,7 @@ Last updated: 24/04/2026
 
 ```tsx
 import { useEffect, useState } from 'react'
-import onStartTyping from '@dedalik/use-react/onStartTyping'
+import onStartTyping from '@dedalik/use-react/events/onStartTyping'
 
 function Example() {
   const [first, setFirst] = useState('(type anywhere in the window)')

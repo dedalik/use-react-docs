@@ -4,7 +4,7 @@ sidebar_label: createSharedComposable
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/createSharedComposable.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/factories/createSharedComposable.tsx'
 description: >-
   createSharedComposable from @dedalik/use-react: first call wins, shared return forever.
 ---
@@ -34,7 +34,7 @@ Last updated: 24/04/2026
 **First** call passes **`'app'`** into the factory; a **second** component calling with **`'other'`** still receives the **same** logger object (arguments after the first call are ignored).
 
 ```tsx
-import createSharedComposable from '@dedalik/use-react/createSharedComposable'
+import createSharedComposable from '@dedalik/use-react/factories/createSharedComposable'
 
 type Logger = { log: (message: string) => void }
 

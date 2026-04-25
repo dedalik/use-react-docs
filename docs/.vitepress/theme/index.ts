@@ -6,6 +6,7 @@ import { applyConsentFromStorage } from './analytics'
 // import Test from "./components/Note.vue";
 import PackageData from './components/PackageData.vue'
 import HomeHookShowcase from './components/HomeHookShowcase.vue'
+import HomeHeroStats from './components/HomeHeroStats.vue'
 
 import './styles/tailwind.css'
 import './styles/styles.css'
@@ -76,6 +77,7 @@ export default {
   ...DefaultTheme,
   Layout: () =>
     h(DefaultTheme.Layout!, null, {
+      'home-hero-after': () => h(HomeHeroStats),
       'layout-bottom': () => h(CookieConsentBanner),
     }),
   setup() {

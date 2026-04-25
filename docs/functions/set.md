@@ -4,7 +4,7 @@ sidebar_label: set
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/set.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/utils/set.tsx'
 description: >-
   set from @dedalik/use-react: mutates object tree by dot path, creates empty objects.
 ---
@@ -35,7 +35,7 @@ Last updated: 24/04/2026
 
 ```tsx
 import { useState } from 'react'
-import set from '@dedalik/use-react/set'
+import set from '@dedalik/use-react/utils/set'
 
 function Example() {
   const [draft, setDraft] = useState<Record<string, unknown>>({})

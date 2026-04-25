@@ -4,7 +4,7 @@ sidebar_label: createGlobalState
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/createGlobalState.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/factories/createGlobalState.tsx'
 description: >-
   createGlobalState from @dedalik/use-react: module-level state + setState, hook per call site.
 ---
@@ -32,7 +32,7 @@ Last updated: 24/04/2026
 Two **buttons** in different **branches** share a **count**; **`setCount`** is the **second** array element (functional updates supported).
 
 ```tsx
-import createGlobalState from '@dedalik/use-react/createGlobalState'
+import createGlobalState from '@dedalik/use-react/factories/createGlobalState'
 
 const useCount = createGlobalState(0)
 

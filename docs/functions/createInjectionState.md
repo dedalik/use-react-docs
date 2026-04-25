@@ -4,7 +4,7 @@ sidebar_label: createInjectionState
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/createInjectionState.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/factories/createInjectionState.tsx'
 description: >-
   createInjectionState from @dedalik/use-react: context from a custom hook and args tuple.
 ---
@@ -33,7 +33,7 @@ A **search** model hook takes an **initial** **query** string; **`args={['']}`**
 
 ```tsx
 import { useState } from 'react'
-import createInjectionState from '@dedalik/use-react/createInjectionState'
+import createInjectionState from '@dedalik/use-react/factories/createInjectionState'
 
 function useSearchModel(initialQuery: string) {
   const [query, setQuery] = useState(initialQuery)

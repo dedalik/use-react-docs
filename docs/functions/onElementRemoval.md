@@ -4,7 +4,7 @@ sidebar_label: onElementRemoval
 category: Event
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/onElementRemoval.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/events/onElementRemoval.tsx'
 description: >-
   onElementRemoval from @dedalik/use-react: MutationObserver until element removed from DOM.
 ---
@@ -35,7 +35,7 @@ When a **teaser** **card** is **unmounted** from a **toggled** **parent**, a **o
 
 ```tsx
 import { useEffect, useRef, useState } from 'react'
-import onElementRemoval from '@dedalik/use-react/onElementRemoval'
+import onElementRemoval from '@dedalik/use-react/events/onElementRemoval'
 
 function Teaser({ onGone }: { onGone: () => void }) {
   const ref = useRef<HTMLDivElement>(null)

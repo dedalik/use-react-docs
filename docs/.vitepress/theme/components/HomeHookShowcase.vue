@@ -1,31 +1,13 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
-import { hookCategoriesCatalog, totalHooks } from '../../data/hookCatalog'
+import { hookCategoriesCatalog } from '../../data/hookCatalog'
 </script>
 
 <template>
   <div class="home-showcase" aria-labelledby="home-showcase-title">
     <div class="home-showcase__glow" aria-hidden="true" />
 
-    <div class="home-showcase__hero-badges" aria-label="Project highlights">
-      <div class="home-showcase__hero-badge home-showcase__hero-badge--primary">
-        <span class="home-showcase__hero-value">{{ totalHooks }}</span>
-        <span class="home-showcase__hero-label">hooks</span>
-      </div>
-      <div class="home-showcase__hero-badge">
-        <span class="home-showcase__hero-value home-showcase__hero-value--small">Tree-shakable</span>
-        <span class="home-showcase__hero-label">imports</span>
-      </div>
-    </div>
-
     <div class="home-showcase__inner">
-      <p class="home-showcase__eyebrow">
-        <span class="home-showcase__pulse" aria-hidden="true" />
-        <span>{{ totalHooks }} hooks</span>
-        <span class="home-showcase__eyebrow-sep">·</span>
-        <span>Tree-shakable imports</span>
-      </p>
-
       <h2 id="home-showcase-title" class="home-showcase__title">Browse by category</h2>
       <p class="home-showcase__lead">
         Each hook is documented with types, copy-paste examples, and SSR notes where it matters. Jump into a category

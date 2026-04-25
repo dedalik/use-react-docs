@@ -4,7 +4,7 @@ sidebar_label: createUnrefFn
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/createUnrefFn.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/factories/createUnrefFn.tsx'
 description: >-
   createUnrefFn from @dedalik/use-react: MaybeGetter to zero-arg read function.
 ---
@@ -33,7 +33,7 @@ A **fixed** number and a **getter** whose **return** **tracks** **React** **stat
 
 ```tsx
 import { useMemo, useState } from 'react'
-import createUnrefFn from '@dedalik/use-react/createUnrefFn'
+import createUnrefFn from '@dedalik/use-react/factories/createUnrefFn'
 
 function Example() {
   const readFixed = createUnrefFn(10)

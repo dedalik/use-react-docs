@@ -4,7 +4,7 @@ sidebar_label: createEventHook
 category: Utilities
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/createEventHook.tsx'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/factories/createEventHook.tsx'
 description: >-
   createEventHook from @dedalik/use-react: on/off/trigger/clear outside React, module-friendly.
 ---
@@ -33,7 +33,7 @@ A **module-level** bus carries **file names** after **save**; a panel **subscrib
 
 ```tsx
 import { useEffect, useState } from 'react'
-import createEventHook from '@dedalik/use-react/createEventHook'
+import createEventHook from '@dedalik/use-react/factories/createEventHook'
 
 const fileSaved = createEventHook<string>()
 
