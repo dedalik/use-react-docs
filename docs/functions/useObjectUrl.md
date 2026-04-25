@@ -17,7 +17,7 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`useObjectUrl` **mirrors** a **`Blob`**, **`File`**, or **`MediaSource` into a **revocable** **`blob:`** **URL** for use in **`<img src>`**, **`<a download>`**, **`<video src>`**, or **fetch**-**ish** **APIs** that **accept** **strings**. On **each** **effect** **run** it **revokes** the **previous** **URL** (if **any**), **creates** a **new** **one** with **`URL.createObjectURL`**, and **stores** it in **state**; when **`object`** is **`null` / `undefined`**, it **clears** to **`null`**. On **unmount** or when **`object`** **identity** **changes**, **`URL.revokeObjectURL`** **runs** to **free** **memory**-**important** for **large** **files** and **frequent** **re**-**picks** in **file** **inputs**. The **dependency** is **`[object]`** by **reference**-**mutating** a **Blob** **in** **place** will **not** **refresh** the **URL** **unless** you **swap** the **instance**.
+`useObjectUrl` **mirrors** a **`Blob`**, **`File`**, or **`MediaSource` into a **revocable\*\* **`blob:`** **URL** for use in **`<img src>`**, **`<a download>`**, **`<video src>`**, or **fetch**-**ish** **APIs** that **accept** **strings**. On **each** **effect** **run** it **revokes** the **previous** **URL** (if **any**), **creates** a **new** **one** with **`URL.createObjectURL`**, and **stores** it in **state**; when **`object`** is **`null` / `undefined`**, it **clears** to **`null`**. On **unmount** or when **`object`** **identity** **changes**, **`URL.revokeObjectURL`** **runs** to **free** **memory**-**important** for **large** **files** and **frequent** **re**-**picks** in **file** **inputs**. The **dependency** is **`[object]`** by **reference**-**mutating** a **Blob** **in** **place** will **not** **refresh** the **URL** **unless** you **swap** the **instance**.
 
 ### What it accepts
 
@@ -42,14 +42,14 @@ function Example() {
   return (
     <div>
       <input
-        type="file"
-        accept="image/*"
+        type='file'
+        accept='image/*'
         onChange={(e) => {
           const f = e.target.files?.[0] ?? null
           setFile(f)
         }}
       />
-      {url ? <img src={url} alt="Preview" style={{ maxWidth: 200, display: 'block' }} /> : <p>No file</p>}
+      {url ? <img src={url} alt='Preview' style={{ maxWidth: 200, display: 'block' }} /> : <p>No file</p>}
     </div>
   )
 }

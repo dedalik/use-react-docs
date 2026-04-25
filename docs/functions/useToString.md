@@ -44,7 +44,7 @@ function Example() {
       <p>
         Digits: {asText.length} - <span data-count={asText}>{asText}</span>
       </p>
-      <button type="button" onClick={() => setCount((c) => c + 1)}>
+      <button type='button' onClick={() => setCount((c) => c + 1)}>
         Increment
       </button>
     </div>

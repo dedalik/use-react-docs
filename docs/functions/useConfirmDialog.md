@@ -48,17 +48,17 @@ function Example() {
 
   return (
     <div>
-      <button type="button" onClick={() => void tryDelete({ id: '1', title: 'Draft' })}>
+      <button type='button' onClick={() => void tryDelete({ id: '1', title: 'Draft' })}>
         Delete row…
       </button>
       <p>{log}</p>
       {isOpen && payload && (
-        <div role="dialog" aria-modal="true">
+        <div role='dialog' aria-modal='true'>
           <p>Delete “{payload.title}”?</p>
-          <button type="button" onClick={confirm}>
+          <button type='button' onClick={confirm}>
             Confirm
           </button>
-          <button type="button" onClick={cancel}>
+          <button type='button' onClick={cancel}>
             Cancel
           </button>
         </div>

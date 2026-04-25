@@ -47,10 +47,10 @@ function Example() {
       <p>
         Page {page} of {pageCount} - offset {offset} (size {pageSize})
       </p>
-      <button type="button" disabled={isFirstPage} onClick={prev}>
+      <button type='button' disabled={isFirstPage} onClick={prev}>
         Previous
       </button>
-      <button type="button" disabled={isLastPage} onClick={next}>
+      <button type='button' disabled={isLastPage} onClick={next}>
         Next
       </button>
     </div>

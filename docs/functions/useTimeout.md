@@ -17,7 +17,7 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`useTimeout` registers **`setTimeout(() => callbackRef.current(), delay)`** in an effect. The **latest** `callback` is always kept in a ref (first effect), so the scheduled timeout does not need a **stale** closure, but the **call** on fire uses whatever `callback` was on last render. **`delay` is a dependency of the second effect: each change clears the old timer and starts a new one. If **`delay` is `null`**, the hook **skips** scheduling (useful to **pause**). The cleanup clears the ID on unmount or before rescheduling. It does not track **loading** or **return** a **cancel** handle-`null` the delay in parent state to cancel. Uses **`globalThis.setTimeout`**.
+`useTimeout` registers **`setTimeout(() => callbackRef.current(), delay)`** in an effect. The **latest** `callback` is always kept in a ref (first effect), so the scheduled timeout does not need a **stale** closure, but the **call** on fire uses whatever `callback` was on last render. **`delay` is a dependency of the second effect: each change clears the old timer and starts a new one. If **`delay` is `null`**, the hook **skips** scheduling (useful to **pause**). The cleanup clears the ID on unmount or before rescheduling. It does not track **loading** or **return** a **cancel** handle-`null` the delay in parent state to cancel. Uses **`globalThis.setTimeout`\*\*.
 
 ### What it accepts
 
@@ -44,7 +44,7 @@ function Example() {
     <div>
       <p>{message}</p>
       {delay != null && (
-        <button type="button" onClick={() => setDelay(null)}>
+        <button type='button' onClick={() => setDelay(null)}>
           Cancel timer
         </button>
       )}

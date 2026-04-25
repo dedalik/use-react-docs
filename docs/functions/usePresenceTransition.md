@@ -104,10 +104,7 @@ export interface UsePresenceTransitionReturn {
 /**
  * Derives enter/exit stage and mount flag from a boolean `show` (presence-style transitions).
  */
-export default function usePresenceTransition(
-  show: boolean,
-  duration = 300,
-): UsePresenceTransitionReturn {
+export default function usePresenceTransition(show: boolean, duration = 300): UsePresenceTransitionReturn {
   const [mounted, setMounted] = useState(show)
   const [stage, setStage] = useState<PresenceTransitionStage>(show ? 'entered' : 'exited')
 

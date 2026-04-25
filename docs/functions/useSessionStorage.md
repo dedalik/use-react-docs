@@ -17,7 +17,7 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`useSessionStorage` is the **session-scoped** sibling of [`useLocalStorage`](./useLocalStorage): the same **tuple** shape **`[value, setValue, removeValue]`** and the same default **JSON** serialization, but it reads and writes only **`window.sessionStorage`**. Data **survives** reloads in the same **tab** but is **cleared** when the **tab** closes. There is **no** cross-tab **`storage`** sync (the **`storage`** event does not fire for *same-origin* `sessionStorage` in the same tab the way you usually need for sharing). On **SSR** or if reads/writes **throw**, state still updates in **memory**. **`initializeWithValue: false`** delays the first read until a **`useEffect`** (same pattern as local). Use it for **wizard steps**, **draft** UI state, or anything that should reset when the browsing **session** ends.
+`useSessionStorage` is the **session-scoped** sibling of [`useLocalStorage`](./useLocalStorage): the same **tuple** shape **`[value, setValue, removeValue]`** and the same default **JSON** serialization, but it reads and writes only **`window.sessionStorage`**. Data **survives** reloads in the same **tab** but is **cleared** when the **tab** closes. There is **no** cross-tab **`storage`** sync (the **`storage`** event does not fire for _same-origin_ `sessionStorage` in the same tab the way you usually need for sharing). On **SSR** or if reads/writes **throw**, state still updates in **memory**. **`initializeWithValue: false`** delays the first read until a **`useEffect`** (same pattern as local). Use it for **wizard steps**, **draft** UI state, or anything that should reset when the browsing **session** ends.
 
 ### What it accepts
 
@@ -44,10 +44,10 @@ function Example() {
   return (
     <div>
       <p>Step {step} of 3</p>
-      <button type="button" disabled={step >= 3} onClick={() => setStep((s) => Math.min(3, s + 1))}>
+      <button type='button' disabled={step >= 3} onClick={() => setStep((s) => Math.min(3, s + 1))}>
         Next
       </button>
-      <button type="button" onClick={clear}>
+      <button type='button' onClick={clear}>
         Restart flow
       </button>
     </div>
@@ -162,11 +162,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 const isBrowser = typeof window !== 'undefined'
 
 export default function useSessionStorage(key, initialValue, options = {}) {
-  const {
-    initializeWithValue = true,
-    serializer = JSON.stringify,
-    deserializer = JSON.parse,
-  } = options
+  const { initializeWithValue = true, serializer = JSON.stringify, deserializer = JSON.parse } = options
 
   const getInitialValue = useCallback(() => {
     return initialValue instanceof Function ? initialValue() : initialValue

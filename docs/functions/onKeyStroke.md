@@ -54,7 +54,7 @@ function Example() {
 
   if (!open) {
     return (
-      <button type="button" onClick={() => setOpen(true)}>
+      <button type='button' onClick={() => setOpen(true)}>
         Open again
       </button>
     )

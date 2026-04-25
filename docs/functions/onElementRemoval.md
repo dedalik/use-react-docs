@@ -63,7 +63,7 @@ function Example() {
     <div>
       <p>{label}</p>
       {show && <Teaser onGone={() => setLabel('removed from DOM')} />}
-      <button type="button" onClick={() => setShow(false)}>
+      <button type='button' onClick={() => setShow(false)}>
         Remove teaser
       </button>
     </div>

@@ -44,7 +44,7 @@ function Example() {
     <div>
       <p>Constant: {readFixed()}</p>
       <p>Double: {readLive()}</p>
-      <button type="button" onClick={() => setI((n) => n + 1)}>
+      <button type='button' onClick={() => setI((n) => n + 1)}>
         i++
       </button>
     </div>

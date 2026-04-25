@@ -44,7 +44,11 @@ function wait(ms: number) {
 
 function Example() {
   const tasks = useMemo(
-    () => [() => wait(40).then(() => 'step-1'), () => wait(40).then(() => 'step-2'), () => wait(40).then(() => 'step-3')],
+    () => [
+      () => wait(40).then(() => 'step-1'),
+      () => wait(40).then(() => 'step-2'),
+      () => wait(40).then(() => 'step-3'),
+    ],
     [],
   )
 
@@ -56,7 +60,7 @@ function Example() {
     <div>
       <p>Status: {pending ? `running #${currentIndex + 1}` : 'done'}</p>
       <p>Last result: {last}</p>
-      <button type="button" onClick={() => void start()}>
+      <button type='button' onClick={() => void start()}>
         Run again
       </button>
     </div>

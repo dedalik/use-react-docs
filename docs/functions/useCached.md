@@ -40,10 +40,7 @@ function Example() {
   const [title, setTitle] = useState('Dr')
   const [name, setName] = useState('River')
 
-  const line = useCached(
-    () => `${title}. ${name}`.trim(),
-    [title, name],
-  )
+  const line = useCached(() => `${title}. ${name}`.trim(), [title, name])
 
   return (
     <div>

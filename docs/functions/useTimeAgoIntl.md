@@ -68,10 +68,7 @@ import useTimeAgo, { type UseTimeAgoOptions } from './useTimeAgo'
 /**
  * Intl-focused alias for useTimeAgo.
  */
-export default function useTimeAgoIntl(
-  target: Date | number | null | undefined,
-  options?: UseTimeAgoOptions,
-): string {
+export default function useTimeAgoIntl(target: Date | number | null | undefined, options?: UseTimeAgoOptions): string {
   return useTimeAgo(target, options)
 }
 ```

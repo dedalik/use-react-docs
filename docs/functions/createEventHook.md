@@ -50,7 +50,7 @@ function StatusBar() {
 function SaveButton() {
   return (
     <button
-      type="button"
+      type='button'
       onClick={() => {
         fileSaved.trigger('notes.md')
       }}

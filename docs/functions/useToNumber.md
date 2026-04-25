@@ -44,7 +44,7 @@ function Example() {
     <div>
       <label>
         Quantity
-        <input inputMode="numeric" value={raw} onChange={(e) => setRaw(e.target.value)} />
+        <input inputMode='numeric' value={raw} onChange={(e) => setRaw(e.target.value)} />
       </label>
       <p>Coerced: {n === -1 ? '(use fallback)' : n}</p>
     </div>

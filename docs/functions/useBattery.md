@@ -147,8 +147,7 @@ import { useEffect, useState } from 'react'
  * Reads battery status from navigator.getBattery when available.
  */
 export default function useBattery() {
-  const batteryNavigator =
-    typeof navigator !== 'undefined' ? navigator : undefined
+  const batteryNavigator = typeof navigator !== 'undefined' ? navigator : undefined
 
   const isSupported = typeof batteryNavigator?.getBattery === 'function'
   const [state, setState] = useState({

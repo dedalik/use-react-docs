@@ -44,10 +44,7 @@ function Example() {
     <div>
       <p>ticks: {ticks}</p>
       <p>
-        <button
-          type="button"
-          onClick={() => setDelay((d) => (d == null ? 500 : null))}
-        >
+        <button type='button' onClick={() => setDelay((d) => (d == null ? 500 : null))}>
           {delay == null ? 'Start' : 'Stop'}
         </button>
       </p>

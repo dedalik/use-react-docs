@@ -50,11 +50,11 @@ function Example() {
       </p>
       <label>
         a
-        <input type="number" value={a} onChange={(e) => setA(Number(e.target.value))} />
+        <input type='number' value={a} onChange={(e) => setA(Number(e.target.value))} />
       </label>
       <label>
         b
-        <input type="number" value={b} onChange={(e) => setB(Number(e.target.value))} />
+        <input type='number' value={b} onChange={(e) => setB(Number(e.target.value))} />
       </label>
     </div>
   )

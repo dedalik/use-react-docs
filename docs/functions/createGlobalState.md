@@ -39,7 +39,7 @@ const useCount = createGlobalState(0)
 function Plus() {
   const [, setCount] = useCount()
   return (
-    <button type="button" onClick={() => setCount((n) => n + 1)}>
+    <button type='button' onClick={() => setCount((n) => n + 1)}>
       +1
     </button>
   )

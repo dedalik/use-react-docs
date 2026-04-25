@@ -41,12 +41,9 @@ function Example() {
 
   return (
     <div>
-      <p>
-        {now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-      </p>
+      <p>{now.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' })}</p>
       <label>
-        <input type="checkbox" checked={live} onChange={(e) => setLive(e.target.checked)} /> Live
-        (2s tick)
+        <input type='checkbox' checked={live} onChange={(e) => setLive(e.target.checked)} /> Live (2s tick)
       </label>
     </div>
   )

@@ -17,7 +17,7 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`isDefined` is a **type guard** `value is T` for **`value: T | null | undefined`**: it returns **true** when the **value** is **neither** **`null` nor **`undefined`**, and **false** otherwise, allowing **TypeScript** to **narrow** in **`if`**, **ternary**, and **`.filter(isDefined)`** on **arrays** without a **wider** return type. It is a **one-line** check-no **deep** **falsy** handling (**`0`**, **empty** **string**, **`NaN`** are still **“defined”**). It often pairs with **optional** **API** **fields** or **partial** **records** when you need a **typed** list of “present” **values**.
+`isDefined` is a **type guard** `value is T` for **`value: T | null | undefined`**: it returns **true** when the **value** is **neither** **`null` nor **`undefined`**, and **false** otherwise, allowing **TypeScript** to **narrow** in **`if`**, **ternary**, and **`.filter(isDefined)`** on **arrays** without a **wider** return type. It is a **one-line** check-no **deep\*\* **falsy** handling (**`0`**, **empty** **string**, **`NaN`** are still **“defined”**). It often pairs with **optional** **API** **fields** or **partial** **records** when you need a **typed** list of “present” **values**.
 
 ### What it accepts
 

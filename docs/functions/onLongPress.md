@@ -43,7 +43,7 @@ function Example() {
   return (
     <div>
       <p>{msg}</p>
-      <button type="button" {...lp}>
+      <button type='button' {...lp}>
         Press and hold
       </button>
     </div>

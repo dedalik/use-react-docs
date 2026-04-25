@@ -51,7 +51,7 @@ function Listener() {
 function Sender() {
   const bus = useEventBus<string>(CHANNEL)
   return (
-    <button type="button" onClick={() => bus.emit(`Hello at ${new Date().toLocaleTimeString()}`)}>
+    <button type='button' onClick={() => bus.emit(`Hello at ${new Date().toLocaleTimeString()}`)}>
       Broadcast
     </button>
   )

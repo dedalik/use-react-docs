@@ -38,17 +38,19 @@ import createSharedComposable from '@dedalik/use-react/factories/createSharedCom
 
 type Logger = { log: (message: string) => void }
 
-const getSharedLogger = createSharedComposable((prefix: string): Logger => ({
-  log(message: string) {
-    // eslint-disable-next-line no-console
-    console.log(`[${prefix}] ${message}`)
-  },
-}))
+const getSharedLogger = createSharedComposable(
+  (prefix: string): Logger => ({
+    log(message: string) {
+      // eslint-disable-next-line no-console
+      console.log(`[${prefix}] ${message}`)
+    },
+  }),
+)
 
 function A() {
   const { log } = getSharedLogger('app')
   return (
-    <button type="button" onClick={() => log('click from A')}>
+    <button type='button' onClick={() => log('click from A')}>
       A
     </button>
   )
@@ -57,7 +59,7 @@ function A() {
 function B() {
   const { log } = getSharedLogger('other')
   return (
-    <button type="button" onClick={() => log('click from B')}>
+    <button type='button' onClick={() => log('click from B')}>
       B
     </button>
   )

@@ -48,7 +48,7 @@ function Field() {
     <label>
       Search
       <input value={query} onChange={(e) => setQuery(e.target.value)} />
-      <button type="button" onClick={clear}>
+      <button type='button' onClick={clear}>
         Clear
       </button>
     </label>

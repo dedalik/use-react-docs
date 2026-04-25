@@ -37,15 +37,12 @@ import useSupported from '@dedalik/use-react/useSupported'
 
 function Example() {
   const canShare = useSupported(
-    useCallback(
-      () => typeof navigator !== 'undefined' && typeof navigator.share === 'function',
-      [],
-    ),
+    useCallback(() => typeof navigator !== 'undefined' && typeof navigator.share === 'function', []),
   )
 
   return (
     <button
-      type="button"
+      type='button'
       disabled={!canShare}
       onClick={() => {
         void navigator.share({ title: 'Demo', text: 'Hello from the hook doc' })

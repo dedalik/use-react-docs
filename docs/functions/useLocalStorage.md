@@ -45,10 +45,10 @@ function Example() {
   return (
     <div>
       <p>Current theme: {theme}</p>
-      <button type="button" onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}>
+      <button type='button' onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}>
         Toggle
       </button>
-      <button type="button" onClick={remove}>
+      <button type='button' onClick={remove}>
         Use default
       </button>
     </div>

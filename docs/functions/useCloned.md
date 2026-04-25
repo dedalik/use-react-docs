@@ -46,7 +46,7 @@ function Example() {
         Source n: {source.n} - draft n: {draft.n}
       </p>
       <button
-        type="button"
+        type='button'
         onClick={() => {
           draft.n += 1
           setTick((t) => t + 1)

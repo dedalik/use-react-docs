@@ -17,7 +17,7 @@ Last updated: 24/04/2026
 
 ## Overview
 
-`useDateFormat` formats a **`Date`**, a **ms timestamp**, **`null`**, or **`undefined`** with **`Intl.DateTimeFormat`**. It strips **`locale`** ( **`locale?: string | string[]`** on options) and passes the rest to **`DateTimeFormat`**. **`input == null`**, **invalid** dates, or a thrown **`Intl`** call yield **`''`**. **`useMemo`** re-runs when **`input`**, **`locale`**, or a **stable key** of the other format options (derived via sorted-key **`JSON.stringify`**) change-**inline** option **objects** with the same *values* are equal only if the **key** string matches, so reusing a **const** or **`useMemo`**d options object avoids churn. **No** date-fns or Moment dependency.
+`useDateFormat` formats a **`Date`**, a **ms timestamp**, **`null`**, or **`undefined`** with **`Intl.DateTimeFormat`**. It strips **`locale`** ( **`locale?: string | string[]`** on options) and passes the rest to **`DateTimeFormat`**. **`input == null`**, **invalid** dates, or a thrown **`Intl`** call yield **`''`**. **`useMemo`** re-runs when **`input`**, **`locale`**, or a **stable key** of the other format options (derived via sorted-key **`JSON.stringify`**) change-**inline** option **objects** with the same _values_ are equal only if the **key** string matches, so reusing a **const** or **`useMemo`**d options object avoids churn. **No** date-fns or Moment dependency.
 
 ### What it accepts
 
@@ -45,7 +45,7 @@ function Example() {
     <div>
       <p>{label}</p>
       <input
-        type="date"
+        type='date'
         value={d.toISOString().slice(0, 10)}
         onChange={(e) => {
           const v = e.target.value
@@ -92,10 +92,7 @@ function formatOptionsOnly(options?: UseDateFormatOptions): Intl.DateTimeFormatO
 /**
  * Formats a `Date` or timestamp with `Intl.DateTimeFormat` (no extra date libraries).
  */
-export default function useDateFormat(
-  input: Date | number | null | undefined,
-  options?: UseDateFormatOptions,
-): string {
+export default function useDateFormat(input: Date | number | null | undefined, options?: UseDateFormatOptions): string {
   const locale = options?.locale
   const formatOptions = formatOptionsOnly(options)
   const optionsKey = stableOptionsKey(formatOptions)

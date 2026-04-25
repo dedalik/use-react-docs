@@ -39,7 +39,7 @@ export default defineConfig({
       dark: 'vitesse-dark',
     },
   },
-    head: [
+  head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
     ['link', { rel: 'icon', href: '/favicon-32x32.png', type: 'image/png' }],
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],

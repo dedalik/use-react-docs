@@ -51,7 +51,7 @@ function Example() {
 
   return (
     <div>
-      <button type="button" onClick={apply}>
+      <button type='button' onClick={apply}>
         Apply nested settings
       </button>
       <p>alerts: {String(draft.alerts != null)}</p>

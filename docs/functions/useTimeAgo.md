@@ -46,7 +46,7 @@ function Example() {
   return (
     <div>
       <p>Last save: {label || '-'}</p>
-      <button type="button" onClick={() => setSaved(new Date())}>
+      <button type='button' onClick={() => setSaved(new Date())}>
         Save now
       </button>
     </div>
@@ -136,10 +136,7 @@ function stableRelativeKey(options: Intl.RelativeTimeFormatOptions | undefined):
 /**
  * Human-readable relative time (`Intl.RelativeTimeFormat`) for a past or future instant.
  */
-export default function useTimeAgo(
-  target: Date | number | null | undefined,
-  options?: UseTimeAgoOptions,
-): string {
+export default function useTimeAgo(target: Date | number | null | undefined, options?: UseTimeAgoOptions): string {
   const { locale, updateInterval = 60_000, relativeOptions } = options ?? {}
   const relativeKey = stableRelativeKey(relativeOptions)
 

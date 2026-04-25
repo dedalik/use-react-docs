@@ -45,7 +45,7 @@ function Example() {
     <div>
       <p>Elapsed: {start == null ? '-' : `${(elapsed / 1000).toFixed(1)}s`}</p>
       <button
-        type="button"
+        type='button'
         onClick={() => {
           if (!running) {
             setStart(Date.now())
