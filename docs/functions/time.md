@@ -1,7 +1,8 @@
 ---
 title: Time hooks
 sidebar: true
-description: 'Time: useTimeout, useInterval. @dedalik/use-react TypeScript docs.'
+description: >-
+  Time: useTimeout, useInterval, useNow, useTimestamp, useDateFormat, useTimeAgo, useTimeAgoIntl, useCountdown. @dedalik/use-react TypeScript docs.
 ---
 
 <script setup>

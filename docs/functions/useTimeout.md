@@ -1,66 +1,59 @@
 ---
-title: Run a callback after a delay
+title: Declarative setTimeout
 sidebar_label: useTimeout
-category: Async
+category: Time
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useTimeout'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useTimeout.tsx'
 description: >-
-  useTimeout from @dedalik/use-react: Run a callback after a delay. TypeScript,
-  tree-shakable import, examples, SSR notes.
+  useTimeout from @dedalik/use-react: schedule a callback with automatic cleanup.
 ---
 
 # useTimeout()
 
 <PackageData fn="useTimeout" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useTimeout` runs a callback once after a configured delay.
-
-It provides safe timeout lifecycle handling and avoids stale callback behavior in React components.
+`useTimeout` registers **`setTimeout(() => callbackRef.current(), delay)`** in an effect. The **latest** `callback` is always kept in a ref (first effect), so the scheduled timeout does not need a **stale** closure, but the **call** on fire uses whatever `callback` was on last render. **`delay` is a dependency of the second effect: each change clears the old timer and starts a new one. If **`delay` is `null`**, the hook **skips** scheduling (useful to **pause**). The cleanup clears the ID on unmount or before rescheduling. It does not track **loading** or **return** a **cancel** handle-`null` the delay in parent state to cancel. Uses **`globalThis.setTimeout`\*\*.
 
 ### What it accepts
 
-- `callback`: function to run after delay.
-- `delay`: timeout in milliseconds (`null` disables timeout).
-
-### What it returns
-
-- This hook returns nothing.
+1. **`callback`**: `() => void`
+2. **`delay`**: `number | null` - when **`null`**, no timer runs
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+After **1.2 s** show a **“Ready”** message once; a **“Cancel”** button sets **`delay`** to **`null`**.
 
 ```tsx
 import { useState } from 'react'
 import useTimeout from '@dedalik/use-react/useTimeout'
 
-function ToastExample() {
-  const [show, setShow] = useState(false)
+function Example() {
+  const [delay, setDelay] = useState<number | null>(1200)
+  const [message, setMessage] = useState('Waiting…')
 
-  useTimeout(
-    () => {
-      setShow(false)
-    },
-    show ? 2000 : null,
-  )
+  useTimeout(() => {
+    setMessage('Ready')
+  }, delay)
 
   return (
     <div>
-      <button type='button' onClick={() => setShow(true)}>
-        Show message 2s
-      </button>
-      {show ? <p>Auto-hides...</p> : null}
+      <p>{message}</p>
+      {delay != null && (
+        <button type='button' onClick={() => setDelay(null)}>
+          Cancel timer
+        </button>
+      )}
     </div>
   )
 }
 
-export default function ToastDemo() {
-  return <ToastExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -70,16 +63,9 @@ export default function ToastDemo() {
 
 **Signature:** `useTimeout(callback: () => void, delay: number | null): void`
 
-#### Parameters
-
-1. **`callback`** - Runs once after `delay` ms when `delay` is a number.
-2. **`delay`** - Milliseconds, or `null` to skip scheduling.
-
-#### Returns
-
-Nothing (`void`).
-
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect, useRef } from 'react'
@@ -103,7 +89,7 @@ export default function useTimeout(callback: () => void, delay: number | null) {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useRef } from 'react'
@@ -121,6 +107,7 @@ export default function useTimeout(callback, delay) {
     const timeoutId = globalThis.setTimeout(() => {
       callbackRef.current()
     }, delay)
+
     return () => globalThis.clearTimeout(timeoutId)
   }, [delay])
 }

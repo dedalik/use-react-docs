@@ -4,7 +4,7 @@ sidebar_label: useEventListener
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useEventListener'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useEventListener.tsx'
 description: >-
   useEventListener from @dedalik/use-react: Attach and clean up event listeners.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,44 +14,46 @@ description: >-
 
 <PackageData fn="useEventListener" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useEventListener` attaches an event listener to `window`, `document`, an element, or another supported target.
-
-This hook simplifies setup and cleanup logic so beginners can avoid memory leaks and duplicate listener code.
+`useEventListener` subscribes **`addEventListener`** on a **target** (default **`window`** if omitted) and removes the listener on unmount or when **`eventName`** or **`target`** change. The latest **`listener`** is kept in a ref so you do not rebind on every render while still seeing fresh closures. **`target`** can be a **DOM node**, **`window`**, **`document`**, **`MediaQueryList`**, or a **ref** whose **`.current`** is used; the effect depends on the **ref object**, not **`.current`**, so re-pointing a ref to a new element may require a key or a dedicated effect. Event names are typed from **`WindowEventMap`** in TypeScript. The hook returns **nothing**-it is a side-effect utility.
 
 ### What it accepts
 
-- `eventName`: event to listen for.
-- `listener`: event handler.
-- `target` (optional): event target or ref.
+1. **`eventName`** - A key of **`WindowEventMap`** (e.g. **`resize`**, **`keydown`**)
+2. **`listener`** - Handler receiving the typed event
+3. Optional **`target`** - Event target, or a ref; defaults to **`window`**
 
 ### What it returns
 
-- This hook returns nothing. It manages subscription lifecycle internally.
+- **`void`**
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Track **inner** viewport width on **`window`** **`resize`**.
 
 ```tsx
 import { useState } from 'react'
 import useEventListener from '@dedalik/use-react/useEventListener'
 
-function KeyCounterExample() {
-  const [count, setCount] = useState(0)
+function Example() {
+  const [width, setWidth] = useState(typeof window === 'undefined' ? 0 : window.innerWidth)
 
-  useEventListener('keydown', () => {
-    setCount((c) => c + 1)
+  useEventListener('resize', () => {
+    setWidth(window.innerWidth)
   })
 
-  return <p>Keydown count: {count} (press any key)</p>
+  return (
+    <p>
+      Window inner width: <strong>{width}</strong> px
+    </p>
+  )
 }
 
-export default function KeyCounterDemo() {
-  return <KeyCounterExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -59,19 +61,21 @@ export default function KeyCounterDemo() {
 
 ### `useEventListener`
 
-**Signature:** `useEventListener(eventName, listener, target?)`
+**Signature:** `useEventListener<KW extends keyof WindowEventMap>(eventName: KW, listener: (event: WindowEventMap[KW]) => void, target?: Target | RefObject<Target>): void`
 
 #### Parameters
 
-1. **`eventName`** - DOM event name (typed against `WindowEventMap` when targeting `window`).
-2. **`listener`** - Handler invoked when the event fires.
-3. **`target`** (optional) - `Window`, `Document`, `HTMLElement`, `MediaQueryList`, or a ref to one of these. Defaults to `window` in the browser.
+1. **`eventName`**
+2. **`listener`**
+3. **`target`** (optional)
 
 #### Returns
 
-Nothing (`void`). Subscribes on mount/update and unsubscribes on cleanup.
+`void`
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { RefObject, useEffect, useRef } from 'react'
@@ -105,7 +109,7 @@ export default function useEventListener<KW extends keyof WindowEventMap>(
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useRef } from 'react'
@@ -127,6 +131,7 @@ export default function useEventListener(eventName, listener, target) {
 
     const eventListener = (event) => savedListener.current(event)
     targetValue.addEventListener(eventName, eventListener)
+
     return () => targetValue.removeEventListener(eventName, eventListener)
   }, [eventName, target])
 }

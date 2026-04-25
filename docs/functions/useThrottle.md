@@ -4,7 +4,7 @@ sidebar_label: useThrottle
 category: State
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useThrottle'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useThrottle.tsx'
 description: >-
   useThrottle from @dedalik/use-react: Limit update frequency. TypeScript,
   tree-shakable import, examples, SSR notes.
@@ -14,45 +14,51 @@ description: >-
 
 <PackageData fn="useThrottle" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useThrottle` limits how often a rapidly changing value is updated.
-
-Use it for scroll, resize, and high-frequency events when debouncing is too delayed and you still need periodic updates.
+`useThrottle` returns a throttled copy of a fast-changing value: it updates at most once per `delay` window while `value` keeps changing, and schedules a trailing update so the output eventually catches up to the latest input. This is a good fit for high-frequency sources like pointer move, scroll position, or rapid slider changes where you want periodic UI or computation without running work on every single event.
 
 ### What it accepts
 
-- `value`: input value to throttle.
-- `delay` (optional): interval in milliseconds.
+- `value: T`.
+- `delay = 500`.
 
 ### What it returns
 
-- Throttled value with the same type as input.
+- Returns `T`.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Real-world example: keep the input responsive while throttling a derived label used for expensive work (filtering, chart updates, preview text).
 
 ```tsx
 import { useState } from 'react'
 import useThrottle from '@dedalik/use-react/useThrottle'
 
-function ThrottledSearchExample() {
+function Example() {
   const [query, setQuery] = useState('')
-  const throttled = useThrottle(query, 500)
+  const throttledQuery = useThrottle(query, 300)
 
   return (
     <div>
-      <input value={query} onChange={(e) => setQuery(e.target.value)} />
-      <p>Throttled: {throttled}</p>
+      <h3>Search</h3>
+      <input
+        type='search'
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+        placeholder='Type quickly...'
+      />
+      <p>Live value: {query || '-'}</p>
+      <p>Throttled value (300ms): {throttledQuery || '-'}</p>
+      {throttledQuery ? <p>Would run heavy work for: "{throttledQuery}"</p> : <p>Start typing.</p>}
     </div>
   )
 }
 
-export default function ThrottledSearchDemo() {
-  return <ThrottledSearchExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -60,16 +66,16 @@ export default function ThrottledSearchDemo() {
 
 ### `useThrottle`
 
-**Signature:** `useThrottle<T>(value: T, delay?: number): T`
+**Signature:** `useThrottle(value: T, delay = 500): T`
 
 #### Parameters
 
-1. **`value`** - Frequently changing input.
-2. **`delay`** - Minimum spacing between propagated updates (default `500`).
+1. **`value`** (`T`) - The fast-changing source value to throttle.
+2. **`delay`** (optional `number`) - Minimum time between emitted updates, in milliseconds. Default: `500`.
 
 #### Returns
 
-Throttled value that updates at most according to the throttle schedule.
+Returns `T`.
 
 ## Copy-paste hook
 
@@ -102,19 +108,15 @@ export default function useThrottle<T>(value: T, delay = 500): T {
 }
 ```
 
-### JavaScript version
-
 ```js
 import { useEffect, useRef, useState } from 'react'
 
 export default function useThrottle(value, delay = 500) {
   const [throttledValue, setThrottledValue] = useState(value)
-
   const lastExecuted = useRef(0)
 
   useEffect(() => {
     const now = Date.now()
-
     const remaining = delay - (now - lastExecuted.current)
 
     if (remaining <= 0) {
@@ -127,6 +129,7 @@ export default function useThrottle(value, delay = 500) {
       lastExecuted.current = Date.now()
       setThrottledValue(value)
     }, remaining)
+
     return () => globalThis.clearTimeout(timeoutId)
   }, [delay, value])
 

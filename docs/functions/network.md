@@ -1,7 +1,7 @@
 ---
 title: Network hooks
 sidebar: true
-description: 'Network: useAsync, useAbortController. @dedalik/use-react TypeScript docs.'
+description: 'Network: useAsync, useAbortController, useFetch, useWebSocket, useEventSource. @dedalik/use-react TypeScript docs.'
 ---
 
 <script setup>

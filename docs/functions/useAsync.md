@@ -4,7 +4,7 @@ sidebar_label: useAsync
 category: Async
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useAsync'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useAsync.tsx'
 description: >-
   useAsync from @dedalik/use-react: Manage async state and execution.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,52 +14,61 @@ description: >-
 
 <PackageData fn="useAsync" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useAsync` wraps an async function and gives you a simple request lifecycle state in one place.
-
-It is useful for beginners because it standardizes loading, success, and error handling, so your component code stays focused on rendering instead of promise bookkeeping.
+`useAsync` wraps an **`asyncFunction`** you provide and exposes **`loading`**, **`data`**, **`error`**, plus **`execute(...args)`** which runs that function with the same arguments and updates state. Each successful run sets **`data`** and clears **`error`**; failures set **`error`** and **`data`** to **`null`**, and **re-throw** so callers can still **`catch`**. Nothing runs automatically-you must call **`execute`**. The inner **`execute`** depends on **`asyncFunction`**, so pass a **stable** function (typically **`useCallback`**) to avoid identity churn. This is a small state machine for imperative async work, not a replacement for query libraries.
 
 ### What it accepts
 
-- `asyncFunction`: a function that returns a `Promise`.
+- **`asyncFunction`**: `(...args: Args) => Promise<T>`
 
 ### What it returns
 
-- `loading`: `true` while request is running.
-- `data`: resolved value (or `null` before success).
-- `error`: captured error state (or `null` when there is no error).
-- `execute(...args)`: runs the async function with arguments and returns the resulting promise.
+- **`loading`**: `boolean`
+- **`data`**: `T | null`
+- **`error`**: `unknown`
+- **`execute`**: `(...args: Args) => Promise<T>`
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Keep the async worker in **`useCallback`**, then call **`execute`** with arguments (here a user id).
 
 ```tsx
+import { useCallback } from 'react'
 import useAsync from '@dedalik/use-react/useAsync'
 
-function JsonUserExample() {
-  const { data, loading, error, execute } = useAsync(async (id: number) => {
+type User = { id: number; name: string }
+
+function Example() {
+  const loadUser = useCallback(async (id: number) => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-    if (!res.ok) throw new Error('Request failed')
-    return res.json()
-  })
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    return (await res.json()) as User
+  }, [])
+
+  const { loading, data, error, execute } = useAsync(loadUser)
 
   return (
     <div>
-      <button type='button' onClick={() => void execute(1)} disabled={loading}>
-        Load user 1
-      </button>
-      {error ? <p role='alert'>Something went wrong</p> : null}
-      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : null}
+      <p>
+        <button type='button' onClick={() => void execute(1)} disabled={loading}>
+          {loading ? 'Loading…' : 'Load user 1'}
+        </button>
+      </p>
+      {error != null && <p role='alert'>{(error as Error).message ?? String(error)}</p>}
+      {data && (
+        <p>
+          <strong>{data.name}</strong> (id {data.id})
+        </p>
+      )}
     </div>
   )
 }
 
-export default function JsonUserDemo() {
-  return <JsonUserExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -67,20 +76,19 @@ export default function JsonUserDemo() {
 
 ### `useAsync`
 
-**Signature:** `useAsync(asyncFunction): UseAsyncResult<T, Args>`
+**Signature:** `useAsync(asyncFunction: (...args: Args) => Promise<T>): UseAsyncResult<T, Args>`
 
 #### Parameters
 
-1. **`asyncFunction`** - `(...args: Args) => Promise<T>`. The async work to run when `execute` is called.
+1. **`asyncFunction`** - Invoked by **`execute`** with forwarded args.
 
 #### Returns
 
-Object combining state and an executor:
-
-- `loading`, `data`, `error` - request lifecycle fields.
-- `execute(...args)` - runs `asyncFunction` with arguments; updates state and returns the same promise.
+**`loading`**, **`data`**, **`error`**, **`execute`**
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useCallback, useState } from 'react'
@@ -127,7 +135,7 @@ export default function useAsync<T, Args extends unknown[]>(
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useCallback, useState } from 'react'
@@ -141,11 +149,8 @@ export default function useAsync(asyncFunction) {
 
   const execute = useCallback(
     async (...args) => {
-      setState((currentState) => ({
-        ...currentState,
-        loading: true,
-        error: null,
-      }))
+      setState((currentState) => ({ ...currentState, loading: true, error: null }))
+
       try {
         const data = await asyncFunction(...args)
         setState({ loading: false, data, error: null })

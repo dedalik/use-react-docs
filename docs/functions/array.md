@@ -3,7 +3,7 @@ title: Array hooks
 sidebar: true
 description: >-
   Array utilities roadmap for @dedalik/use-react: reserved category for future
-  list-focused hooks and docs.
+  list-focused hooks and docs, including memoized sorted views with `useSorted`.
 ---
 
 <script setup>

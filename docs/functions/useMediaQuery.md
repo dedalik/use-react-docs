@@ -4,7 +4,7 @@ sidebar_label: useMediaQuery
 category: Browser
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useMediaQuery'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useMediaQuery.tsx'
 description: >-
   useMediaQuery from @dedalik/use-react: React to media query matches.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,40 +14,58 @@ description: >-
 
 <PackageData fn="useMediaQuery" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useMediaQuery` evaluates a media query and returns whether it currently matches.
-
-Use it for behavior-level responsiveness, such as conditional data density, rendering strategy, and interaction model.
+`useMediaQuery` subscribes to `window.matchMedia(query)` (or a `targetWindow` you pass) and returns a boolean that updates whenever the query’s truth value flips-typical uses are responsive breakpoints, `prefers-reduced-motion`, color-scheme, or pointer/hover capabilities. On the server or when `matchMedia` is missing, it falls back to **`defaultValue`**, and **`initializeWithValue`** lets you skip the synchronous read on first render (useful if you want a stable SSR markup then hydrate to the real match in `useEffect`). The effect re-binds when `query` or `targetWindow` changes so derived layout stays correct across navigation or embedded iframes.
 
 ### What it accepts
 
-- `query`: CSS media query string.
-- `options` (optional): default value, initialization mode, and custom target window.
+1. **`query`** - Any valid CSS media query string (for example `(max-width: 768px)`).
+2. Optional **`options`** - `defaultValue`, `initializeWithValue`, `targetWindow`.
 
 ### What it returns
 
-- `boolean` indicating whether the media query currently matches.
-
-`useMediaQuery` listens to a media query and returns whether it currently matches. It is useful for responsive logic in components, not only responsive CSS styles.
+- **`boolean`** - Whether the media query currently matches.
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Breakpoint plus explicit options: mobile-first default during SSR, then live `matchMedia` in the browser window.
 
 ```tsx
 import useMediaQuery from '@dedalik/use-react/useMediaQuery'
 
-function ColorSchemeExample() {
-  const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
+function Example() {
+  const isNarrow = useMediaQuery('(max-width: 640px)', {
+    defaultValue: true,
+    initializeWithValue: false,
+    targetWindow: typeof window !== 'undefined' ? window : undefined,
+  })
 
-  return <p>Dark mode preference: {String(prefersDark)}</p>
+  return (
+    <div>
+      <h3>Layout hint</h3>
+      <p>
+        Viewport treats this as <strong>{isNarrow ? 'narrow' : 'wide'}</strong> (&lt;= 640px).
+      </p>
+      <nav
+        style={{
+          display: 'flex',
+          flexDirection: isNarrow ? 'column' : 'row',
+          gap: 8,
+        }}
+      >
+        <a href='#a'>Home</a>
+        <a href='#b'>Docs</a>
+        <a href='#c'>Contact</a>
+      </nav>
+    </div>
+  )
 }
 
-export default function ColorSchemeDemo() {
-  return <ColorSchemeExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -55,18 +73,23 @@ export default function ColorSchemeDemo() {
 
 ### `useMediaQuery`
 
-**Signature:** `useMediaQuery(query: string, options?): boolean`
+**Signature:** `useMediaQuery(query: string, options?: UseMediaQueryOptions): boolean`
 
 #### Parameters
 
-1. **`query`** - Any valid CSS media query string.
-2. **`options`** (optional) - `defaultValue`, `initializeWithValue`, `targetWindow` for SSR or iframes.
+1. **`query`** (`string`) - Media query evaluated via `matchMedia`.
+2. **`options`** (`UseMediaQueryOptions`, optional) - Default: `{}`.
+   - **`defaultValue`** (`boolean`, optional) - Used when `targetWindow` / `matchMedia` is unavailable. Default `false`.
+   - **`initializeWithValue`** (`boolean`, optional) - If `true`, initial state calls `matchMedia` synchronously; if `false`, starts from `defaultValue`. Default `true`.
+   - **`targetWindow`** (`Window`, optional) - Window whose `matchMedia` to use; defaults to global `window` in the browser.
 
 #### Returns
 
-`true` when the query matches, `false` otherwise.
+`boolean` - Current `matches` for the query.
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect, useState } from 'react'
@@ -116,12 +139,13 @@ export default function useMediaQuery(query: string, options: UseMediaQueryOptio
 export type UseMediaQueryType = ReturnType<typeof useMediaQuery>
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect, useState } from 'react'
 
 const isBrowser = typeof window !== 'undefined'
+
 export default function useMediaQuery(query, options = {}) {
   const { defaultValue = false, initializeWithValue = true, targetWindow = isBrowser ? window : undefined } = options
 
@@ -129,6 +153,7 @@ export default function useMediaQuery(query, options = {}) {
     if (!targetWindow || typeof targetWindow.matchMedia !== 'function') {
       return defaultValue
     }
+
     return targetWindow.matchMedia(query).matches
   }
 
@@ -140,12 +165,13 @@ export default function useMediaQuery(query, options = {}) {
     }
 
     const mediaQueryList = targetWindow.matchMedia(query)
-
     const listener = (event) => {
       setMatches(event.matches)
     }
+
     setMatches(mediaQueryList.matches)
     mediaQueryList.addEventListener('change', listener)
+
     return () => {
       mediaQueryList.removeEventListener('change', listener)
     }
@@ -153,19 +179,4 @@ export default function useMediaQuery(query, options = {}) {
 
   return matches
 }
-```
-
-## Type declarations
-
-```ts
-declare function useMediaQuery(
-  query: string,
-  options?: {
-    defaultValue?: boolean
-    initializeWithValue?: boolean
-    targetWindow?: Window
-  },
-): boolean
-
-export default useMediaQuery
 ```

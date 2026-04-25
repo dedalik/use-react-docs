@@ -4,7 +4,7 @@ sidebar_label: useOnMount
 category: State
 hide_table_of_contents: false
 demoUrl: ''
-demoSourceUrl: 'https://github.com/dedalik/use-react/tree/main/src/hooks/useOnMount'
+demoSourceUrl: 'https://github.com/dedalik/use-react/blob/main/src/hooks/useOnMount.tsx'
 description: >-
   useOnMount from @dedalik/use-react: Run logic when component mounts.
   TypeScript, tree-shakable import, examples, SSR notes.
@@ -14,49 +14,50 @@ description: >-
 
 <PackageData fn="useOnMount" />
 
-Last updated: 23/04/2026, 15:56
+Last updated: 24/04/2026
 
 ## Overview
 
-`useOnMount` runs a callback when component mounts.
-
-It keeps mount-only setup concise for beginners and avoids repeating lifecycle boilerplate in components.
+`useOnMount` runs your **`fn`** inside a **`useEffect`** on the **client** after paint. The effect’s dependency array is **`[fn]`**, so the body runs **on mount** and **again whenever `fn`’s identity changes**-it is **not** a “run once ever” helper if you pass a new inline function every render. For one-time work, pass a **stable** reference (**`useCallback`** or a **module-level** function). If **`fn`** is not a function, nothing runs. There is **no cleanup** return from your callback; this hook is only for fire-and-forget side effects. **Strict Mode** in development may **double-invoke** effects, so account for that in logging or idempotent setup.
 
 ### What it accepts
 
-- `fn`: function to run on mount.
+- **`fn`**: `() => void`
 
 ### What it returns
 
-- This hook returns nothing.
-
-`useOnMount` is a custom React hook designed to execute a callback function when a component mounts. This hook provides a clear and concise way to handle side-effects or initialize states when the component first renders, similar to the `componentDidMount` lifecycle method in class components.
-
-## Features
-
-- **Simplicity and Clarity:** Allows for a more readable and straightforward approach to executing code on component mount.
-- **Reusable Logic:** Encapsulates component mount logic in a reusable hook, promoting cleaner code and reducing repetition across components.
-- **Type Safety:** Ensures that the passed argument is a function, providing additional safety in TypeScript projects.
+- **`void`** (side effect only)
 
 ## Usage
 
-Copy-paste ready sample: a small inner component calls the hook, and the default export is a thin demo wrapper you can drop into any route or sandbox.
+Log once on mount by **stabilizing** the callback with **`useCallback`**.
 
 ```tsx
 import { useCallback, useState } from 'react'
 import useOnMount from '@dedalik/use-react/useOnMount'
 
-function MountPingExample() {
-  const [msg, setMsg] = useState('waiting...')
-  const onMount = useCallback(() => setMsg('mounted'), [])
+function Example() {
+  const [clicks, setClicks] = useState(0)
 
-  useOnMount(onMount)
+  useOnMount(
+    useCallback(() => {
+      // Runs when this effect first commits; `fn` identity is stable.
+      document.title = 'Mounted demo'
+    }, []),
+  )
 
-  return <p>{msg}</p>
+  return (
+    <div>
+      <p>Title was set on mount (see tab).</p>
+      <button type='button' onClick={() => setClicks((c) => c + 1)}>
+        Clicks: {clicks}
+      </button>
+    </div>
+  )
 }
 
-export default function MountPingDemo() {
-  return <MountPingExample />
+export default function Demo() {
+  return <Example />
 }
 ```
 
@@ -68,13 +69,15 @@ export default function MountPingDemo() {
 
 #### Parameters
 
-1. **`fn`** - Side effect to run once after mount. Should be a stable or intentionally changing function (runs when `fn` identity changes per `useEffect` rules).
+1. **`fn`** - Invoked when the effect runs (see **`[fn]`** dependency note above).
 
 #### Returns
 
-Nothing (`void`).
+`void`
 
 ## Copy-paste hook
+
+### TypeScript
 
 ```tsx
 import { useEffect } from 'react'
@@ -90,7 +93,7 @@ export default function useOnMount(fn: Fn): void {
 }
 ```
 
-### JavaScript version
+### JavaScript
 
 ```js
 import { useEffect } from 'react'
@@ -103,9 +106,3 @@ export default function useOnMount(fn) {
   }, [fn])
 }
 ```
-
-## Type Declarations
-
-- `Fn`: Type alias for a function with no arguments and no return value. This is the type of the `fn` argument expected by `useOnMount`.
-
-The `useOnMount` hook is particularly useful in scenarios where certain actions, such as API calls, state initializations, or DOM manipulations, are required when the component first renders. It provides a clean and declarative way to handle such operations in functional components.
