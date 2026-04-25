@@ -323,17 +323,14 @@ export const totalHooks = hookCategoriesCatalog.reduce((n, c) => n + c.hooks.len
 
 /** Builds the "Core Functions" sidebar block from the catalog. */
 export function buildCoreFunctionsSidebarGroup() {
-  return {
-    text: 'Core Functions',
-    collapsed: false,
-    items: [
-      { text: 'Overview', link: '/functions/' },
-      ...hookCategoriesCatalog.map((cat) => ({
-        text: cat.title,
-        link: cat.overviewLink,
-        collapsed: cat.sidebarCollapsed,
-        items: cat.hooks.map((h) => ({ text: h.name, link: h.link })),
-      })),
-    ],
-  }
+  return [
+    { text: 'Core Functions' },
+    { text: 'Overview', link: '/functions/' },
+    ...hookCategoriesCatalog.map((cat) => ({
+      text: cat.title,
+      link: cat.overviewLink,
+      collapsed: cat.sidebarCollapsed,
+      items: cat.hooks.map((h) => ({ text: h.name, link: h.link })),
+    })),
+  ]
 }
