@@ -14,15 +14,19 @@ export const hookDemoSubtitles: Record<string, string> = {
   'useThrottle/basic': 'Throttle a value so it can change at most once per interval while the input keeps moving.',
   'useAsyncState/basic': 'Async loadable state: loading / ready / error, optional data, and cancel for stale work.',
   'useStorage/basic': 'Sync React state with `localStorage` (or any `Storage`) with JSON and optional `remove`.',
-  'useStorageAsync/basic': 'Async storage: load with `getItem` after mount, then persist with a loading flag and serializers.',
-  'useLastChanged/basic': 'Record when a value last changed, expose a time difference, and reset the timer when needed.',
+  'useStorageAsync/basic':
+    'Async storage: load with `getItem` after mount, then persist with a loading flag and serializers.',
+  'useLastChanged/basic':
+    'Record when a value last changed, expose a time difference, and reset the timer when needed.',
   'useRefHistory/basic': 'Every change becomes a history snapshot: undo, redo, clear, and cap length with capacity.',
-  'useManualRefHistory/basic': 'Ref-based history, but you commit snapshots explicitly for frequent or batched updates.',
-  'useDebouncedRefHistory/basic': 'Ref history: record a new snapshot only after the value has been still for a debounce period.',
-  'useThrottledRefHistory/basic': 'Ref history: record at most one snapshot per throttle window while the value changes fast.',
+  'useManualRefHistory/basic':
+    'Ref-based history, but you commit snapshots explicitly for frequent or batched updates.',
+  'useDebouncedRefHistory/basic':
+    'Ref history: record a new snapshot only after the value has been still for a debounce period.',
+  'useThrottledRefHistory/basic':
+    'Ref history: record at most one snapshot per throttle window while the value changes fast.',
   'useEventCallback/basic': 'Event handler with a stable identity that always calls the latest implementation.',
   'useOnMount/basic': 'Run a function once on mount, optionally with a returned cleanup on unmount.',
 }
 
-export const defaultHookLiveDemoFallback =
-  'Live preview: React mounts here and runs the hook in your browser.'
+export const defaultHookLiveDemoFallback = 'Live preview: React mounts here and runs the hook in your browser.'

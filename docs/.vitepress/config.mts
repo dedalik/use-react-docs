@@ -94,7 +94,10 @@ export default defineConfig({
           : []),
         { find: 'react', replacement: path.join(DOCS_PROJECT_ROOT, 'node_modules/react') },
         { find: 'react/jsx-runtime', replacement: path.join(DOCS_PROJECT_ROOT, 'node_modules/react/jsx-runtime.js') },
-        { find: 'react/jsx-dev-runtime', replacement: path.join(DOCS_PROJECT_ROOT, 'node_modules/react/jsx-dev-runtime.js') },
+        {
+          find: 'react/jsx-dev-runtime',
+          replacement: path.join(DOCS_PROJECT_ROOT, 'node_modules/react/jsx-dev-runtime.js'),
+        },
         { find: 'react-dom', replacement: path.join(DOCS_PROJECT_ROOT, 'node_modules/react-dom') },
         { find: 'react-dom/client', replacement: path.join(DOCS_PROJECT_ROOT, 'node_modules/react-dom/client.js') },
       ],
@@ -165,7 +168,6 @@ export default defineConfig({
         href: 'https://fonts.googleapis.com/css2?family=Fira+Code&display=swap',
       },
     ],
-
   ],
 
   themeConfig: {

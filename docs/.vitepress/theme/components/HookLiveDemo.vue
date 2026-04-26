@@ -202,12 +202,7 @@ onBeforeUnmount(() => {
     <header class="hook-live-demo__header">
       <div class="hook-live-demo__header-row">
         <h3 class="hook-live-demo__title">
-          <a
-            v-if="titleHref"
-            class="hook-live-demo__title-link"
-            :href="titleHref"
-            @click.stop
-          >{{ displayTitle }}</a>
+          <a v-if="titleHref" class="hook-live-demo__title-link" :href="titleHref" @click.stop>{{ displayTitle }}</a>
           <template v-else>{{ displayTitle }}</template>
         </h3>
         <span class="hook-live-demo__pill" aria-hidden="true">Live</span>

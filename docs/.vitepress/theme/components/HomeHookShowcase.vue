@@ -126,15 +126,13 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
                   />
                 </svg>
               </span>
-              <span class="home-showcase__toggle-label">
-                {{ anyDemosOpen ? 'Hide' : 'Show' }} all demos
-              </span>
+              <span class="home-showcase__toggle-label"> {{ anyDemosOpen ? 'Hide' : 'Show' }} all demos </span>
             </button>
           </div>
         </div>
         <p class="home-showcase__section-lead">
-          Toggles, counters, debounce, storage, ref history, and related helpers - click a card to open its live preview.
-          Browse
+          Toggles, counters, debounce, storage, ref history, and related helpers - click a card to open its live
+          preview. Browse
           <a class="home-showcase__state-link" :href="withBase('/functions/state')">State in the function list →</a>
         </p>
 

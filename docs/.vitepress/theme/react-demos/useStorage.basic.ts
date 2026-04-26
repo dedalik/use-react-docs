@@ -31,7 +31,7 @@ function StorageInner({
     React.createElement(
       'p',
       { className: 'hook-demo-hint' },
-      'useStorage(key, initial, { serializer, parser, storage }) - default JSON.stringify / JSON.parse; storage defaults to localStorage. set(\'\') stores an empty string (key stays).',
+      "useStorage(key, initial, { serializer, parser, storage }) - default JSON.stringify / JSON.parse; storage defaults to localStorage. set('') stores an empty string (key stays).",
     ),
     React.createElement(
       'div',
@@ -43,7 +43,11 @@ function StorageInner({
         'Storage key: ',
         React.createElement('code', null, fullKey),
       ),
-      React.createElement('p', { style: { margin: 0, fontSize: '0.8rem' } }, 'Serialized (default JSON — same as written to storage):'),
+      React.createElement(
+        'p',
+        { style: { margin: 0, fontSize: '0.8rem' } },
+        'Serialized (default JSON — same as written to storage):',
+      ),
       React.createElement('p', { className: 'hook-demo-mono' }, rawLine),
     ),
     React.createElement('input', { type: 'text', value: safeValue, onChange: (e) => set(e.target.value) }),
