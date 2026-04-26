@@ -1,4 +1,5 @@
 import type { HeadConfig, PageData, SiteData } from 'vitepress'
+import { SOCIAL_X_URL } from './social'
 
 const SITE = (process.env.SITE_URL || 'https://usereact.org').replace(/\/$/, '')
 const AUTHOR_NAME = 'Radiks Alijevs'
@@ -31,6 +32,7 @@ function buildJsonLd(args: { canonical: string; title: string; description: stri
       '@id': `${SITE}/#organization`,
       name: PUBLISHER_NAME,
       url: `${SITE}/`,
+      sameAs: [SOCIAL_X_URL],
       logo: {
         '@type': 'ImageObject',
         url: `${SITE}/logo.png`,

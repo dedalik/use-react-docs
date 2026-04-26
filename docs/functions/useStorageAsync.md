@@ -12,8 +12,7 @@ description: >-
 # useStorageAsync()
 
 <PackageData fn="useStorageAsync" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useStorageAsync/basic" title="Live demo: useStorageAsync" />
 
 ## Overview
 

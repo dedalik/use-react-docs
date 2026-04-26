@@ -13,8 +13,7 @@ description: >-
 # useToggle()
 
 <PackageData fn="useToggle" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useToggle/basic" title="Live demo: useToggle" />
 
 ## Overview
 
