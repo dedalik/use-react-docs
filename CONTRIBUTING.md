@@ -35,7 +35,6 @@ EditorConfig (`.editorconfig`) sets two-space indentation and UTF-8 for consiste
 
 ## Pull requests
 
-- Do **not** add editor trailers (for example `Made-with: Cursor`) to commit message bodies; keep the subject line and optional project-focused body only.
 - Run `npm run format:check` and `npm run docs:build` before opening a PR.
 - Register new guide pages in `docs/.vitepress/config.mts` and follow notes in `docs/guide/contributing.md` when adding hooks or SEO-related files.
 
