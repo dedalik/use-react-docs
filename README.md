@@ -13,18 +13,18 @@ This repository is a **[VitePress](https://vitepress.dev/)** project: guides, AP
 
 ### Core sections on docs site
 
-- `State`
-- `Elements`
-- `Browser`
-- `Sensors`
-- `Network`
-- `Animation`
-- `Component`
-- `Watch`
-- `Reactivity`
-- `Array`
-- `Time`
-- `Utilities`
+- [State](https://usereact.org/functions/state)
+- [Elements](https://usereact.org/functions/elements)
+- [Browser](https://usereact.org/functions/browser)
+- [Sensors](https://usereact.org/functions/sensors)
+- [Network](https://usereact.org/functions/network)
+- [Animation](https://usereact.org/functions/animation)
+- [Component](https://usereact.org/functions/component)
+- [Watch](https://usereact.org/functions/watch)
+- [Reactivity](https://usereact.org/functions/reactivity)
+- [Array](https://usereact.org/functions/array)
+- [Time](https://usereact.org/functions/time)
+- [Utilities](https://usereact.org/functions/utilities)
 
 ## Requirements
 

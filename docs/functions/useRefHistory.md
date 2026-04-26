@@ -12,8 +12,7 @@ description: >-
 # useRefHistory()
 
 <PackageData fn="useRefHistory" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useRefHistory/basic" title="Live demo: useRefHistory" />
 
 ## Overview
 

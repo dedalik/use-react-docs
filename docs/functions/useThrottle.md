@@ -13,8 +13,7 @@ description: >-
 # useThrottle()
 
 <PackageData fn="useThrottle" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useThrottle/basic" title="Live demo: useThrottle" />
 
 ## Overview
 

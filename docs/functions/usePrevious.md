@@ -13,8 +13,7 @@ description: >-
 # usePrevious()
 
 <PackageData fn="usePrevious" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePrevious/basic" title="Live demo: usePrevious" />
 
 ## Overview
 

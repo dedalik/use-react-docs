@@ -12,8 +12,7 @@ description: >-
 # useDebouncedRefHistory()
 
 <PackageData fn="useDebouncedRefHistory" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useDebouncedRefHistory/basic" title="Live demo: useDebouncedRefHistory" />
 
 ## Overview
 

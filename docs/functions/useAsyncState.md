@@ -12,8 +12,7 @@ description: >-
 # useAsyncState()
 
 <PackageData fn="useAsyncState" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useAsyncState/basic" title="Live demo: useAsyncState" />
 
 ## Overview
 
