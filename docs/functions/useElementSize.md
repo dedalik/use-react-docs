@@ -12,8 +12,7 @@ description: >-
 # useElementSize()
 
 <PackageData fn="useElementSize" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useElementSize/basic" title="Live demo: useElementSize" />
 
 ## Overview
 
