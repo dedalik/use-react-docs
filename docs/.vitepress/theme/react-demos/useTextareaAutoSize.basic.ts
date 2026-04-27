@@ -61,8 +61,18 @@ function TextareaAutoSizeDemo() {
         lineHeight: 1.5,
       },
     }),
-    React.createElement('p', { style: { margin: 0 } }, 'Characters: ', React.createElement('strong', null, String(value.length))),
-    React.createElement('p', { style: { margin: 0 } }, 'Resize events: ', React.createElement('strong', null, String(resizeCount))),
+    React.createElement(
+      'p',
+      { style: { margin: 0 } },
+      'Characters: ',
+      React.createElement('strong', null, String(value.length)),
+    ),
+    React.createElement(
+      'p',
+      { style: { margin: 0 } },
+      'Resize events: ',
+      React.createElement('strong', null, String(resizeCount)),
+    ),
   )
 }
 

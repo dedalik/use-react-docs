@@ -159,14 +159,19 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
         </div>
       </section>
 
-      <section class="home-showcase__section home-showcase__section--spaced" aria-labelledby="home-showcase-elements-title">
+      <section
+        class="home-showcase__section home-showcase__section--spaced"
+        aria-labelledby="home-showcase-elements-title"
+      >
         <div class="home-showcase__section-head">
           <h3 id="home-showcase-elements-title" class="home-showcase__section-title">Elements</h3>
         </div>
         <p class="home-showcase__section-lead">
           DOM-focused helpers: textarea autosize, outside click handling, drag/drop, element measurement, focus and
           scroll state. Browse
-          <a class="home-showcase__state-link" :href="withBase('/functions/elements')">Elements in the function list →</a>
+          <a class="home-showcase__state-link" :href="withBase('/functions/elements')"
+            >Elements in the function list →</a
+          >
         </p>
 
         <div class="home-state-demos" role="list">

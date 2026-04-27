@@ -62,7 +62,11 @@ function ElementBoundingDemo() {
       React.createElement(
         'div',
         { style: { height: 700, padding: 16, boxSizing: 'border-box' } },
-        React.createElement('div', { style: { height: 130, color: 'var(--vp-c-text-2)' } }, 'Scroll down inside this panel.'),
+        React.createElement(
+          'div',
+          { style: { height: 130, color: 'var(--vp-c-text-2)' } },
+          'Scroll down inside this panel.',
+        ),
         React.createElement(
           'div',
           {

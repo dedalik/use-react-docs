@@ -79,7 +79,12 @@ function ClickOutsideDemo() {
           },
           'Panel is closed.',
         ),
-    React.createElement('p', { style: { margin: '10px 0 0' } }, 'Outside triggers: ', React.createElement('strong', null, String(outsideCount))),
+    React.createElement(
+      'p',
+      { style: { margin: '10px 0 0' } },
+      'Outside triggers: ',
+      React.createElement('strong', null, String(outsideCount)),
+    ),
     React.createElement('p', { style: { margin: 0 } }, 'Last event: ', React.createElement('strong', null, lastEvent)),
   )
 }

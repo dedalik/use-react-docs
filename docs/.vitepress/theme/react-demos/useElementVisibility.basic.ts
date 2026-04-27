@@ -66,7 +66,11 @@ function ElementVisibilityDemo() {
       React.createElement(
         'div',
         { style: { padding: 16, height: 900, boxSizing: 'border-box' } },
-        React.createElement('p', { style: { marginTop: 0, color: 'var(--vp-c-text-2)' } }, 'Scroll down to the sentinel block.'),
+        React.createElement(
+          'p',
+          { style: { marginTop: 0, color: 'var(--vp-c-text-2)' } },
+          'Scroll down to the sentinel block.',
+        ),
         React.createElement('div', { style: { height: 520 } }),
         React.createElement(
           'div',

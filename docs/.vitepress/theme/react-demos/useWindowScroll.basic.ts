@@ -13,11 +13,7 @@ function WindowScrollDemo() {
   return React.createElement(
     'div',
     { className: 'hook-demo-surface' },
-    React.createElement(
-      'p',
-      { className: 'hook-demo-hint' },
-      'Scroll the docs page to update values and progress.',
-    ),
+    React.createElement('p', { className: 'hook-demo-hint' }, 'Scroll the docs page to update values and progress.'),
     React.createElement(
       'p',
       { style: { margin: '0 0 8px' } },
