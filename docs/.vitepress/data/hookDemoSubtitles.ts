@@ -3,6 +3,10 @@
  * Keys are `useX/basic` as passed to the `demo` prop.
  */
 export const hookDemoSubtitles: Record<string, string> = {
+  'useClickOutside/basic':
+    'Close a panel when clicks happen outside multiple protected refs (toggle button + content area).',
+  'useDraggable/basic':
+    'Drag a card by its handle and keep it inside a container while tracking position and drag state.',
   'useTextareaAutoSize/basic':
     'Autosize a textarea to content height; optionally sync the measured height to a wrapper via styleTarget.',
   'useToggle/basic':

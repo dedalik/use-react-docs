@@ -13,8 +13,7 @@ description: >-
 # useClickOutside()
 
 <PackageData fn="useClickOutside" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useClickOutside/basic" title="Live demo: useClickOutside" />
 
 ## Overview
 

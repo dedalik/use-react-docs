@@ -42,6 +42,8 @@ const sourceOpen = ref(false)
 const demoLoaders: Record<string, () => Promise<DemoModule>> = {
   'useAsyncState/basic': () => import('../react-demos/useAsyncState.basic'),
   'useCounter/basic': () => import('../react-demos/useCounter.basic'),
+  'useClickOutside/basic': () => import('../react-demos/useClickOutside.basic'),
+  'useDraggable/basic': () => import('../react-demos/useDraggable.basic'),
   'useTextareaAutoSize/basic': () => import('../react-demos/useTextareaAutoSize.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),
