@@ -11,6 +11,8 @@ export const hookDemoSubtitles: Record<string, string> = {
     'Track full DOMRect values (x/y/edges/size) while a target moves inside a scrollable container.',
   'useElementSize/basic':
     'Observe a panel size with ResizeObserver while changing width, height, and inner padding live.',
+  'useElementVisibility/basic':
+    'Observe when a sentinel becomes visible inside a scroll root with configurable threshold.',
   'useTextareaAutoSize/basic':
     'Autosize a textarea to content height; optionally sync the measured height to a wrapper via styleTarget.',
   'useToggle/basic':

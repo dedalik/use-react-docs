@@ -46,6 +46,7 @@ const demoLoaders: Record<string, () => Promise<DemoModule>> = {
   'useDraggable/basic': () => import('../react-demos/useDraggable.basic'),
   'useElementBounding/basic': () => import('../react-demos/useElementBounding.basic'),
   'useElementSize/basic': () => import('../react-demos/useElementSize.basic'),
+  'useElementVisibility/basic': () => import('../react-demos/useElementVisibility.basic'),
   'useTextareaAutoSize/basic': () => import('../react-demos/useTextareaAutoSize.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),

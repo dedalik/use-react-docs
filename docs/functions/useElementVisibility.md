@@ -12,8 +12,7 @@ description: >-
 # useElementVisibility()
 
 <PackageData fn="useElementVisibility" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useElementVisibility/basic" title="Live demo: useElementVisibility" />
 
 ## Overview
 
