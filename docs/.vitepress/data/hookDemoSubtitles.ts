@@ -3,6 +3,8 @@
  * Keys are `useX/basic` as passed to the `demo` prop.
  */
 export const hookDemoSubtitles: Record<string, string> = {
+  'useActiveElement/basic':
+    'Mirror document.activeElement and inspect focus transitions across inputs, textarea, buttons, and links.',
   'useClickOutside/basic':
     'Close a panel when clicks happen outside multiple protected refs (toggle button + content area).',
   'useDraggable/basic':

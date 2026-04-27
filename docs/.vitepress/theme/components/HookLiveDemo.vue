@@ -40,6 +40,7 @@ const activeSource = computed(() => sourceJsx.value)
 const sourceOpen = ref(false)
 
 const demoLoaders: Record<string, () => Promise<DemoModule>> = {
+  'useActiveElement/basic': () => import('../react-demos/useActiveElement.basic'),
   'useAsyncState/basic': () => import('../react-demos/useAsyncState.basic'),
   'useCounter/basic': () => import('../react-demos/useCounter.basic'),
   'useClickOutside/basic': () => import('../react-demos/useClickOutside.basic'),
