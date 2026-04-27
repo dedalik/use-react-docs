@@ -3,6 +3,8 @@
  * Keys are `useX/basic` as passed to the `demo` prop.
  */
 export const hookDemoSubtitles: Record<string, string> = {
+  'useTextareaAutoSize/basic':
+    'Autosize a textarea to content height; optionally sync the measured height to a wrapper via styleTarget.',
   'useToggle/basic':
     'Boolean (or set) state with a flip/toggle, optional custom setters, and a stable toggler function.',
   'useCounter/basic': 'Increment, decrement, or set a number with optional min/max so values stay in range.',
