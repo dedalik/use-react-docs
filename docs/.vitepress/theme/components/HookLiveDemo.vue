@@ -49,6 +49,7 @@ const demoLoaders: Record<string, () => Promise<DemoModule>> = {
   'useElementVisibility/basic': () => import('../react-demos/useElementVisibility.basic'),
   'useParentElement/basic': () => import('../react-demos/useParentElement.basic'),
   'useTextareaAutoSize/basic': () => import('../react-demos/useTextareaAutoSize.basic'),
+  'useWindowFocus/basic': () => import('../react-demos/useWindowFocus.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),
   'useDebounce/basic': () => import('../react-demos/useDebounce.basic'),
