@@ -4,18 +4,13 @@ import useParentElement from '@dedalik/use-react/useParentElement'
 function ParentElementDemo() {
   const childRef = useRef<HTMLSpanElement | null>(null)
   const parentEl = useParentElement(childRef)
-  const [highlight, setHighlight] = useState(false)
+  const [outlineParent, setOutlineParent] = useState(false)
+  const [focusChild, setFocusChild] = useState(false)
 
-  const parentStyle = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: 8,
-    padding: '8px 10px',
-    borderRadius: 999,
-    border: highlight ? '2px solid var(--vp-c-brand-1)' : '1px solid var(--vp-c-divider)',
-    background: highlight ? 'var(--vp-c-brand-soft)' : 'var(--vp-c-bg-soft)',
-    transition: 'all 120ms ease',
-  } satisfies React.CSSProperties
+  const parentId = parentEl ? `#${parentEl.id || '(no-id)'}` : 'null'
+  const parentTag = parentEl?.tagName.toLowerCase() ?? 'null'
+  const childTag = childRef.current?.tagName.toLowerCase() ?? 'span'
+  const sameNode = parentEl === childRef.current?.parentElement
 
   return React.createElement(
     'div',
@@ -23,19 +18,58 @@ function ParentElementDemo() {
     React.createElement(
       'p',
       { className: 'hook-demo-hint' },
-      'The hook returns child.parentElement. Toggle highlight to style the wrapper and inspect parent metadata.',
+      'This demo marks both nodes clearly: outer card is parent, badge is child. useParentElement returns the outer card element.',
     ),
     React.createElement(
       'div',
-      { style: parentStyle },
-      React.createElement('span', { ref: childRef, style: { fontWeight: 600 } }, 'react'),
-      React.createElement(
-        'button',
-        {
-          type: 'button',
-          onClick: () => setHighlight((value) => !value),
+      {
+        id: 'parent-card',
+        style: {
+          border: outlineParent ? '2px solid var(--vp-c-brand-1)' : '1px solid var(--vp-c-divider)',
+          background: outlineParent ? 'var(--vp-c-brand-soft)' : 'var(--vp-c-bg-soft)',
+          borderRadius: 12,
+          padding: 12,
+          transition: 'all 120ms ease',
         },
-        'Toggle parent highlight',
+      },
+      React.createElement('p', { style: { margin: '0 0 8px', fontWeight: 600 } }, 'Parent element'),
+      React.createElement(
+        'div',
+        { style: { display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' } },
+        React.createElement(
+          'span',
+          {
+            ref: childRef,
+            tabIndex: 0,
+            onFocus: () => setFocusChild(true),
+            onBlur: () => setFocusChild(false),
+            style: {
+              fontWeight: 700,
+              borderRadius: 999,
+              padding: '6px 10px',
+              border: focusChild ? '2px solid var(--vp-c-brand-1)' : '1px solid var(--vp-c-divider)',
+              background: 'var(--vp-c-bg)',
+              outline: 'none',
+            },
+          },
+          'Child element',
+        ),
+        React.createElement(
+          'button',
+          {
+            type: 'button',
+            onClick: () => childRef.current?.focus(),
+          },
+          'Focus child',
+        ),
+        React.createElement(
+          'button',
+          {
+            type: 'button',
+            onClick: () => setOutlineParent((value) => !value),
+          },
+          outlineParent ? 'Hide parent outline' : 'Outline parent',
+        ),
       ),
     ),
     React.createElement(
@@ -44,20 +78,25 @@ function ParentElementDemo() {
       React.createElement(
         'p',
         { style: { margin: 0 } },
-        'parent tagName: ',
-        React.createElement('strong', null, parentEl?.tagName.toLowerCase() ?? 'null'),
+        'Hook return (parent): ',
+        React.createElement('strong', null, `${parentTag} ${parentId}`),
       ),
       React.createElement(
         'p',
         { style: { margin: 0 } },
-        'parent class: ',
-        React.createElement('strong', null, parentEl?.className || '(empty)'),
+        'Child ref points to: ',
+        React.createElement('strong', null, childTag),
       ),
       React.createElement(
         'p',
-        { style: { margin: 0 } },
-        'same node instance: ',
-        React.createElement('strong', null, parentEl === childRef.current?.parentElement ? 'yes' : 'no'),
+        {
+          style: {
+            margin: 0,
+            color: sameNode ? 'var(--vp-c-brand-1)' : 'var(--vp-c-danger-1, #b42318)',
+            fontWeight: 600,
+          },
+        },
+        sameNode ? 'Relationship check: parent element resolved correctly' : 'Relationship check: mismatch',
       ),
     ),
   )
@@ -69,42 +108,71 @@ import useParentElement from '@dedalik/use-react/useParentElement'
 export default function ParentElementDemo() {
   const childRef = useRef<HTMLSpanElement | null>(null)
   const parentEl = useParentElement(childRef)
-  const [highlight, setHighlight] = useState(false)
+  const [outlineParent, setOutlineParent] = useState(false)
+  const [focusChild, setFocusChild] = useState(false)
+
+  const parentId = parentEl ? '#' + (parentEl.id || '(no-id)') : 'null'
+  const parentTag = parentEl?.tagName.toLowerCase() ?? 'null'
+  const childTag = childRef.current?.tagName.toLowerCase() ?? 'span'
+  const sameNode = parentEl === childRef.current?.parentElement
 
   return (
     <div className='hook-demo-surface'>
       <p className='hook-demo-hint'>
-        The hook returns child.parentElement. Toggle highlight to style the wrapper and inspect metadata.
+        This demo marks both nodes clearly: outer card is parent, badge is child.
       </p>
 
       <div
+        id='parent-card'
         style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          padding: '8px 10px',
-          borderRadius: 999,
-          border: highlight ? '2px solid var(--vp-c-brand-1)' : '1px solid var(--vp-c-divider)',
-          background: highlight ? 'var(--vp-c-brand-soft)' : 'var(--vp-c-bg-soft)',
+          border: outlineParent ? '2px solid var(--vp-c-brand-1)' : '1px solid var(--vp-c-divider)',
+          background: outlineParent ? 'var(--vp-c-brand-soft)' : 'var(--vp-c-bg-soft)',
+          borderRadius: 12,
+          padding: 12,
         }}
       >
-        <span ref={childRef} style={{ fontWeight: 600 }}>
-          react
-        </span>
-        <button type='button' onClick={() => setHighlight((value) => !value)}>
-          Toggle parent highlight
-        </button>
+        <p style={{ margin: '0 0 8px', fontWeight: 600 }}>Parent element</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <span
+            ref={childRef}
+            tabIndex={0}
+            onFocus={() => setFocusChild(true)}
+            onBlur={() => setFocusChild(false)}
+            style={{
+              fontWeight: 700,
+              borderRadius: 999,
+              padding: '6px 10px',
+              border: focusChild ? '2px solid var(--vp-c-brand-1)' : '1px solid var(--vp-c-divider)',
+              background: 'var(--vp-c-bg)',
+              outline: 'none',
+            }}
+          >
+            Child element
+          </span>
+          <button type='button' onClick={() => childRef.current?.focus()}>
+            Focus child
+          </button>
+          <button type='button' onClick={() => setOutlineParent((value) => !value)}>
+            {outlineParent ? 'Hide parent outline' : 'Outline parent'}
+          </button>
+        </div>
       </div>
 
       <div style={{ marginTop: 10, display: 'grid', gap: 4 }}>
         <p style={{ margin: 0 }}>
-          parent tagName: <strong>{parentEl?.tagName.toLowerCase() ?? 'null'}</strong>
+          Hook return (parent): <strong>{parentTag + ' ' + parentId}</strong>
         </p>
         <p style={{ margin: 0 }}>
-          parent class: <strong>{parentEl?.className || '(empty)'}</strong>
+          Child ref points to: <strong>{childTag}</strong>
         </p>
-        <p style={{ margin: 0 }}>
-          same node instance: <strong>{parentEl === childRef.current?.parentElement ? 'yes' : 'no'}</strong>
+        <p
+          style={{
+            margin: 0,
+            color: sameNode ? 'var(--vp-c-brand-1)' : 'var(--vp-c-danger-1, #b42318)',
+            fontWeight: 600,
+          }}
+        >
+          {sameNode ? 'Relationship check: parent element resolved correctly' : 'Relationship check: mismatch'}
         </p>
       </div>
     </div>

@@ -10,19 +10,13 @@ function WindowScrollDemo() {
     return Math.max(0, Math.min(1, y / maxY))
   }, [y])
 
-  const scrollTo = (ratio: number) => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return
-    const maxY = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0)
-    window.scrollTo({ top: Math.round(maxY * ratio), behavior: 'smooth' })
-  }
-
   return React.createElement(
     'div',
     { className: 'hook-demo-surface' },
     React.createElement(
       'p',
       { className: 'hook-demo-hint' },
-      'Scroll the docs page to update values. Buttons below scroll to top, middle, or near bottom.',
+      'Scroll the docs page to update values and progress.',
     ),
     React.createElement(
       'p',
@@ -54,13 +48,6 @@ function WindowScrollDemo() {
       { style: { margin: '8px 0 10px', color: 'var(--vp-c-text-2)' } },
       `Page progress: ${Math.round(progress * 100)}%`,
     ),
-    React.createElement(
-      'div',
-      { className: 'hook-demo-toolbar', style: { gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' } },
-      React.createElement('button', { type: 'button', onClick: () => scrollTo(0) }, 'Top'),
-      React.createElement('button', { type: 'button', onClick: () => scrollTo(0.5) }, 'Middle'),
-      React.createElement('button', { type: 'button', onClick: () => scrollTo(0.95) }, 'Near bottom'),
-    ),
   )
 }
 
@@ -76,16 +63,10 @@ export default function WindowScrollDemo() {
     return Math.max(0, Math.min(1, y / maxY))
   }, [y])
 
-  const scrollTo = (ratio: number) => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') return
-    const maxY = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0)
-    window.scrollTo({ top: Math.round(maxY * ratio), behavior: 'smooth' })
-  }
-
   return (
     <div className='hook-demo-surface'>
       <p className='hook-demo-hint'>
-        Scroll the docs page to update values. Buttons below scroll to top, middle, or near bottom.
+        Scroll the docs page to update values and progress.
       </p>
       <p style={{ margin: '0 0 8px' }}>
         scrollX / scrollY: <strong>{Math.round(x)} / {Math.round(y)}</strong>
@@ -108,18 +89,6 @@ export default function WindowScrollDemo() {
         />
       </div>
       <p style={{ margin: '8px 0 10px', color: 'var(--vp-c-text-2)' }}>Page progress: {Math.round(progress * 100)}%</p>
-
-      <div className='hook-demo-toolbar' style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' }}>
-        <button type='button' onClick={() => scrollTo(0)}>
-          Top
-        </button>
-        <button type='button' onClick={() => scrollTo(0.5)}>
-          Middle
-        </button>
-        <button type='button' onClick={() => scrollTo(0.95)}>
-          Near bottom
-        </button>
-      </div>
     </div>
   )
 }`

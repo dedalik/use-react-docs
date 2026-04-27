@@ -87,15 +87,6 @@ function ActiveElementDemo() {
           'Blur active',
         ),
       ),
-      React.createElement(
-        'a',
-        {
-          href: '#',
-          onClick: (event) => event.preventDefault(),
-          style: { color: 'var(--vp-c-brand-1)', textDecoration: 'underline' },
-        },
-        'Focusable link example',
-      ),
     ),
   )
 }
@@ -161,13 +152,6 @@ export default function ActiveElementDemo() {
           </button>
         </div>
 
-        <a
-          href='#'
-          onClick={(event) => event.preventDefault()}
-          style={{ color: 'var(--vp-c-brand-1)', textDecoration: 'underline' }}
-        >
-          Focusable link example
-        </a>
       </div>
     </div>
   )

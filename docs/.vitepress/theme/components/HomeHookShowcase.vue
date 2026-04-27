@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue'
 import { withBase } from 'vitepress'
 import { homeStateDemos } from '../../data/homeStateDemos'
+import { homeElementsDemos } from '../../data/homeElementsDemos'
 
 /** Open card ids - several demos can stay open at once. */
 const expandedDemos = ref<string[]>([])
@@ -158,7 +159,37 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
         </div>
       </section>
 
-      <!-- e.g. <section class="home-showcase__section" …> + homeBrowserDemos when ready -->
+      <section class="home-showcase__section home-showcase__section--spaced" aria-labelledby="home-showcase-elements-title">
+        <div class="home-showcase__section-head">
+          <h3 id="home-showcase-elements-title" class="home-showcase__section-title">Elements</h3>
+        </div>
+        <p class="home-showcase__section-lead">
+          DOM-focused helpers: textarea autosize, outside click handling, drag/drop, element measurement, focus and
+          scroll state. Browse
+          <a class="home-showcase__state-link" :href="withBase('/functions/elements')">Elements in the function list →</a>
+        </p>
+
+        <div class="home-state-demos" role="list">
+          <article
+            v-for="(item, index) in homeElementsDemos"
+            :key="item.demo"
+            class="home-state-demos__item"
+            :class="{ 'home-state-demos__item--expanded': isCardExpanded(item.demo) }"
+            :style="{ '--stagger': String(index) }"
+            role="listitem"
+            tabindex="0"
+            :aria-expanded="isCardExpanded(item.demo)"
+            @click="onDemoItemClick(item.demo, $event)"
+            @keydown="onDemoItemKeydown(item.demo, $event)"
+          >
+            <HookLiveDemo
+              :demo="item.demo"
+              :title="item.title"
+              :title-href="withBase(`/functions/${item.demo.split('/')[0]}`)"
+            />
+          </article>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -238,6 +269,10 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
   padding: 0;
   border: none;
   background: transparent;
+}
+
+.home-showcase__section--spaced {
+  margin-top: 2.2rem;
 }
 
 .home-showcase__section-head {
