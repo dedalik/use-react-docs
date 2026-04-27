@@ -12,8 +12,7 @@ description: >-
 # useWindowScroll()
 
 <PackageData fn="useWindowScroll" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useWindowScroll/basic" title="Live demo: useWindowScroll" />
 
 ## Overview
 

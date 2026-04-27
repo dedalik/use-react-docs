@@ -50,6 +50,7 @@ const demoLoaders: Record<string, () => Promise<DemoModule>> = {
   'useParentElement/basic': () => import('../react-demos/useParentElement.basic'),
   'useTextareaAutoSize/basic': () => import('../react-demos/useTextareaAutoSize.basic'),
   'useWindowFocus/basic': () => import('../react-demos/useWindowFocus.basic'),
+  'useWindowScroll/basic': () => import('../react-demos/useWindowScroll.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),
   'useDebounce/basic': () => import('../react-demos/useDebounce.basic'),
