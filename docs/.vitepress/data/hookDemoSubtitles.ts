@@ -7,6 +7,8 @@ export const hookDemoSubtitles: Record<string, string> = {
     'Close a panel when clicks happen outside multiple protected refs (toggle button + content area).',
   'useDraggable/basic':
     'Drag a card by its handle and keep it inside a container while tracking position and drag state.',
+  'useElementBounding/basic':
+    'Track full DOMRect values (x/y/edges/size) while a target moves inside a scrollable container.',
   'useElementSize/basic':
     'Observe a panel size with ResizeObserver while changing width, height, and inner padding live.',
   'useTextareaAutoSize/basic':

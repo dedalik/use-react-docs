@@ -12,8 +12,7 @@ description: >-
 # useElementBounding()
 
 <PackageData fn="useElementBounding" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useElementBounding/basic" title="Live demo: useElementBounding" />
 
 ## Overview
 
