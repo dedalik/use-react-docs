@@ -53,6 +53,7 @@ const demoLoaders: Record<string, () => Promise<DemoModule>> = {
   'useWindowFocus/basic': () => import('../react-demos/useWindowFocus.basic'),
   'useWindowScroll/basic': () => import('../react-demos/useWindowScroll.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
+  'useDropZone/basic': () => import('../react-demos/useDropZone.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),
   'useDebounce/basic': () => import('../react-demos/useDebounce.basic'),
   'useEventCallback/basic': () => import('../react-demos/useEventCallback.basic'),
