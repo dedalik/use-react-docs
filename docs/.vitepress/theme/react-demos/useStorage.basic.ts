@@ -46,7 +46,7 @@ function StorageInner({
       React.createElement(
         'p',
         { style: { margin: 0, fontSize: '0.8rem' } },
-        'Serialized (default JSON — same as written to storage):',
+        'Serialized (default JSON - same as written to storage):',
       ),
       React.createElement('p', { className: 'hook-demo-mono' }, rawLine),
     ),
@@ -71,7 +71,7 @@ function StorageDemo() {
     initial: 'hello',
   })
   const [k, setK] = useState(0)
-  /** Do not mount `useStorage` until the user applies once — avoids writing on first page load. */
+  /** Do not mount `useStorage` until the user applies once - avoids writing on first page load. */
   const [liveStarted, setLiveStarted] = useState(false)
 
   useEffect(() => {
@@ -205,7 +205,7 @@ function StorageInner({ storageKey, useSession, initial }) {
     <div className='hook-demo-surface'>
       <p className='hook-demo-hint'>useStorage(key, initial, {'{'} storage {'}'}) - JSON.stringify / JSON.parse; set('') keeps the key with an empty string.</p>
       <p style={{ margin: 0 }}>Value: <code>{safeValue}</code></p>
-      <p style={{ margin: 0, fontSize: '0.8rem' }}>Serialized (default JSON — same as written to storage):</p>
+      <p style={{ margin: 0, fontSize: '0.8rem' }}>Serialized (default JSON - same as written to storage):</p>
       <p className='hook-demo-mono'>{rawLine}</p>
       <input value={safeValue} onChange={(e) => set(e.target.value)} />
       <button type='button' onClick={() => set('')}>set('') - clear value</button>

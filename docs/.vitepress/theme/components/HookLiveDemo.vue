@@ -40,9 +40,20 @@ const activeSource = computed(() => sourceJsx.value)
 const sourceOpen = ref(false)
 
 const demoLoaders: Record<string, () => Promise<DemoModule>> = {
+  'useActiveElement/basic': () => import('../react-demos/useActiveElement.basic'),
   'useAsyncState/basic': () => import('../react-demos/useAsyncState.basic'),
   'useCounter/basic': () => import('../react-demos/useCounter.basic'),
+  'useClickOutside/basic': () => import('../react-demos/useClickOutside.basic'),
+  'useDraggable/basic': () => import('../react-demos/useDraggable.basic'),
+  'useElementBounding/basic': () => import('../react-demos/useElementBounding.basic'),
+  'useElementSize/basic': () => import('../react-demos/useElementSize.basic'),
+  'useElementVisibility/basic': () => import('../react-demos/useElementVisibility.basic'),
+  'useParentElement/basic': () => import('../react-demos/useParentElement.basic'),
+  'useTextareaAutoSize/basic': () => import('../react-demos/useTextareaAutoSize.basic'),
+  'useWindowFocus/basic': () => import('../react-demos/useWindowFocus.basic'),
+  'useWindowScroll/basic': () => import('../react-demos/useWindowScroll.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
+  'useDropZone/basic': () => import('../react-demos/useDropZone.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),
   'useDebounce/basic': () => import('../react-demos/useDebounce.basic'),
   'useEventCallback/basic': () => import('../react-demos/useEventCallback.basic'),

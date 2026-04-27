@@ -12,8 +12,7 @@ description: >-
 # useParentElement()
 
 <PackageData fn="useParentElement" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useParentElement/basic" title="Live demo: useParentElement" />
 
 ## Overview
 

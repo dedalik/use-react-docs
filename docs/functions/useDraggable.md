@@ -13,8 +13,7 @@ description: >-
 # useDraggable()
 
 <PackageData fn="useDraggable" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useDraggable/basic" title="Live demo: useDraggable" />
 
 ## Overview
 

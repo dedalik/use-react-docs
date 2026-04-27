@@ -3,6 +3,25 @@
  * Keys are `useX/basic` as passed to the `demo` prop.
  */
 export const hookDemoSubtitles: Record<string, string> = {
+  'useActiveElement/basic':
+    'Mirror document.activeElement and inspect focus transitions across inputs, textarea, buttons, and links.',
+  'useClickOutside/basic':
+    'Close a panel when clicks happen outside multiple protected refs (toggle button + content area).',
+  'useDraggable/basic':
+    'Drag a card by its handle and keep it inside a container while tracking position and drag state.',
+  'useDropZone/basic': 'Track drag-over state and capture dropped files with hover feedback and recent-drop logging.',
+  'useElementBounding/basic':
+    'Track full DOMRect values (x/y/edges/size) while a target moves inside a scrollable container.',
+  'useElementSize/basic':
+    'Observe a panel size with ResizeObserver while changing width, height, and inner padding live.',
+  'useElementVisibility/basic':
+    'Observe when a sentinel becomes visible inside a scroll root with configurable threshold.',
+  'useParentElement/basic':
+    'Resolve and inspect a target node parentElement, and interact with the parent wrapper through the returned node.',
+  'useWindowFocus/basic': 'Reflect current window focus/blur state and demonstrate focus-aware background ticking.',
+  'useWindowScroll/basic': 'Track live window scrollX/scrollY and expose quick actions for top/middle/end navigation.',
+  'useTextareaAutoSize/basic':
+    'Autosize a textarea to content height; optionally sync the measured height to a wrapper via styleTarget.',
   'useToggle/basic':
     'Boolean (or set) state with a flip/toggle, optional custom setters, and a stable toggler function.',
   'useCounter/basic': 'Increment, decrement, or set a number with optional min/max so values stay in range.',

@@ -1,9 +1,12 @@
 .idea
 .vscode
+.cursor
 node_modules
 docs/.vitepress/cache/
 docs/.vitepress/**/deps_temp_*/
 dist
 .DS_Store
 .temp
+.env
+.env.*
 *.log

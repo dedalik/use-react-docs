@@ -13,8 +13,7 @@ description: >-
 # useTextareaAutoSize()
 
 <PackageData fn="useTextareaAutoSize" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useTextareaAutoSize/basic" title="Live demo: useTextareaAutoSize" />
 
 ## Overview
 

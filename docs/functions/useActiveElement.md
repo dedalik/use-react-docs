@@ -12,8 +12,7 @@ description: >-
 # useActiveElement()
 
 <PackageData fn="useActiveElement" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useActiveElement/basic" title="Live demo: useActiveElement" />
 
 ## Overview
 

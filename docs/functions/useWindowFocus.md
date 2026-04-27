@@ -12,8 +12,7 @@ description: >-
 # useWindowFocus()
 
 <PackageData fn="useWindowFocus" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useWindowFocus/basic" title="Live demo: useWindowFocus" />
 
 ## Overview
 

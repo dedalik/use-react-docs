@@ -12,8 +12,7 @@ description: >-
 # useDropZone()
 
 <PackageData fn="useDropZone" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useDropZone/basic" title="Live demo: useDropZone" />
 
 ## Overview
 
