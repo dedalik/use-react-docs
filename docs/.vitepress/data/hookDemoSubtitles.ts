@@ -13,6 +13,8 @@ export const hookDemoSubtitles: Record<string, string> = {
     'Observe a panel size with ResizeObserver while changing width, height, and inner padding live.',
   'useElementVisibility/basic':
     'Observe when a sentinel becomes visible inside a scroll root with configurable threshold.',
+  'useParentElement/basic':
+    'Resolve and inspect a target node parentElement, and interact with the parent wrapper through the returned node.',
   'useTextareaAutoSize/basic':
     'Autosize a textarea to content height; optionally sync the measured height to a wrapper via styleTarget.',
   'useToggle/basic':
