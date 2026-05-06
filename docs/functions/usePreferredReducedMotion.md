@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePreferredReducedMotion" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePreferredReducedMotion/basic" title="usePreferredReducedMotion interactive demo" />
 
 ## Overview
 

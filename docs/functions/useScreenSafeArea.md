@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useScreenSafeArea" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useScreenSafeArea/basic" />
 
 ## Overview
 

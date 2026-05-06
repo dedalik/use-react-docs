@@ -19,6 +19,25 @@ body {
   padding: 3px 0 !important;
 }
 
+.VPSidebar .sidebar-active-text {
+  position: relative;
+  display: inline-block;
+  padding-left: 12px;
+}
+
+.VPSidebar .sidebar-active-arrow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--vp-c-brand-1);
+  font-weight: 700;
+  font-size: 12px;
+  opacity: 1;
+  line-height: 1;
+  pointer-events: none;
+}
+
 .vp-doc a:has(> code) {
   text-decoration: none;
   color: var(--vp-c-brand-1);

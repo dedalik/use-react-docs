@@ -1,6 +1,5 @@
 .idea
 .vscode
-.cursor
 node_modules
 docs/.vitepress/cache/
 docs/.vitepress/**/deps_temp_*/
@@ -9,4 +8,17 @@ dist
 .temp
 .env
 .env.*
+.envrc
+.direnv/
 *.log
+
+# Local deployment / tooling artifacts
+.vercel/
+.netlify/
+.turbo/
+.cache/
+.npmrc.local
+
+# Local keys / certificates
+*.pem
+*.key

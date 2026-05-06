@@ -14,7 +14,7 @@ description: >-
 
 <PackageData fn="useBrowserLocation" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useBrowserLocation/basic" />
 
 ## Overview
 

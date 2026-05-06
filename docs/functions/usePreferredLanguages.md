@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePreferredLanguages" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePreferredLanguages/basic" title="usePreferredLanguages interactive demo" />
 
 ## Overview
 

@@ -11,6 +11,8 @@ interface DemoModule {
   sourceJsx: string
 }
 
+const demoModuleCache: Partial<Record<string, DemoModule>> = {}
+
 const props = defineProps<{
   demo: string
   title?: string
@@ -18,11 +20,13 @@ const props = defineProps<{
   titleHref?: string
 }>()
 
+const initialCachedModule = demoModuleCache[props.demo]
+
 const mountEl = ref<HTMLElement | null>(null)
-const sourceJsx = ref('')
+const sourceJsx = ref(initialCachedModule?.sourceJsx ?? '')
 const error = ref('')
-const loading = ref(true)
-const demoComponent = shallowRef<React.ComponentType | null>(null)
+const loading = ref(!initialCachedModule)
+const demoComponent = shallowRef<React.ComponentType | null>(initialCachedModule?.default ?? null)
 
 const highlightedHtml = ref('')
 const highlightLoading = ref(false)
@@ -54,6 +58,47 @@ const demoLoaders: Record<string, () => Promise<DemoModule>> = {
   'useWindowScroll/basic': () => import('../react-demos/useWindowScroll.basic'),
   'useDebouncedRefHistory/basic': () => import('../react-demos/useDebouncedRefHistory.basic'),
   'useDropZone/basic': () => import('../react-demos/useDropZone.basic'),
+  'useBroadcastChannel/basic': () => import('../react-demos/useBroadcastChannel.basic'),
+  'useBrowserLocation/basic': () => import('../react-demos/useBrowserLocation.basic'),
+  'useFileDialog/basic': () => import('../react-demos/useFileDialog.basic'),
+  'useFileSystemAccess/basic': () => import('../react-demos/useFileSystemAccess.basic'),
+  'useBluetooth/basic': () => import('../react-demos/useBluetooth.basic'),
+  'useFullscreen/basic': () => import('../react-demos/useFullscreen.basic'),
+  'useMediaControls/basic': () => import('../react-demos/useMediaControls.basic'),
+  'useMemory/basic': () => import('../react-demos/useMemory.basic'),
+  'useMediaQuery/basic': () => import('../react-demos/useMediaQuery.basic'),
+  'useCssSupports/basic': () => import('../react-demos/useCssSupports.basic'),
+  'useCssVar/basic': () => import('../react-demos/useCssVar.basic'),
+  'useBreakpoints/basic': () => import('../react-demos/useBreakpoints.basic'),
+  'usePreferredColorScheme/basic': () => import('../react-demos/usePreferredColorScheme.basic'),
+  'usePreferredDark/basic': () => import('../react-demos/usePreferredDark.basic'),
+  'useDark/basic': () => import('../react-demos/useDark.basic'),
+  'usePreferredLanguages/basic': () => import('../react-demos/usePreferredLanguages.basic'),
+  'usePreferredReducedMotion/basic': () => import('../react-demos/usePreferredReducedMotion.basic'),
+  'usePreferredContrast/basic': () => import('../react-demos/usePreferredContrast.basic'),
+  'usePreferredReducedTransparency/basic': () => import('../react-demos/usePreferredReducedTransparency.basic'),
+  'useColorMode/basic': () => import('../react-demos/useColorMode.basic'),
+  'useUrlSearchParams/basic': () => import('../react-demos/useUrlSearchParams.basic'),
+  'useSSRWidth/basic': () => import('../react-demos/useSSRWidth.basic'),
+  'useScreenOrientation/basic': () => import('../react-demos/useScreenOrientation.basic'),
+  'useShare/basic': () => import('../react-demos/useShare.basic'),
+  'useVibrate/basic': () => import('../react-demos/useVibrate.basic'),
+  'useWakeLock/basic': () => import('../react-demos/useWakeLock.basic'),
+  'useStyleTag/basic': () => import('../react-demos/useStyleTag.basic'),
+  'useWebNotification/basic': () => import('../react-demos/useWebNotification.basic'),
+  'useScreenSafeArea/basic': () => import('../react-demos/useScreenSafeArea.basic'),
+  'useWindowSize/basic': () => import('../react-demos/useWindowSize.basic'),
+  'useTitle/basic': () => import('../react-demos/useTitle.basic'),
+  'useLockBodyScroll/basic': () => import('../react-demos/useLockBodyScroll.basic'),
+  'useScript/basic': () => import('../react-demos/useScript.basic'),
+  'usePageVisibility/basic': () => import('../react-demos/usePageVisibility.basic'),
+  'useCopyToClipboard/basic': () => import('../react-demos/useCopyToClipboard.basic'),
+  'useClipboardItems/basic': () => import('../react-demos/useClipboardItems.basic'),
+  'usePermission/basic': () => import('../react-demos/usePermission.basic'),
+  'usePerformanceObserver/basic': () => import('../react-demos/usePerformanceObserver.basic'),
+  'useTextDirection/basic': () => import('../react-demos/useTextDirection.basic'),
+  'useFavicon/basic': () => import('../react-demos/useFavicon.basic'),
+  'useHash/basic': () => import('../react-demos/useHash.basic'),
   'useToggle/basic': () => import('../react-demos/useToggle.basic'),
   'useDebounce/basic': () => import('../react-demos/useDebounce.basic'),
   'useEventCallback/basic': () => import('../react-demos/useEventCallback.basic'),
@@ -161,6 +206,28 @@ function renderDemo() {
 }
 
 async function loadDemo() {
+  const load = demoLoaders[props.demo]
+  if (!load) {
+    loading.value = false
+    error.value = `Demo "${props.demo}" is not registered yet.`
+    sourceJsx.value = ''
+    demoComponent.value = null
+    highlightedHtml.value = ''
+    cleanupRoot()
+    return
+  }
+
+  const cached = demoModuleCache[props.demo]
+  if (cached) {
+    error.value = ''
+    sourceJsx.value = cached.sourceJsx
+    demoComponent.value = cached.default
+    highlightedHtml.value = ''
+    loading.value = false
+    renderDemo()
+    return
+  }
+
   loading.value = true
   error.value = ''
   sourceJsx.value = ''
@@ -168,15 +235,9 @@ async function loadDemo() {
   highlightedHtml.value = ''
   cleanupRoot()
 
-  const load = demoLoaders[props.demo]
-  if (!load) {
-    error.value = `Demo "${props.demo}" is not registered yet.`
-    loading.value = false
-    return
-  }
-
   try {
     const mod = await load()
+    demoModuleCache[props.demo] = mod
     demoComponent.value = mod.default
     sourceJsx.value = mod.sourceJsx
     loading.value = false
@@ -191,6 +252,9 @@ async function loadDemo() {
 watch([sourceJsx, isDark, sourceOpen], () => void refreshHighlight())
 
 onMounted(() => {
+  if (demoComponent.value) {
+    renderDemo()
+  }
   // Defer demo chunk + first React render so route transitions stay smooth.
   scheduleIdle(() => void loadDemo())
   prefetchHighlighterIdle()
@@ -216,7 +280,7 @@ onBeforeUnmount(() => {
           <a v-if="titleHref" class="hook-live-demo__title-link" :href="titleHref" @click.stop>{{ displayTitle }}</a>
           <template v-else>{{ displayTitle }}</template>
         </h3>
-        <span class="hook-live-demo__pill" aria-hidden="true">Live</span>
+        <span class="hook-live-demo__pill" aria-hidden="true">Demo</span>
       </div>
       <p class="hook-live-demo__subtitle">{{ subtitle }}</p>
     </header>

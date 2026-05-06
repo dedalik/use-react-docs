@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useStyleTag" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useStyleTag/basic" />
 
 ## Overview
 

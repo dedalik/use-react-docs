@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useTextDirection" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useTextDirection/basic" title="useTextDirection interactive demo" />
 
 ## Overview
 

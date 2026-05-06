@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useCssVar" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useCssVar/basic" title="useCssVar interactive demo" />
 
 ## Overview
 

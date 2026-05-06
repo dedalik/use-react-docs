@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePreferredColorScheme" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePreferredColorScheme/basic" title="usePreferredColorScheme interactive demo" />
 
 ## Overview
 

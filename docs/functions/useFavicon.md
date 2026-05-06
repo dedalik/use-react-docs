@@ -13,8 +13,7 @@ description: >-
 # useFavicon()
 
 <PackageData fn="useFavicon" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useFavicon/basic" title="Live demo: useFavicon" />
 
 ## Overview
 

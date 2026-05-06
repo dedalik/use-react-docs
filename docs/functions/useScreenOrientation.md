@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useScreenOrientation" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useScreenOrientation/basic" title="useScreenOrientation interactive demo" />
 
 ## Overview
 

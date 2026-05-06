@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useColorMode" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useColorMode/basic" title="useColorMode interactive demo" />
 
 ## Overview
 

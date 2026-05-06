@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useVibrate" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useVibrate/basic" />
 
 ## Overview
 

@@ -12,8 +12,7 @@ description: >-
 # useBroadcastChannel()
 
 <PackageData fn="useBroadcastChannel" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useBroadcastChannel/basic" title="Live demo: useBroadcastChannel" />
 
 ## Overview
 

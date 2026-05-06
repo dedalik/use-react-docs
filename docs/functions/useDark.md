@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useDark" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useDark/basic" title="useDark interactive demo" />
 
 ## Overview
 

@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useWakeLock" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useWakeLock/basic" />
 
 ## Overview
 

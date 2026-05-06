@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useUrlSearchParams" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useUrlSearchParams/basic" title="useUrlSearchParams interactive demo" />
 
 ## Overview
 

@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useShare" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useShare/basic" />
 
 ## Overview
 

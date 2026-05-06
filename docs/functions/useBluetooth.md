@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useBluetooth" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useBluetooth/basic" title="useBluetooth interactive demo" />
 
 ## Overview
 

@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePreferredDark" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePreferredDark/basic" title="usePreferredDark interactive demo" />
 
 ## Overview
 

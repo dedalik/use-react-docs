@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePermission" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePermission/basic" />
 
 ## Overview
 

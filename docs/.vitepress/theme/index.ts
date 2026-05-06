@@ -72,6 +72,80 @@ function lockCoreFunctionsSidebarGroup() {
   })
 }
 
+function decorateActiveSidebarLink() {
+  if (typeof document === 'undefined') return
+
+  document.querySelectorAll('.VPSidebar .sidebar-active-arrow').forEach((node) => node.remove())
+  document
+    .querySelectorAll('.VPSidebar .sidebar-active-text')
+    .forEach((node) => node.classList.remove('sidebar-active-text'))
+  const textNode =
+    document.querySelector<HTMLElement>('.VPSidebar a[aria-current="page"] .text') ??
+    document.querySelector<HTMLElement>('.VPSidebar .VPLink.active .text, .VPSidebar a.active .text') ??
+    document.querySelector<HTMLElement>('.VPSidebar .VPSidebarItem.is-active > .item .text') ??
+    document.querySelector<HTMLElement>('.VPSidebar .VPSidebarItem.has-active > .item .text')
+  if (!textNode) return
+
+  textNode.classList.add('sidebar-active-text')
+  const arrow = document.createElement('span')
+  arrow.className = 'sidebar-active-arrow'
+  arrow.textContent = '▸'
+  textNode.prepend(arrow)
+}
+
+function findScrollableParent(el: HTMLElement): HTMLElement | null {
+  let parent: HTMLElement | null = el.parentElement
+  while (parent) {
+    const style = window.getComputedStyle(parent)
+    const canScrollY = /(auto|scroll)/.test(style.overflowY)
+    if (canScrollY && parent.scrollHeight > parent.clientHeight) {
+      return parent
+    }
+    parent = parent.parentElement
+  }
+  return null
+}
+
+function scrollSidebarToActiveItem() {
+  if (typeof document === 'undefined') return
+  if (typeof window === 'undefined') return
+
+  const activeLink =
+    document.querySelector<HTMLElement>('.VPSidebar a[aria-current="page"]') ??
+    document.querySelector<HTMLElement>('.VPSidebar .VPLink.active, .VPSidebar a.active')
+
+  const activeTarget =
+    activeLink ??
+    document.querySelector<HTMLElement>('.VPSidebar .VPSidebarItem.is-active .item') ??
+    document.querySelector<HTMLElement>('.VPSidebar .VPSidebarItem.has-active .item')
+
+  if (!activeTarget) return false
+
+  const sidebarScroller = findScrollableParent(activeTarget)
+  if (!sidebarScroller) {
+    activeTarget.scrollIntoView({ block: 'center', inline: 'nearest' })
+    return Boolean(activeLink)
+  }
+
+  const scrollerRect = sidebarScroller.getBoundingClientRect()
+  const targetRect = activeTarget.getBoundingClientRect()
+  const deltaTop = targetRect.top - scrollerRect.top
+  const centeredTop = sidebarScroller.scrollTop + deltaTop - sidebarScroller.clientHeight / 2 + targetRect.height / 2
+  const maxTop = Math.max(0, sidebarScroller.scrollHeight - sidebarScroller.clientHeight)
+  const clampedTop = Math.max(0, Math.min(centeredTop, maxTop))
+
+  sidebarScroller.scrollTo({ top: clampedTop, behavior: 'auto' })
+  return Boolean(activeLink)
+}
+
+function ensureSidebarActiveVisible(attempt = 0) {
+  const done = scrollSidebarToActiveItem()
+  if (done || attempt >= 8) return
+  window.setTimeout(() => ensureSidebarActiveVisible(attempt + 1), 120)
+}
+
+let didInitialSidebarAutoScroll = false
+
 export default {
   ...DefaultTheme,
   Layout: () =>
@@ -81,16 +155,27 @@ export default {
   setup() {
     const route = useRoute()
 
-    const refreshBlocks = async () => {
+    const refreshBlocks = async (options?: { scrollSidebarToActive?: boolean }) => {
       await nextTick()
       requestAnimationFrame(() => {
         enhanceCollapsibleCodeBlocks()
         lockCoreFunctionsSidebarGroup()
+        decorateActiveSidebarLink()
+        if (options?.scrollSidebarToActive) {
+          ensureSidebarActiveVisible()
+        }
       })
     }
 
-    onMounted(refreshBlocks)
-    watch(() => route.path, refreshBlocks)
+    onMounted(() => {
+      const shouldScroll = !didInitialSidebarAutoScroll
+      didInitialSidebarAutoScroll = true
+      refreshBlocks({ scrollSidebarToActive: shouldScroll })
+    })
+    watch(
+      () => route.path,
+      () => refreshBlocks(),
+    )
   },
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp?.(ctx)

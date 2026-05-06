@@ -3,12 +3,14 @@ import { computed, ref } from 'vue'
 import { withBase } from 'vitepress'
 import { homeStateDemos } from '../../data/homeStateDemos'
 import { homeElementsDemos } from '../../data/homeElementsDemos'
+import { homeBrowserDemos } from '../../data/homeBrowserDemos'
 
 /** Open card ids - several demos can stay open at once. */
 const expandedDemos = ref<string[]>([])
 
-/** All State cards show full preview (overrides per-card list for display). */
-const showAllDemos = ref(true)
+/** Start collapsed by default. */
+const showAllDemos = ref(false)
+const allHomeDemos = [...homeStateDemos, ...homeElementsDemos, ...homeBrowserDemos]
 
 const anyDemosOpen = computed(() => showAllDemos.value || expandedDemos.value.length > 0)
 
@@ -37,7 +39,7 @@ function onDemoItemClick(demo: string, ev: MouseEvent) {
     if (!el.closest('.hook-live-demo__header')) return
     if (showAllDemos.value) {
       showAllDemos.value = false
-      expandedDemos.value = homeStateDemos.map((i) => i.demo).filter((d) => d !== demo)
+      expandedDemos.value = allHomeDemos.map((i) => i.demo).filter((d) => d !== demo)
     } else {
       expandedDemos.value = expandedDemos.value.filter((d) => d !== demo)
     }
@@ -57,7 +59,7 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
   if (open) {
     if (showAllDemos.value) {
       showAllDemos.value = false
-      expandedDemos.value = homeStateDemos.map((i) => i.demo).filter((d) => d !== demo)
+      expandedDemos.value = allHomeDemos.map((i) => i.demo).filter((d) => d !== demo)
     } else {
       expandedDemos.value = expandedDemos.value.filter((d) => d !== demo)
     }
@@ -74,7 +76,7 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
     </div>
 
     <div class="home-showcase__inner">
-      <h2 id="home-showcase-title" class="home-showcase__title">Live component examples</h2>
+      <h2 id="home-showcase-title" class="home-showcase__title">Demo component examples</h2>
       <p class="home-showcase__intro">
         These are real in-page previews: each card links to the hook’s full reference. More categories will land here
         next.
@@ -150,6 +152,9 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
             @click="onDemoItemClick(item.demo, $event)"
             @keydown="onDemoItemKeydown(item.demo, $event)"
           >
+            <div class="home-state-demos__chevron" aria-hidden="true">
+              {{ isCardExpanded(item.demo) ? '▲' : '▼' }}
+            </div>
             <HookLiveDemo
               :demo="item.demo"
               :title="item.title"
@@ -187,6 +192,47 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
             @click="onDemoItemClick(item.demo, $event)"
             @keydown="onDemoItemKeydown(item.demo, $event)"
           >
+            <div class="home-state-demos__chevron" aria-hidden="true">
+              {{ isCardExpanded(item.demo) ? '▲' : '▼' }}
+            </div>
+            <HookLiveDemo
+              :demo="item.demo"
+              :title="item.title"
+              :title-href="withBase(`/functions/${item.demo.split('/')[0]}`)"
+            />
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="home-showcase__section home-showcase__section--spaced"
+        aria-labelledby="home-showcase-browser-title"
+      >
+        <div class="home-showcase__section-head">
+          <h3 id="home-showcase-browser-title" class="home-showcase__section-title">Browser</h3>
+        </div>
+        <p class="home-showcase__section-lead">
+          Browser APIs and environment hooks: location/hash, media, permissions, clipboard, notifications, orientation,
+          scripts, and more. Browse
+          <a class="home-showcase__state-link" :href="withBase('/functions/browser')">Browser in the function list →</a>
+        </p>
+
+        <div class="home-state-demos" role="list">
+          <article
+            v-for="(item, index) in homeBrowserDemos"
+            :key="item.demo"
+            class="home-state-demos__item"
+            :class="{ 'home-state-demos__item--expanded': isCardExpanded(item.demo) }"
+            :style="{ '--stagger': String(index) }"
+            role="listitem"
+            tabindex="0"
+            :aria-expanded="isCardExpanded(item.demo)"
+            @click="onDemoItemClick(item.demo, $event)"
+            @keydown="onDemoItemKeydown(item.demo, $event)"
+          >
+            <div class="home-state-demos__chevron" aria-hidden="true">
+              {{ isCardExpanded(item.demo) ? '▲' : '▼' }}
+            </div>
             <HookLiveDemo
               :demo="item.demo"
               :title="item.title"
@@ -363,11 +409,16 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
 }
 
 .home-showcase__section-lead {
-  max-width: 52rem;
-  margin: 0 0 1.5rem;
+  max-width: 56rem;
+  margin: 0.7rem 0 1.7rem;
+  padding: 0.75rem 0.9rem;
   font-size: 0.95rem;
   line-height: 1.6;
   color: var(--vp-c-text-2);
+  background: color-mix(in srgb, var(--vp-c-bg-soft) 86%, var(--vp-c-bg));
+  border: 1px solid color-mix(in srgb, var(--vp-c-divider) 70%, transparent);
+  border-left: 3px solid color-mix(in srgb, var(--vp-c-brand-1) 60%, var(--vp-c-divider));
+  border-radius: 10px;
 }
 
 .home-showcase__state-link {
@@ -408,6 +459,22 @@ function onDemoItemKeydown(demo: string, ev: KeyboardEvent) {
   animation-delay: calc(0.04s + (var(--stagger) * 0.02s));
   border-radius: 16px;
   outline-offset: 2px;
+  position: relative;
+}
+
+.home-state-demos__chevron {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--vp-c-text-3);
+  pointer-events: none;
+}
+
+.home-state-demos__item--expanded .home-state-demos__chevron {
+  color: var(--vp-c-brand-1);
 }
 
 .home-state-demos__item:not(.home-state-demos__item--expanded) {

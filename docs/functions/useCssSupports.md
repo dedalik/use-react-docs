@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useCssSupports" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useCssSupports/basic" title="useCssSupports interactive demo" />
 
 ## Overview
 

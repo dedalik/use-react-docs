@@ -14,7 +14,7 @@ description: >-
 
 <PackageData fn="useCopyToClipboard" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useCopyToClipboard/basic" />
 
 ## Overview
 
