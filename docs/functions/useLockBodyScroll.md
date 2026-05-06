@@ -14,7 +14,7 @@ description: >-
 
 <PackageData fn="useLockBodyScroll" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useLockBodyScroll/basic" />
 
 ## Overview
 

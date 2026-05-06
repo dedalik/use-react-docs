@@ -14,7 +14,7 @@ description: >-
 
 <PackageData fn="useWindowSize" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useWindowSize/basic" />
 
 ## Overview
 

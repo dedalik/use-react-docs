@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useWebNotification" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useWebNotification/basic" />
 
 ## Overview
 

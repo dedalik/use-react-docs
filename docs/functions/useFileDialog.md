@@ -12,8 +12,7 @@ description: >-
 # useFileDialog()
 
 <PackageData fn="useFileDialog" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useFileDialog/basic" title="Live demo: useFileDialog" />
 
 ## Overview
 

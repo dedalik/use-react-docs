@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePreferredContrast" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePreferredContrast/basic" title="usePreferredContrast interactive demo" />
 
 ## Overview
 

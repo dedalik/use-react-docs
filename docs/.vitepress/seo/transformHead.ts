@@ -76,15 +76,25 @@ export interface TransformHeadContext {
   description: string
 }
 
+function buildSeoTitle(pageData: PageData, title: string): string {
+  const hookMatch = pageData.relativePath.match(/^functions\/(use[A-Za-z0-9_]+)\.md$/)
+  if (hookMatch) {
+    return `${title} | ${hookMatch[1]}() | use react`
+  }
+  return `${title} | use react`
+}
+
 export function transformHead(ctx: TransformHeadContext): HeadConfig[] {
   const { siteData, pageData, title, description } = ctx
   if (pageData.isNotFound) return []
 
+  const seoTitle = buildSeoTitle(pageData, title)
   const canonical = buildCanonical(siteData, pageData)
   const lang = siteData.lang || 'en-US'
-  const ld = buildJsonLd({ canonical, title, description, lang })
+  const ld = buildJsonLd({ canonical, title: seoTitle, description, lang })
 
   const head: HeadConfig[] = [
+    ['title', seoTitle],
     ['link', { rel: 'canonical', href: canonical }],
     [
       'meta',
@@ -97,6 +107,8 @@ export function transformHead(ctx: TransformHeadContext): HeadConfig[] {
     ['meta', { property: 'article:publisher:url', content: `${SITE}/` }],
     ['meta', { name: 'publisher', content: PUBLISHER_NAME }],
     ['meta', { property: 'og:url', content: canonical }],
+    ['meta', { property: 'og:title', content: seoTitle }],
+    ['meta', { name: 'twitter:title', content: seoTitle }],
     ['script', { type: 'application/ld+json' }, ld],
   ]
 

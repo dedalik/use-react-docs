@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useMediaControls" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useMediaControls/basic" title="useMediaControls interactive demo" />
 
 ## Overview
 

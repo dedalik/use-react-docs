@@ -14,7 +14,7 @@ description: >-
 
 <PackageData fn="usePageVisibility" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePageVisibility/basic" />
 
 ## Overview
 

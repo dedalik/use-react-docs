@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useSSRWidth" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useSSRWidth/basic" title="useSSRWidth interactive demo" />
 
 ## Overview
 

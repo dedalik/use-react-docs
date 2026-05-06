@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useBreakpoints" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useBreakpoints/basic" title="useBreakpoints interactive demo" />
 
 ## Overview
 

@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePerformanceObserver" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePerformanceObserver/basic" />
 
 ## Overview
 

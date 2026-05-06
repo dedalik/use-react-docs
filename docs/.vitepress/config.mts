@@ -63,10 +63,22 @@ function editUrlForPage(page: PageData): string {
 export default defineConfig({
   lang: 'en-US',
   title: 'useReact',
-  titleTemplate: ':title | useReact',
+  titleTemplate: false,
   description: 'Collection of React Hooks',
   cleanUrls: true,
   lastUpdated: true,
+  transformPageData(pageData) {
+    const rawTitle = String(pageData.title || '').trim()
+    if (!rawTitle) return
+
+    const hookMatch = pageData.relativePath.match(/^functions\/(use[A-Za-z0-9_]+)\.md$/)
+    if (hookMatch) {
+      pageData.title = `${rawTitle} | ${hookMatch[1]}() | use react`
+      return
+    }
+
+    pageData.title = `${rawTitle} | use react`
+  },
   async transformHead(ctx) {
     return seoTransformHead({
       siteData: ctx.siteData,
@@ -123,8 +135,8 @@ export default defineConfig({
   },
   head: [
     ['meta', { name: 'theme-color', content: '#ffffff' }],
-    ['link', { rel: 'icon', href: '/favicon-32x32.png', type: 'image/png' }],
     ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'shortcut icon', href: '/favicon.svg' }],
     ['meta', { property: 'og:title', content: 'UseReact' }],
     ['meta', { property: 'og:image', content: 'https://usereact.org/logo.png' }],
     [

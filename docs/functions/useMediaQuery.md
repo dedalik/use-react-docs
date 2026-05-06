@@ -14,7 +14,7 @@ description: >-
 
 <PackageData fn="useMediaQuery" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useMediaQuery/basic" title="useMediaQuery interactive demo" />
 
 ## Overview
 

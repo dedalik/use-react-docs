@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useFullscreen" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useFullscreen/basic" title="useFullscreen interactive demo" />
 
 ## Overview
 

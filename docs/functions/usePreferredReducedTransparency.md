@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="usePreferredReducedTransparency" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="usePreferredReducedTransparency/basic" title="usePreferredReducedTransparency interactive demo" />
 
 ## Overview
 

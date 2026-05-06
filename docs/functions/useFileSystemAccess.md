@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useFileSystemAccess" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useFileSystemAccess/basic" title="useFileSystemAccess interactive demo" />
 
 ## Overview
 

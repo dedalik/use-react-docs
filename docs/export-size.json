@@ -384,8 +384,8 @@
     "gzipped": "370 B"
   },
   "useOnMount": {
-    "size": "786 B",
-    "gzipped": "470 B"
+    "size": "784 B",
+    "gzipped": "465 B"
   },
   "usePageLeave": {
     "size": "788 B",
@@ -520,8 +520,8 @@
     "gzipped": "419 B"
   },
   "useStorage": {
-    "size": "2.0 kB",
-    "gzipped": "805 B"
+    "size": "2.7 kB",
+    "gzipped": "955 B"
   },
   "useStorageAsync": {
     "size": "2.9 kB",

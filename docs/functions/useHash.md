@@ -13,8 +13,7 @@ description: >-
 # useHash()
 
 <PackageData fn="useHash" />
-
-Last updated: 24/04/2026
+<HookLiveDemo demo="useHash/basic" title="Live demo: useHash" />
 
 ## Overview
 

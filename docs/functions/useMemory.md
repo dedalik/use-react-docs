@@ -13,7 +13,7 @@ description: >-
 
 <PackageData fn="useMemory" />
 
-Last updated: 24/04/2026
+<HookLiveDemo demo="useMemory/basic" title="useMemory interactive demo" />
 
 ## Overview
 
